@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>TOP</title>
+</head>
+<body>
+    <header>
+        <h1 class="siteLogo">
+            <a href="#">mailnaxx</a>
+        </h1>
+        <div class="loginUserId">ログインユーザID</div>
+        <div class="loginUserName">ログインユーザ名</div>
+        <div class="lastLoginDate">最終ログイン日時：</div>
+        <div class="btnSetting">設定ボタン</div>
+        <div class="btnLogout">ログアウトボタン</div>
+    </header>
+
+    <main>
+        <div class="noticeArea">
+            <h2>お知らせ</h2>
+            <table>
+                <tr>
+                    <th>掲載日</th>
+                    <th>内容</th>
+                </tr>
+                <tr th:each="n : ${noticeList}">
+                    <td th:text="${n.start_date}" />
+                    <td th:text="${n.notice_message}" />
+                </tr>
+            </table>
+        </div>
+
+        <div class="menuArea">
+            <button type="button">社員一覧</button>
+            <button type="button">日次報告</button>
+            <button type="button">週次報告</button>
+            <button type="button">勤怠連絡</button>
+            <button type="button">勤務表</button>
+            <button type="button">会計報告</button>
+            <button type="button">アンケート</button>
+            <button type="button">各種申請</button>
+            <button type="button">各種資料ダウンロード</button>
+            <button type="button">マスタ管理</button>
+        </div>
+
+    </main>
+
+    <footer>©️2022 a.ichinose</footer>
+
+</body>
+</html>
