@@ -7,22 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mailnaxx.entity.Notices;
-import com.mailnaxx.mapper.NoticesMapper;
+import com.mailnaxx.entity.Users;
+import com.mailnaxx.mapper.UsersMapper;
 
 @Controller
-public class TopController {
+public class UsersController {
 
     @Autowired
-    NoticesMapper noticesMapper;
+    UsersMapper usersMapper;
 
-    @RequestMapping("/top")
+    @RequestMapping("/users")
     public String index(Model model) {
 
-        List<Notices> noticeList = noticesMapper.selectAll();
-        model.addAttribute("noticeList", noticeList);
-        return "top";
+        List<Users> usersList = usersMapper.selectAll();
+        model.addAttribute("usersList", usersList);
+        return "users/index";
 
     }
-
 }
