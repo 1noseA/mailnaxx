@@ -4,6 +4,52 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mailnaxx.mapper.UsersMapper">
     <select id="selectAll" resultType="com.mailnaxx.entity.Users">
-        select * from users
+        SELECT * FROM users
     </select>
+
+    <insert id="register" parameterType="com.mailnaxx.entity.Users">
+        INSERT INTO users
+        (
+            user_id,
+            user_name,
+            hire_date,
+            affiliation_id,
+            role_class,
+            is_sales,
+            birth_date,
+            address,
+            phone_number,
+            email_address,
+            password,
+            pass_changed_date,
+            old_password,
+            last_login_date,
+            is_deleted,
+            created_by,
+            created_at,
+            updated_by,
+            updated_at
+        )
+        values
+        (
+            #{userId},
+            #{userName},
+            #{hireDate},
+            #{affiliationId},
+            #{isSales},
+            #{birthDate},
+            #{address},
+            #{phoneNumber},
+            #{emailAddress},
+            #{password},
+            #{passChangedDate},
+            #{oldPassword},
+            #{lastLoginDate},
+            #{isDeleted},
+            #{createdBy},
+            CURRENT_TIMESTAMP,
+            #{updatedBy},
+            CURRENT_TIMESTAMP
+        )
+    </insert>
 </mapper>

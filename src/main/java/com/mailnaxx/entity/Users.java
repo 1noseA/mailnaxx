@@ -8,24 +8,24 @@ import lombok.Getter;
 @Getter
 public class Users {
 
-    private String user_id;
-    private String user_name;
-    private Date hire_date;
-    private int affiliation_id;
-    private String role_class;
-    private boolean is_sales;
-    private Date birth_date;
+    private String userId;
+    private String userName;
+    private Date hireDate;
+    private int affiliationId;
+    private String roleClass;
+    private boolean isSales;
+    private Date birthDate;
     private String address;
-    private String phone_number;
-    private String email_address;
+    private String phoneNumber;
+    private String emailAddress;
     private byte[] password;
-    private Timestamp pass_changed_date;
-    private byte[] old_password;
-    private Timestamp last_login_date;
-    private boolean is_deleted;
-    private String created_by;
-    private Timestamp created_at;
-    private String updated_by;
-    private Timestamp updated_at;
+    private Timestamp passChangedDate;
+    private byte[] oldPassword;
+    private Timestamp lastLoginDate;
+    private boolean isDeleted;
+    private String createdBy;
+    private Timestamp createdAt;
+    private String updatedBy;
+    private Timestamp updatedAt;
 
 }

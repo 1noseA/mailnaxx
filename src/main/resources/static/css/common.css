@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+* {
+    color: #333333;
+}
+
+header {
+    position: fixed; /* ヘッダーを固定する */
+    top: 0; /* 上部から配置の基準位置を決める */
+    left: 0; /* 左から配置の基準位置を決める */
+    width: 100%; /* ヘッダーの横幅を指定する */
+    height: 100px; /* ヘッダーの高さを指定する */
+    padding: 10px; /* ヘッダー内側の余白を指定する(上下左右) */
+    background-color:rgba(255,255,255,0.5);
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #2ca9e1;
+}
+
+.loginUserInfo {
+    text-align: left;
+}
+
+.btnLogout {
+    color: #2ca9e1;
+    border: 2px solid #2ca9e1;
+}
+
+footer {
+    /* position: fixed; フッターを固定する
+    bottom: 0; 上部から配置の基準位置を決める
+    left: 0; 左から配置の基準位置を決める */
+    width: 100%; /* フッターの横幅を指定する */
+    height: 80px; /* フッターの高さを指定する */
+    padding:10px; /* フッター内側の余白を指定する(上下左右) */
+    background-color: #2ca9e1; /* フッターの背景色を指定する */
+    color: #ffffff; /* フッターのフォントの色を指定する */
+    text-align: center;
+    background-color: #2ca9e1;
+}

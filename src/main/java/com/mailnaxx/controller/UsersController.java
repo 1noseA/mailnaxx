@@ -24,4 +24,10 @@ public class UsersController {
         return "users/index";
 
     }
+
+    @RequestMapping(value="/register")
+    public String register(Users users) {
+        usersMapper.register(users);
+        return "users/register";
+    }
 }
