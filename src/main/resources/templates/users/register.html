@@ -7,6 +7,30 @@
     <div th:replace="common :: header"></div>
 
     <div class="contents">
+        <h3>社員登録</h3>
+        <form method="post" th:action="@{/register}">
+            <span>氏名（姓）<input type="text" name="userLastName" /></span>
+            <span>氏名（名）<input type="text" name="userFirstName" /></span>
+            <!-- <input type="date" name="hireDate" /> -->
+
+            <span>所属
+                <select>
+                    <option
+                        th:each="affiliations : ${affiliationList}"
+                        th:value="${affiliations.affiliationId}"
+                        th:text="${affiliations.affiliationName}">
+                    </option>
+                </select>
+            </span>
+            <!-- <input type="text" name="roleClass" /> -->
+            <!-- <input type="text" name="isSales" /> -->
+            <!-- <input type="date" name="birthDate" /> -->
+            <span>住所<input type="text" name="address" /></span>
+            <span>電話番号<input type="text" name="phoneNumber" /></span>
+            <span>メールアドレス<input type="text" name="emailAddress" /></span>
+            <span>パスワード<input type="text" name="password" /></span>
+            <input type="submit" value="登録" />
+        </form>
     </div>
 
     <div th:replace="common :: footer"></div>
