@@ -38,6 +38,11 @@ public class UsersController {
     public String register(Model model) {
 
         // 入社年月プルダウン
+        int currentYear = YearMonth.now().getYear();
+        int currentMonth = YearMonth.now().getMonthValue();
+
+        model.addAttribute("currentYear", currentYear);
+        model.addAttribute("currentMonth", currentMonth);
 
         // 所属プルダウン
         List<Affiliations> affiliationList = affiliationsMapper.selectAll();
@@ -47,9 +52,8 @@ public class UsersController {
         model.addAttribute("roleClassList", RoleClass.values());
 
         // 生年月日プルダウン
-        int currentYear = YearMonth.now().getYear();
         int birthYearFrom = currentYear - 70;
-        int birthYearTo = currentYear;
+        int birthYearTo = currentYear - 20;
         int birthYearDefault = currentYear - 30;
 
         model.addAttribute("birthYearFrom", birthYearFrom);

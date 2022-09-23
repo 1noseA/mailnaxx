@@ -12,9 +12,33 @@
             <div>氏名（姓）<input type="text" name="userLastName" /></div>
             <div>氏名（名）<input type="text" name="userFirstName" /></div>
             <!-- <input type="date" name="hireDate" /> -->
+            <div>入社年月
+                <span>
+                    <select id="hireYear" name="hireYear">
+                        <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
+                                th:value="${hireYear}"
+                                th:text="${hireYear}"
+                                th:selected="${hireYear == currentYear}">
+                        </option>
+                    </select>
+                    年
+                </span>
+
+                <span>
+                    <select id="hireMonth" name="hireMonth">
+                        <option th:each="hireMonth : ${#numbers.sequence(1, 12)}"
+                                th:value="${hireMonth}"
+                                th:text="${hireMonth}"
+                                th:selected="${hireMonth == currentMonth}">
+                        </option>
+                    </select>
+                    月
+                </span>
+            </div>
 
             <div>所属
                 <select>
+                    <option>選択してください</option>
                     <option th:each="affiliation : ${affiliationList}"
                             th:value="${affiliation.affiliation_id}"
                             th:text="${affiliation.affiliation_name}">
@@ -35,21 +59,39 @@
             <!-- <input type="text" name="isSales" /> -->
 
             <div>生年月日
-                <select id="birtyYear" name="birtyYear">
-                    <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
-                        th:value="${birthYear}" th:text="${birthYear}" th:selected="${birthYear == birthYearDefault}">年
-                    </option>
-                </select>
+                <span>
+                    <select id="birtyYear" name="birtyYear">
+                        <option></option>
+                        <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
+                                th:value="${birthYear}"
+                                th:text="${birthYear}"
+                                th:selected="${birthYear == birthYearDefault}">
+                        </option>
+                    </select>
+                    年
+                </span>
 
-                <select id="birthMonth" name="birthMonth">
-                    <option th:each="birthMonth : ${#numbers.sequence(1, 12)}" th:value="${birthMonth}"
-                        th:text="${birthMonth}" th:selected="${birthMonth == birthMonthDefault}">月</option>
-                </select>
+                <span>
+                    <select id="birthMonth" name="birthMonth">
+                        <option></option>
+                        <option th:each="birthMonth : ${#numbers.sequence(1, 12)}"
+                                th:value="${birthMonth}"
+                                th:text="${birthMonth}">
+                        </option>
+                    </select>
+                    月
+                </span>
 
-                <select id="birthDay" name="birthDay">
-                    <option th:each="birthDay : ${#numbers.sequence(1, 31)}" th:value="${birthDay}"
-                        th:text="${birthDay}" th:selected="${birthDay == birthDayDefault}">日</option>
-                </select>
+                <span>
+                    <select id="birthDay" name="birthDay">
+                        <option></option>
+                        <option th:each="birthDay : ${#numbers.sequence(1, 31)}"
+                                th:value="${birthDay}"
+                                th:text="${birthDay}">
+                        </option>
+                    </select>
+                    日
+                </span>
             </div>
 
             <div>住所<input type="text" name="address" /></div>
