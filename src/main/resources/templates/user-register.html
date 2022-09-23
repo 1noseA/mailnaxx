@@ -9,9 +9,11 @@
     <div class="contents">
         <h3>社員登録</h3>
         <form method="post" th:action="@{/user-register}">
-            <div>氏名（姓）<input type="text" name="userLastName" /></div>
-            <div>氏名（名）<input type="text" name="userFirstName" /></div>
-            <!-- <input type="date" name="hireDate" /> -->
+            <div>氏名
+                <input type="text" name="userLastName" />
+                <input type="text" name="userFirstName" />
+            </div>
+
             <div>入社年月
                 <span>
                     <select id="hireYear" name="hireYear">
@@ -55,13 +57,14 @@
                             <!-- th:selected="${roleClass.value == selectedValue}" -->
                     </option>
                 </select>
+
+                <input type="checkbox" name="isSales" th:checked="${is_sales}">
+                営業担当
             </div>
-            <!-- <input type="text" name="isSales" /> -->
 
             <div>生年月日
                 <span>
                     <select id="birtyYear" name="birtyYear">
-                        <option></option>
                         <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
                                 th:value="${birthYear}"
                                 th:text="${birthYear}"
@@ -95,7 +98,11 @@
             </div>
 
             <div>住所<input type="text" name="address" /></div>
-            <div>電話番号<input type="text" name="phoneNumber" /></div>
+            <div>電話番号
+                <input type="text" name="phoneNumber1" />-
+                <input type="text" name="phoneNumber2" />-
+                <input type="text" name="phoneNumber3" />
+            </div>
             <div>メールアドレス<input type="text" name="emailAddress" /></div>
             <div>パスワード<input type="text" name="password" /></div>
             <input type="submit" value="登録" />
