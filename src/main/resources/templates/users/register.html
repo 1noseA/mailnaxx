@@ -15,14 +15,23 @@
 
             <span>所属
                 <select>
-                    <option
-                        th:each="affiliations : ${affiliationList}"
-                        th:value="${affiliations.affiliationId}"
-                        th:text="${affiliations.affiliationName}">
+                    <option th:each="affiliations : ${affiliationList}"
+                            th:value="${affiliations.affiliationId}"
+                            th:text="${affiliations.affiliationName}"
+                            th:selected="${affiliations.affiliationId == selectedValue}">
                     </option>
                 </select>
             </span>
-            <!-- <input type="text" name="roleClass" /> -->
+
+            <span>権限区分
+                <select>
+                    <option th:each="roleClass : ${roleClassList}"
+                            th:value="${roleClass.value}"
+                            th:text="${roleClass.viewName}"
+                            th:selected="${roleClass.value == selectedValue}">
+                    </option>
+                </select>
+            </span>
             <!-- <input type="text" name="isSales" /> -->
             <!-- <input type="date" name="birthDate" /> -->
             <span>住所<input type="text" name="address" /></span>
