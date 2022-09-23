@@ -14,16 +14,16 @@
                     <th scope="col" class="w-25">掲載日</th>
                     <th scope="col">内容</th>
                 </tr>
-                <tr th:each="n : ${noticeList}">
-                    <td th:text="${n.start_date}" />
-                    <td th:text="${n.notice_message}" />
+                <tr th:each="notice : ${noticeList}">
+                    <td th:text="${notice.start_date}" />
+                    <td th:text="${notice.notice_message}" />
                 </tr>
             </table>
         </div>
 
         <div class="container menuArea">
             <div class="row">
-                <button type="button" onclick="location.href='/users'" class="col btn btnMenu" value="btnUsersList">社員一覧</button>
+                <button type="button" onclick="location.href='/user-list'" class="col btn btnMenu" value="btnUserList">社員一覧</button>
                 <button type="button" class="col btn btnMenu" value="btnDailyReport">日次報告</button>
                 <button type="button" class="col btn btnMenu" value="btnWeeklyReport">週次報告</button>
             </div>

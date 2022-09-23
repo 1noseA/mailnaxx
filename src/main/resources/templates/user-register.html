@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: meta_header('Register',~{::link},~{::script})">
+<link rel="stylesheet" th:href="@{/css/user-register.css}" />
+</head>
+<body>
+    <div th:replace="common :: header"></div>
+
+    <div class="contents">
+        <h3>社員登録</h3>
+        <form method="post" th:action="@{/user-register}">
+            <div>氏名（姓）<input type="text" name="userLastName" /></div>
+            <div>氏名（名）<input type="text" name="userFirstName" /></div>
+            <!-- <input type="date" name="hireDate" /> -->
+
+            <div>所属
+                <select>
+                    <option th:each="affiliation : ${affiliationList}"
+                            th:value="${affiliation.affiliation_id}"
+                            th:text="${affiliation.affiliation_name}">
+                            <!-- th:selected="${affiliation.affiliationId == selectedValue}" -->
+                    </option>
+                </select>
+            </div>
+
+            <div>権限区分
+                <select>
+                    <option th:each="roleClass : ${roleClassList}"
+                            th:value="${roleClass.value}"
+                            th:text="${roleClass.viewName}">
+                            <!-- th:selected="${roleClass.value == selectedValue}" -->
+                    </option>
+                </select>
+            </div>
+            <!-- <input type="text" name="isSales" /> -->
+
+            <div>生年月日
+                <select id="birtyYear" name="birtyYear">
+                    <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
+                        th:value="${birthYear}" th:text="${birthYear}" th:selected="${birthYear == birthYearDefault}">年
+                    </option>
+                </select>
+
+                <select id="birthMonth" name="birthMonth">
+                    <option th:each="birthMonth : ${#numbers.sequence(1, 12)}" th:value="${birthMonth}"
+                        th:text="${birthMonth}" th:selected="${birthMonth == birthMonthDefault}">月</option>
+                </select>
+
+                <select id="birthDay" name="birthDay">
+                    <option th:each="birthDay : ${#numbers.sequence(1, 31)}" th:value="${birthDay}"
+                        th:text="${birthDay}" th:selected="${birthDay == birthDayDefault}">日</option>
+                </select>
+            </div>
+
+            <div>住所<input type="text" name="address" /></div>
+            <div>電話番号<input type="text" name="phoneNumber" /></div>
+            <div>メールアドレス<input type="text" name="emailAddress" /></div>
+            <div>パスワード<input type="text" name="password" /></div>
+            <input type="submit" value="登録" />
+        </form>
+    </div>
+
+    <div th:replace="common :: footer"></div>
+</body>
+</html>
