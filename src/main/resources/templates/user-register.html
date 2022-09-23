@@ -9,9 +9,15 @@
     <div class="contents">
         <h3>社員登録</h3>
         <form method="post" th:action="@{/user-register}">
-            <div>氏名
+
+            <div>氏名(漢字)
                 <input type="text" name="userLastName" />
                 <input type="text" name="userFirstName" />
+            </div>
+
+            <div>氏名(カタカナ)
+                <input type="text" name="userLastKana" />
+                <input type="text" name="userFirstKana" />
             </div>
 
             <div>入社年月
@@ -97,15 +103,25 @@
                 </span>
             </div>
 
+            <div>郵便番号
+                <input type="text" name="postCode1" />-
+                <input type="text" name="postCode2" />
+            </div>
+
             <div>住所<input type="text" name="address" /></div>
+
             <div>電話番号
                 <input type="text" name="phoneNumber1" />-
                 <input type="text" name="phoneNumber2" />-
                 <input type="text" name="phoneNumber3" />
             </div>
+
             <div>メールアドレス<input type="text" name="emailAddress" /></div>
+
             <div>パスワード<input type="text" name="password" /></div>
+
             <input type="submit" value="登録" />
+
         </form>
     </div>
 

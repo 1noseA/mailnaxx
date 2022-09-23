@@ -10,12 +10,14 @@ public class Users {
 
     private String user_id;
     private String user_name;
+    private String user_name_kana;
     private Date hire_date;
     private int affiliation_id;
     private String role_class;
     private boolean is_sales;
     private Date birth_date;
     private String address;
+    private String post_code;
     private String phone_number;
     private String email_address;
     private byte[] password;
