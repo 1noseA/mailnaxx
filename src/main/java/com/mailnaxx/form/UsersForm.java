@@ -64,7 +64,7 @@ public class UsersForm {
     // メールアドレス
     private String email_address;
 
-    // パスワード（ハッシュ前）
+    // パスワード
     private String password;
 
 }

@@ -5,6 +5,8 @@ import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +28,9 @@ public class UsersController {
 
     @Autowired
     UsersMapper usersMapper;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @RequestMapping("/user-list")
     public String index(Model model) {
@@ -115,7 +120,8 @@ public class UsersController {
         users.setEmail_address(usersForm.getEmail_address());
 
         // パスワードはハッシュにする
-
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
         // パスワード変更日時はなし
         // 前回パスワードはなし

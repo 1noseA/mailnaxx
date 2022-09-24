@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- 認証済みか否か、権限があるか否かでHTML要素の表示/非表示を切り替えられる。ユーザー情報を画面に表示できる -->
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="common :: meta_header('Login',~{::link},~{::script})">
+<link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<form th:action="/" method="POST">
+    <table>
+        <tr>
+            <td>
+                ID：
+            </td>
+            <td>
+                <input type="text" id="userId" name="userId"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                パスワード：
+            </td>
+            <td>
+                <input type="password" id="password" name="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button type="submit">ログイン</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

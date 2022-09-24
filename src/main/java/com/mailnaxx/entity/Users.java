@@ -20,9 +20,9 @@ public class Users {
     private String address;
     private String phone_number;
     private String email_address;
-    private byte[] password;
+    private String password;
     private Timestamp pass_changed_date;
-    private byte[] old_password;
+    private String old_password;
     private Timestamp last_login_date;
     private boolean is_deleted;
     private String created_by;
