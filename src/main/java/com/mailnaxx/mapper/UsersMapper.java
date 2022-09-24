@@ -11,6 +11,6 @@ public interface UsersMapper {
 
     public List<Users> selectAll();
 
-    public void register(Users users);
+    public void insert(Users users);
 
 }

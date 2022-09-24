@@ -11,18 +11,18 @@
         <form method="post" th:action="@{/user-register}">
 
             <div>氏名(漢字)
-                <input type="text" name="userLastName" />
-                <input type="text" name="userFirstName" />
+                <input type="text" name="userLastName" th:field="*{userLastName}" />
+                <input type="text" name="userFirstName" th:field="*{userFirstName}" />
             </div>
 
             <div>氏名(カタカナ)
-                <input type="text" name="userLastKana" />
-                <input type="text" name="userFirstKana" />
+                <input type="text" name="userLastKana" th:field="*{userLastKana}" />
+                <input type="text" name="userFirstKana" th:field="*{userFirstKana}" />
             </div>
 
             <div>入社年月
                 <span>
-                    <select id="hireYear" name="hireYear">
+                    <select id="hireYear" name="hireYear" th:field="*{hireYear}">
                         <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
                                 th:value="${hireYear}"
                                 th:text="${hireYear}"
@@ -33,7 +33,7 @@
                 </span>
 
                 <span>
-                    <select id="hireMonth" name="hireMonth">
+                    <select id="hireMonth" name="hireMonth" th:field="*{hireMonth}">
                         <option th:each="hireMonth : ${#numbers.sequence(1, 12)}"
                                 th:value="${hireMonth}"
                                 th:text="${hireMonth}"
@@ -45,7 +45,7 @@
             </div>
 
             <div>所属
-                <select>
+                <select id="affiliation" name="affiliation" th:field="*{affiliation}">
                     <option>選択してください</option>
                     <option th:each="affiliation : ${affiliationList}"
                             th:value="${affiliation.affiliation_id}"
@@ -56,7 +56,7 @@
             </div>
 
             <div>権限区分
-                <select>
+                <select id="roleClass" name="roleClass" th:field="*{roleClass}">
                     <option th:each="roleClass : ${roleClassList}"
                             th:value="${roleClass.value}"
                             th:text="${roleClass.viewName}">
@@ -64,13 +64,13 @@
                     </option>
                 </select>
 
-                <input type="checkbox" name="isSales" th:checked="${is_sales}">
+                <input type="checkbox" name="isSales" th:field="*{isSales}" th:checked="${is_sales}">
                 営業担当
             </div>
 
             <div>生年月日
                 <span>
-                    <select id="birtyYear" name="birtyYear">
+                    <select id="birtyYear" name="birtyYear" th:field="*{birtyYear}">
                         <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
                                 th:value="${birthYear}"
                                 th:text="${birthYear}"
@@ -81,7 +81,7 @@
                 </span>
 
                 <span>
-                    <select id="birthMonth" name="birthMonth">
+                    <select id="birthMonth" name="birthMonth" th:field="*{birthMonth}">
                         <option></option>
                         <option th:each="birthMonth : ${#numbers.sequence(1, 12)}"
                                 th:value="${birthMonth}"
@@ -92,7 +92,7 @@
                 </span>
 
                 <span>
-                    <select id="birthDay" name="birthDay">
+                    <select id="birthDay" name="birthDay" th:field="*{birthDay}">
                         <option></option>
                         <option th:each="birthDay : ${#numbers.sequence(1, 31)}"
                                 th:value="${birthDay}"
@@ -104,21 +104,25 @@
             </div>
 
             <div>郵便番号
-                <input type="text" name="postCode1" />-
-                <input type="text" name="postCode2" />
+                <input type="text" name="postCode1" th:field="*{postCode1}" />-
+                <input type="text" name="postCode2" th:field="*{postCode2}" />
             </div>
 
-            <div>住所<input type="text" name="address" /></div>
+            <div>住所<input type="text" name="address" th:field="*{address}" /></div>
 
             <div>電話番号
-                <input type="text" name="phoneNumber1" />-
-                <input type="text" name="phoneNumber2" />-
-                <input type="text" name="phoneNumber3" />
+                <input type="text" name="phoneNumber1" th:field="*{phoneNumber1}" />-
+                <input type="text" name="phoneNumber2" th:field="*{phoneNumber2}" />-
+                <input type="text" name="phoneNumber3" th:field="*{phoneNumber3}" />
             </div>
 
-            <div>メールアドレス<input type="text" name="emailAddress" /></div>
+            <div>メールアドレス
+                <input type="text" name="emailAddress" th:field="*{emailAddress}" />
+            </div>
 
-            <div>パスワード<input type="text" name="password" /></div>
+            <div>パスワード
+                <input type="text" name="password" th:field="*{password}" />
+            </div>
 
             <input type="submit" value="登録" />
 

@@ -3,9 +3,9 @@ package com.mailnaxx.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class Users {
 
     private String user_id;
@@ -16,8 +16,8 @@ public class Users {
     private String role_class;
     private boolean is_sales;
     private Date birth_date;
-    private String address;
     private String post_code;
+    private String address;
     private String phone_number;
     private String email_address;
     private byte[] password;
