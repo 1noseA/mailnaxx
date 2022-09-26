@@ -7,7 +7,7 @@
         SELECT * FROM users
     </select>
 
-    <insert id="register" parameterType="com.mailnaxx.entity.Users">
+    <insert id="insert" parameterType="com.mailnaxx.entity.Users">
         INSERT INTO users
         (
             user_id,
@@ -23,37 +23,39 @@
             phone_number,
             email_address,
             password,
-            <!-- pass_changed_date,
+            pass_changed_date,
             old_password,
             last_login_date,
-            is_deleted, -->
+            is_deleted,
             created_by,
             created_at,
             updated_by,
             updated_at
         )
-        values
+        VALUES
         (
             #{user_id},
             #{user_name},
             #{user_name_kana},
-            #{hire_date},
+            TO_DATE(#{hire_date},'YYYYMMDD'),
             #{affiliation_id},
+            #{role_class},
             #{is_sales},
-            #{birth_date},
+            TO_DATE(#{birth_date},'YYYYMMDD'),
             #{post_code},
             #{address},
             #{phone_number},
             #{email_address},
             #{password},
-            <!-- #{pass_changed_date},
+            #{pass_changed_date},
             #{old_password},
             #{last_login_date},
-            #{is_deleted}, -->
+            #{is_deleted},
             #{created_by},
             CURRENT_TIMESTAMP,
             #{updated_by},
-            CURRENT_TIMESTAMP
+            #{updated_at}
+
         )
     </insert>
 </mapper>

@@ -1,7 +1,5 @@
 package com.mailnaxx.form;
 
-import java.sql.Date;
-
 import lombok.Data;
 
 @Data
@@ -20,13 +18,13 @@ public class UsersForm {
     private String userFirstKana;
 
     // 入社年月_年
-    private String hireYear;
+    private int hireYear;
 
     // 入社年月_月
-    private String hireMonth;
+    private int hireMonth;
 
     // 所属
-    private int affiliation_id;
+    private int affiliationId;
 
     // 権限区分
     private String roleClass;
@@ -35,13 +33,13 @@ public class UsersForm {
     private boolean isSales;
 
     // 生年月日_年
-    private Date birthYear;
+    private int birthYear;
 
     // 生年月日_月
-    private Date birthMonth;
+    private int birthMonth;
 
     // 生年月日_日
-    private Date birthDay;
+    private int birthDay;
 
     // 郵便番号1
     private String postCode1;
@@ -62,7 +60,7 @@ public class UsersForm {
     private String phoneNumber3;
 
     // メールアドレス
-    private String email_address;
+    private String emailAddress;
 
     // パスワード
     private String password;

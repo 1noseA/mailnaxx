@@ -1,6 +1,5 @@
 package com.mailnaxx.controller;
 
-import java.sql.Date;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -31,6 +30,11 @@ public class UsersController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @ModelAttribute
+    UsersForm setUpForm() {
+        return new UsersForm();
+    }
 
     @RequestMapping("/user-list")
     public String index(Model model) {
@@ -74,38 +78,47 @@ public class UsersController {
 
     // 登録画面登録処理
     @RequestMapping(value="/user-register", method = RequestMethod.POST)
-    public String register(@ModelAttribute UsersForm usersForm, Model model) {
+    public String register(UsersForm usersForm, Model model) {
 
         Users users = new Users();
 
-        // ユーザID生成
-        String hire = usersForm.getHireYear() + usersForm.getHireMonth();
+        // ユーザID生成（これだとかぶることがある。ランダムじゃなくて連番にする？）
+        String hireYear = String.valueOf(usersForm.getHireYear());
+        String hireMonth = String.valueOf(usersForm.getHireMonth());
+        if (hireMonth.length() == 1) {
+            hireMonth = "0" + hireMonth;
+        }
         int random = (int)(Math.random()*100);
-        String num = random > 10 ? Integer.toString(random) : "0" + Integer.toString(random);
-        users.setUser_id(hire + num);
+        String num = random >= 10 ? Integer.toString(random) : "0" + Integer.toString(random);
+        users.setUser_id(hireYear + hireMonth + num);
 
         // 氏名
         users.setUser_name(usersForm.getUserLastName() + " " + usersForm.getUserFirstName());
         users.setUser_name_kana(usersForm.getUserLastKana() + " " + usersForm.getUserFirstKana());
 
         // 入社年月
-        users.setHire_date(Date.valueOf(usersForm.getHireYear() + "/" + usersForm.getHireMonth()));
+        users.setHire_date(hireYear + hireMonth + "01");
 
         // 所属
-        users.setAffiliation_id(usersForm.getAffiliation_id());
+        users.setAffiliation_id(usersForm.getAffiliationId());
 
         // 権限区分
         users.setRole_class(usersForm.getRoleClass());
 
         // 生年月日
-        users.setBirth_date(Date.valueOf(usersForm.getBirthYear() + "/" + usersForm.getBirthMonth() + "/" + usersForm.getBirthDay()));
-
-        // 営業担当
-        if (usersForm.isSales() == true) {
-            users.set_sales(true);
-        } else {
-            users.set_sales(false);
+        String birthYear = String.valueOf(usersForm.getBirthYear());
+        String birthMonth = String.valueOf(usersForm.getBirthMonth());
+        String birthDay = String.valueOf(usersForm.getBirthDay());
+        if (birthMonth.length() == 1) {
+            birthMonth = "0" + birthMonth;
         }
+        if (birthDay.length() == 1) {
+            birthDay = "0" + birthDay;
+        }
+        users.setBirth_date(birthYear + birthMonth + birthDay);
+
+        // 営業担当（入力値がFormクラスに反映されてない）
+        users.set_sales(usersForm.isSales());
 
         // 郵便番号
         users.setPost_code(usersForm.getPostCode1() + "-" +usersForm.getPostCode2());
@@ -117,22 +130,18 @@ public class UsersController {
         users.setPhone_number(usersForm.getPhoneNumber1() + "-" + usersForm.getPhoneNumber2() + "-" + usersForm.getPhoneNumber3());
 
         // メールアドレス
-        users.setEmail_address(usersForm.getEmail_address());
+        users.setEmail_address(usersForm.getEmailAddress());
 
         // パスワードはハッシュにする
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
-        // パスワード変更日時はなし
-        // 前回パスワードはなし
-        // 最終ログイン日時はなし
-        // 削除フラグはデフォルト
         // 作成者はセッションのユーザID（現状は仮値）
         users.setCreated_by("XXX");
 
         // 更新者もなしか
         usersMapper.insert(users);
-        return "user-register";
+        return "user-list";
 
     }
 

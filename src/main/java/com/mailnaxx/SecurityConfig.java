@@ -37,8 +37,8 @@ public class SecurityConfig {
                 .mvcMatchers("/general").hasRole("GENERAL")
                 // ROLE_ADMINのみアクセス可
                 .mvcMatchers("/admin").hasRole("ADMIN")
-                // 他のURLはログイン後のみ
-                .anyRequest().authenticated()
+                // 他のURLはログイン後のみ（後でコメントを外す）
+//                .anyRequest().authenticated()
         );
         return http.build();
     }
