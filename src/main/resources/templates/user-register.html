@@ -8,7 +8,7 @@
 
     <div class="contents">
         <h3>社員登録</h3>
-        <form method="POST" th:action="@{/user-register}">
+        <form method="POST" th:action="@{/user-register}" th:object="${usersForm}">
 
             <div>氏名(漢字)
                 <input type="text" name="userLastName" />
@@ -62,7 +62,9 @@
                     </option>
                 </select>
 
-                <input type="checkbox" name="isSales">
+                <input type="checkbox" th:field="*{checkSales}" />
+                <!-- <input type="hidden" name="_isSales" value="on" /> -->
+
                 営業担当
             </div>
 

@@ -30,7 +30,7 @@ public class UsersForm {
     private String roleClass;
 
     // 営業担当
-    private boolean isSales;
+    private boolean checkSales;
 
     // 生年月日_年
     private int birthYear;

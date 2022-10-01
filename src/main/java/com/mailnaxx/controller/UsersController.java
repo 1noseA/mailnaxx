@@ -117,8 +117,8 @@ public class UsersController {
         }
         users.setBirth_date(birthYear + birthMonth + birthDay);
 
-        // 営業担当（入力値がFormクラスに反映されてない）
-        users.set_sales(usersForm.isSales());
+        // 営業担当
+        users.set_sales(usersForm.isCheckSales());
 
         // 郵便番号
         users.setPost_code(usersForm.getPostCode1() + "-" +usersForm.getPostCode2());
