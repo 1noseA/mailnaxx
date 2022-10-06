@@ -11,175 +11,150 @@
             <h3 class="text-center">社員登録</h3>
 
             <form method="POST" th:action="@{/user-register}" th:object="${usersForm}">
-                <table class="table">
-                    <tr>
-                        <td class="w-25">
-                            氏名(漢字)
-                        </td>
-                        <td>
-                            <input type="text" name="userLastName" />
-                            <input type="text" name="userFirstName" />
-                        </td>
-                    </tr>
+                <div class="row g-2">
+                    <div class="col-auto">
+                        <label class="form-label">氏名(漢字)</label>
+                        <input type="text" class="form-control" name="userLastName" />
+                        <input type="text" class="form-control" name="userFirstName" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td class="w-25">
-                            氏名(カタカナ)
-                        </td>
-                        <td>
-                            <input type="text" name="userLastKana" />
-                            <input type="text" name="userFirstKana" />
-                        </td>
-                    </tr>
+                <div class="row g-2">
+                    <label class="form-label">氏名(カタカナ)</label>
+                    <div >
+                        <input type="text" class="form-control" name="userLastKana" />
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" name="userFirstKana" />
+                       </div>
+                </div>
 
-                    <tr>
-                        <td class="w-25">
-                            入社年月
-                        </td>
-                        <td>
-                            <span>
-                                <select id="hireYear" name="hireYear">
-                                    <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
-                                            th:value="${hireYear}"
-                                            th:text="${hireYear}"
-                                            th:selected="${hireYear == currentYear}">
-                                    </option>
-                                </select>
-                                年
-                            </span>
+                <div class="row g-2">
+                    <label class="col-auto">入社年月</label>
+                    <div class="col-auto">
+                        <select id="hireYear" name="hireYear">
+                            <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
+                                    th:value="${hireYear}"
+                                    th:text="${hireYear}"
+                                    th:selected="${hireYear == currentYear}">
+                            </option>
+                        </select>
+                        年
+                    </div>
+                    <div class="col-auto">
+                        <select id="hireMonth" name="hireMonth">
+                            <option th:each="hireMonth : ${#numbers.sequence(1, 12)}"
+                                    th:value="${hireMonth}"
+                                    th:text="${hireMonth}"
+                                    th:selected="${hireMonth == currentMonth}">
+                            </option>
+                        </select>
+                        月
+                    </div>
+                </div>
 
-                            <span>
-                                <select id="hireMonth" name="hireMonth">
-                                    <option th:each="hireMonth : ${#numbers.sequence(1, 12)}"
-                                            th:value="${hireMonth}"
-                                            th:text="${hireMonth}"
-                                            th:selected="${hireMonth == currentMonth}">
-                                    </option>
-                                </select>
-                                月
-                            </span>
-                        </td>
-                    </tr>
+                <div class="row g-2">
+                    <label class="col-auto">所属</label>
+                    <select id="affiliationId" name="affiliationId">
+                        <option>選択してください</option>
+                        <option th:each="affiliation : ${affiliationList}"
+                                th:value="${affiliation.affiliation_id}"
+                                th:text="${affiliation.affiliation_name}">
+                        </option>
+                    </select>
+                </div>
 
-                    <tr>
-                        <td class="w-25">
-                            所属
-                        </td>
-                        <td>
-                            <select id="affiliationId" name="affiliationId">
-                                <option>選択してください</option>
-                                <option th:each="affiliation : ${affiliationList}"
-                                        th:value="${affiliation.affiliation_id}"
-                                        th:text="${affiliation.affiliation_name}">
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
+                <div class="row g-2">
+                    <label class="col-auto">権限区分</label>
+                    <select id="roleClass" name="roleClass">
+                        <option th:each="roleClass : ${roleClassList}"
+                                th:value="${roleClass.value}"
+                                th:text="${roleClass.viewName}">
+                        </option>
+                    </select>
 
-                    <tr>
-                        <td class="w-25">
-                            権限区分
-                        </td>
-                        <td>
-                            <select id="roleClass" name="roleClass">
-                                <option th:each="roleClass : ${roleClassList}"
-                                        th:value="${roleClass.value}"
-                                        th:text="${roleClass.viewName}">
-                                </option>
-                            </select>
+                    <div class="col-auto">
+                        <input type="checkbox" th:field="*{checkSales}" />営業担当
+                    </div>>
+                </div>
 
-                            <input type="checkbox" th:field="*{checkSales}" />営業担当
-                        </td>
-                    </tr>
+                <div class="row g-2">
+                    <label class="col-auto">生年月日</label>
+                    <div class="col-auto">
+                        <select id="birthYear" name="birthYear">
+                            <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
+                                    th:value="${birthYear}"
+                                    th:text="${birthYear}"
+                                    th:selected="${birthYear == birthYearDefault}">
+                            </option>
+                        </select>
+                        年
+                    </div>
+                    <div class="col-auto">
+                        <select id="birthMonth" name="birthMonth">
+                            <option></option>
+                            <option th:each="birthMonth : ${#numbers.sequence(1, 12)}"
+                                    th:value="${birthMonth}"
+                                    th:text="${birthMonth}">
+                            </option>
+                        </select>
+                        月
+                    </div>
+                    <div class="col-auto">
+                        <select id="birthDay" name="birthDay">
+                            <option></option>
+                            <option th:each="birthDay : ${#numbers.sequence(1, 31)}"
+                                    th:value="${birthDay}"
+                                    th:text="${birthDay}">
+                            </option>
+                        </select>
+                        日
+                    </div>
+                </div>
 
-                    <tr>
-                        <td class="w-25">
-                            生年月日
-                        </td>
-                        <td>
-                            <span>
-                                <select id="birthYear" name="birthYear">
-                                    <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
-                                            th:value="${birthYear}"
-                                            th:text="${birthYear}"
-                                            th:selected="${birthYear == birthYearDefault}">
-                                    </option>
-                                </select>
-                                年
-                            </span>
+                 <div class="row g-2">
+                     <label class="col-auto">郵便番号</label>
+                     <div class="col-auto">
+                         <input type="text" name="postCode1" />-
+                     </div>
+                     <div class="col-auto">
+                         <input type="text" name="postCode2" />
+                     </div>
+                </div>
 
-                            <span>
-                                <select id="birthMonth" name="birthMonth">
-                                    <option></option>
-                                    <option th:each="birthMonth : ${#numbers.sequence(1, 12)}"
-                                            th:value="${birthMonth}"
-                                            th:text="${birthMonth}">
-                                    </option>
-                                </select>
-                                月
-                            </span>
+                <div class="row g-2">
+                    <label class="col-auto">住所</label>
+                    <div class="col-auto">
+                        <input type="text" name="address" />
+                       </div>
+                </div>
 
-                            <span>
-                                <select id="birthDay" name="birthDay">
-                                    <option></option>
-                                    <option th:each="birthDay : ${#numbers.sequence(1, 31)}"
-                                            th:value="${birthDay}"
-                                            th:text="${birthDay}">
-                                    </option>
-                                </select>
-                                日
-                            </span>
-                        </td>
-                    </tr>
+                <div class="row g-2">
+                    <label class="col-auto">電話番号</label>
+                    <div class="col-auto">
+                        <input type="text" name="phoneNumber1" />-
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" name="phoneNumber2" />-
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" name="phoneNumber3" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td class="w-25">
-                            郵便番号
-                         </td>
-                         <td>
-                            <input type="text" name="postCode1" />-
-                            <input type="text" name="postCode2" />
-                        </td>
-                    </tr>
+                <div class="row g-2">
+                    <label class="col-auto">メールアドレス</label>
+                    <div class="col-auto">
+                        <input type="text" name="emailAddress" />
+                    </div>
+                </div>
 
-                    <tr>
-                        <td class="w-25">
-                            住所
-                        </td>
-                        <td>
-                            <input type="text" name="address" />
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="w-25">
-                            電話番号
-                        </td>
-                        <td>
-                            <input type="text" name="phoneNumber1" />-
-                            <input type="text" name="phoneNumber2" />-
-                            <input type="text" name="phoneNumber3" />
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="w-25">
-                            メールアドレス
-                           </td>
-                           <td>
-                            <input type="text" name="emailAddress" />
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="w-25">
-                            パスワード
-                        </td>
-                        <td>
-                            <input type="text" name="password" />
-                        </td>
-                    </tr>
-                </table>
+                <div class="row g-2">
+                    <label class="col-auto">パスワード</label>
+                    <div class="col-auto">
+                        <input type="text" name="password" />
+                    </div>
+                </div>
                 <input type="submit" class="col btn btnRegistration" value="登録" />
             </form>
         </div>
