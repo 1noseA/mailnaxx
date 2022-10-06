@@ -21,10 +21,8 @@
 }
 
 .btnMenu {
-    width: 30%;
     min-width: 200px;
     padding: 20px;
-    margin: 3px;
     box-sizing: border-box;
     border: 1px solid #678b99;
     background-color: #a0d8ef;

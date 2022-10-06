@@ -7,38 +7,60 @@
     <div th:replace="common :: header"></div>
 
     <div class="contents">
-        <div class="noticeArea">
-            <h2 class="text-center">お知らせ</h2>
-            <table class="table">
-                <tr>
-                    <th scope="col" class="w-25">掲載日</th>
-                    <th scope="col">内容</th>
-                </tr>
-                <tr th:each="notice : ${noticeList}">
-                    <td th:text="${notice.start_date}" />
-                    <td th:text="${notice.notice_message}" />
-                </tr>
-            </table>
-        </div>
+        <div class="container">
+            <div class="noticeArea">
+                <h2 class="text-center">お知らせ</h2>
+                <table class="table">
+                    <tr>
+                        <th scope="col" class="w-25">掲載日</th>
+                        <th scope="col">内容</th>
+                    </tr>
+                    <tr th:each="notice : ${noticeList}">
+                        <td th:text="${notice.start_date}" />
+                        <td th:text="${notice.notice_message}" />
+                    </tr>
+                </table>
+            </div>
 
-        <div class="container menuArea">
-            <div class="row">
-                <button type="button" onclick="location.href='/user-list'" class="col btn btnMenu" value="btnUserList">社員一覧</button>
-                <button type="button" class="col btn btnMenu" value="btnDailyReport">日次報告</button>
-                <button type="button" class="col btn btnMenu" value="btnWeeklyReport">週次報告</button>
-            </div>
-            <div class="row">
-                <button type="button" class="col btn btnMenu" value="btnAttendanceReport">勤怠連絡</button>
-                <button type="button" class="col btn btnMenu" value="btnRoster">勤務表</button>
-                <button type="button" class="col btn btnMenu" value="btnAccountingReport">会計報告</button>
-            </div>
-            <div class="row">
-                <button type="button" class="col btn btnMenu" value="btnQuestionnaire">アンケート</button>
-                <button type="button" class="col btn btnMenu" value="btnVariousApplications">各種申請</button>
-                <button type="button" class="col btn btnMenu" value="btnVariousDownloads">各種ダウンロード</button>
-            </div>
-            <div class="row">
-                <button type="button" class="col btn btnMenu" value="btnMasterAdmin">マスタ管理</button>
+            <div class="menuArea">
+                <div class="row">
+                    <div class="col-4 p-1">
+                        <button type="button" onclick="location.href='/user-list'" class="btn btnMenu w-100" value="btnUserList">社員一覧</button>
+                    </div>
+                    <div class="col-4 p-1">
+                        <button type="button" class="btn btnMenu w-100" value="btnDailyReport">日次報告</button>
+                    </div>
+                    <div class="col-4 p-1">
+                        <button type="button" class="btn btnMenu w-100" value="btnWeeklyReport">週次報告</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 p-1">
+                        <button type="button" class="col btn btnMenu w-100" value="btnAttendanceReport">勤怠連絡</button>
+                    </div>
+                    <div class="col-4 p-1">
+                        <button type="button" class="col btn btnMenu w-100" value="btnRoster">勤務表</button>
+                    </div>
+                    <div class="col-4 p-1">
+                        <button type="button" class="col btn btnMenu w-100" value="btnAccountingReport">会計報告</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 p-1">
+                        <button type="button" class="col btn btnMenu w-100" value="btnQuestionnaire">アンケート</button>
+                    </div>
+                    <div class="col-4 p-1">
+                        <button type="button" class="col btn btnMenu w-100" value="btnVariousApplications">各種申請</button>
+                    </div>
+                    <div class="col-4 p-1">
+                        <button type="button" class="col btn btnMenu w-100" value="btnVariousDownloads">各種ダウンロード</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 p-1 text-start">
+                        <button type="button" class="col btn btnMenu w-100" value="btnMasterAdmin">マスタ管理</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
