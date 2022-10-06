@@ -8,154 +8,193 @@
 
     <div class="contents">
         <div class="container formArea">
-            <h3 class="text-center">社員登録</h3>
+            <h3 class="text-center mb-3">社員登録</h3>
 
             <form method="POST" th:action="@{/user-register}" th:object="${usersForm}">
-                <div class="row g-2">
-                    <div class="col-auto">
-                        <label class="form-label">氏名(漢字)</label>
-                        <input type="text" class="form-control" name="userLastName" />
-                        <input type="text" class="form-control" name="userFirstName" />
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="userName" class="col-form-label">氏名(漢字)</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="userLastName" id="userLastName" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="userFirstName" id="userFirstName" />
                     </div>
                 </div>
 
-                <div class="row g-2">
-                    <label class="form-label">氏名(カタカナ)</label>
-                    <div >
-                        <input type="text" class="form-control" name="userLastKana" />
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="userNameKana" class="col-form-label">氏名(カタカナ)</label>
                     </div>
-                    <div class="col-auto">
-                        <input type="text" class="form-control" name="userFirstKana" />
-                       </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="userLastKana" id="userLastKana" />
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="userFirstKana" id="userFirstKana" />
+                    </div>
                 </div>
 
-                <div class="row g-2">
-                    <label class="col-auto">入社年月</label>
-                    <div class="col-auto">
-                        <select id="hireYear" name="hireYear">
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="hireDate" class="col-form-label">入社年月</label>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select" name="hireYear" id="hireYear">
                             <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
                                     th:value="${hireYear}"
                                     th:text="${hireYear}"
                                     th:selected="${hireYear == currentYear}">
                             </option>
                         </select>
-                        年
+                        <label for="hireYear" class="col-form-label">年</label>
                     </div>
-                    <div class="col-auto">
-                        <select id="hireMonth" name="hireMonth">
+                    <div class="col-3">
+                        <select class="form-select" name="hireMonth" id="hireMonth">
                             <option th:each="hireMonth : ${#numbers.sequence(1, 12)}"
                                     th:value="${hireMonth}"
                                     th:text="${hireMonth}"
                                     th:selected="${hireMonth == currentMonth}">
                             </option>
                         </select>
-                        月
+                        <label for="hireMonth" class="col-form-label">月</label>
                     </div>
                 </div>
 
-                <div class="row g-2">
-                    <label class="col-auto">所属</label>
-                    <select id="affiliationId" name="affiliationId">
-                        <option>選択してください</option>
-                        <option th:each="affiliation : ${affiliationList}"
-                                th:value="${affiliation.affiliation_id}"
-                                th:text="${affiliation.affiliation_name}">
-                        </option>
-                    </select>
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="affiliationId" class="col-form-label">所属</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select" name="affiliationId" id="affiliationId">
+                            <option>選択してください</option>
+                            <option th:each="affiliation : ${affiliationList}"
+                                    th:value="${affiliation.affiliation_id}"
+                                    th:text="${affiliation.affiliation_name}">
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="row g-2">
-                    <label class="col-auto">権限区分</label>
-                    <select id="roleClass" name="roleClass">
-                        <option th:each="roleClass : ${roleClassList}"
-                                th:value="${roleClass.value}"
-                                th:text="${roleClass.viewName}">
-                        </option>
-                    </select>
-
-                    <div class="col-auto">
-                        <input type="checkbox" th:field="*{checkSales}" />営業担当
-                    </div>>
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="roleClass" class="col-form-label">権限区分</label>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-select" name="roleClass" id="roleClass">
+                            <option th:each="roleClass : ${roleClassList}"
+                                    th:value="${roleClass.value}"
+                                    th:text="${roleClass.viewName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" th:field="*{checkSales}" id="checkSales" />
+                            <label for="checkSales" class="form-check-label">営業担当</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row g-2">
-                    <label class="col-auto">生年月日</label>
-                    <div class="col-auto">
-                        <select id="birthYear" name="birthYear">
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="birthDay" class="col-form-label">生年月日</label>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select" name="birthYear" id="birthYear">
                             <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
                                     th:value="${birthYear}"
                                     th:text="${birthYear}"
                                     th:selected="${birthYear == birthYearDefault}">
                             </option>
                         </select>
-                        年
+                        <label for="birthYear" class="col-form-label">年</label>
                     </div>
-                    <div class="col-auto">
-                        <select id="birthMonth" name="birthMonth">
+                    <div class="col-3">
+                        <select class="form-select" name="birthMonth" id="birthMonth">
                             <option></option>
                             <option th:each="birthMonth : ${#numbers.sequence(1, 12)}"
                                     th:value="${birthMonth}"
                                     th:text="${birthMonth}">
                             </option>
                         </select>
-                        月
+                        <label for="birthMonth" class="col-form-label">月</label>
                     </div>
-                    <div class="col-auto">
-                        <select id="birthDay" name="birthDay">
+                    <div class="col-3">
+                        <select class="form-select" name="birthDay" id="birthDay">
                             <option></option>
                             <option th:each="birthDay : ${#numbers.sequence(1, 31)}"
                                     th:value="${birthDay}"
                                     th:text="${birthDay}">
                             </option>
                         </select>
-                        日
+                        <label for="birthDay" class="col-form-label">日</label>
                     </div>
                 </div>
 
-                 <div class="row g-2">
-                     <label class="col-auto">郵便番号</label>
-                     <div class="col-auto">
-                         <input type="text" name="postCode1" />-
-                     </div>
-                     <div class="col-auto">
-                         <input type="text" name="postCode2" />
-                     </div>
-                </div>
-
-                <div class="row g-2">
-                    <label class="col-auto">住所</label>
-                    <div class="col-auto">
-                        <input type="text" name="address" />
-                       </div>
-                </div>
-
-                <div class="row g-2">
-                    <label class="col-auto">電話番号</label>
-                    <div class="col-auto">
-                        <input type="text" name="phoneNumber1" />-
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="postCode" class="col-form-label">郵便番号</label>
                     </div>
-                    <div class="col-auto">
-                        <input type="text" name="phoneNumber2" />-
+                    <div class="col-3">
+                        <input type="text" class="form-control" name="postCode1" id="postCode1" />-
                     </div>
-                    <div class="col-auto">
-                        <input type="text" name="phoneNumber3" />
+                    <div class="col-3">
+                        <input type="text" class="form-control" name="postCode2" id="postCode2" />
                     </div>
                 </div>
 
-                <div class="row g-2">
-                    <label class="col-auto">メールアドレス</label>
-                    <div class="col-auto">
-                        <input type="text" name="emailAddress" />
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="address" class="col-form-label">住所</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="address" id="address" />
                     </div>
                 </div>
 
-                <div class="row g-2">
-                    <label class="col-auto">パスワード</label>
-                    <div class="col-auto">
-                        <input type="text" name="password" />
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="phoneNumber" class="col-form-label">電話番号</label>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" name="phoneNumber1" id="phoneNumber1" />
+                    </div>
+                    <div class="col-1">
+                        <label class="col-form-label">-</label>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" name="phoneNumber2" id="phoneNumber2" />
+                    </div>
+                    <div class="col-1">
+                        <label class="col-form-label">-</label>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" name="phoneNumber3" id="phoneNumber3" />
                     </div>
                 </div>
-                <input type="submit" class="col btn btnRegistration" value="登録" />
+
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="emailAddress" class="col-form-label">メールアドレス</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="emailAddress" id="emailAddress" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="password" class="col-form-label">パスワード</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" class="form-control" name="password" id="password" />
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" class="btn btnRegistration" value="登録" />
+                </div>
             </form>
         </div>
     </div>
