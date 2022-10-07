@@ -9,17 +9,15 @@
     <div class="contents">
         <div class="container">
             <div class="noticeArea">
-                <h2 class="text-center">お知らせ</h2>
-                <table class="table">
-                    <tr>
-                        <th scope="col" class="w-25">掲載日</th>
-                        <th scope="col">内容</th>
-                    </tr>
-                    <tr th:each="notice : ${noticeList}">
-                        <td th:text="${notice.start_date}" />
-                        <td th:text="${notice.notice_message}" />
-                    </tr>
-                </table>
+                <h5 class="ps-3">お知らせ</h5>
+                <div class="overflow-auto">
+                    <table class="table table-bordered">
+                        <tr th:each="notice : ${noticeList}">
+                            <td th:text="${notice.start_date}" class="w-25" />
+                            <td th:text="${notice.notice_message}" />
+                        </tr>
+                    </table>
+                </div>
             </div>
 
             <div class="menuArea">
