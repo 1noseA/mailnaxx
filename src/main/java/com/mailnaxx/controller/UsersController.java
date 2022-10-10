@@ -45,6 +45,14 @@ public class UsersController {
 
     }
 
+    // 詳細画面初期表示（仮）
+    @RequestMapping("/user-detail")
+    public String detail(Model model) {
+
+        return "user-detail";
+
+    }
+
     // 登録画面初期表示
     @RequestMapping(value="/user-register", method = RequestMethod.GET)
     public String register(Model model) {

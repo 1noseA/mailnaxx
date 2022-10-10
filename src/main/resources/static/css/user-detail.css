@@ -6,14 +6,31 @@
     background-color: #dee2e6;
 }
 
-.searchArea {
+.userInfoArea {
     width: 60%;
     margin: 40px auto;
-    padding: 30px 20px;
+    padding-top: 30px;
+}
+
+.table {
     background-color: #f8f9fa;
 }
 
-.btnSearch, .btnRegistration {
+.table th {
+    background-color: #7C7E80;
+    color: #f8f9fa;
+}
+
+.table th, .table td {
+    padding: 10px 20px;
+}
+
+.btn-toolbar {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.btnUpdate {
     padding: 10px 30px;
     box-sizing: border-box;
     border: 1px solid #333333;
@@ -30,31 +47,10 @@
     cursor: pointer;
 }
 
-.btnDelete {
-    padding: 10px 30px;
-    box-sizing: border-box;
-    border: 2px solid #7C7E80;
-    background-color: #7C7E80;
-    color: #f8f9fa;
-    cursor: pointer;
-}
-
 .btnBack {
     padding: 10px 30px;
     box-sizing: border-box;
     border: 1px solid #333333;
     background-color: #C6C9CC;
     cursor: pointer;
-}
-
-.listArea {
-    width: 80%;
-}
-
-.tableArea {
-    background-color: #f8f9fa;
-}
-
-.w60{
-  width: 60%;
 }

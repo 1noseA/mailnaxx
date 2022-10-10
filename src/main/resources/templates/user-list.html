@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common :: meta_header('Users List',~{::link},~{::script})">
+<head th:replace="common :: meta_header('User List',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/user-list.css}" />
 </head>
 <body>
@@ -101,6 +101,9 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-4">
+                    <button type="button" class="btn btnBack">戻る</button>
                 </div>
             </div>
         </div>
