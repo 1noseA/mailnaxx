@@ -1,1 +1,52 @@
-@charset "UTF-8";
+.contents {
+    width: 100%; /* コンテンツの横幅を指定する */
+    overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
+    padding-top: 120px;
+    padding-bottom: 80px;
+    background-color: #dee2e6;
+}
+
+.searchArea {
+    width: 60%;
+    margin: 40px auto;
+    padding: 30px 20px;
+    background-color: #f8f9fa;
+}
+
+.btnSearch, .btnShowReport {
+    padding: 10px 30px;
+    box-sizing: border-box;
+    border: 1px solid #333333;
+    background-color: #a0d8ef;
+    cursor: pointer;
+}
+
+.btnRegistration {
+    padding: 10px 30px;
+    box-sizing: border-box;
+    border: 2px solid #2ca9e1;
+    background-color: #f8f9fa;
+    color: #2ca9e1;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btnDelete {
+    padding: 10px 30px;
+    box-sizing: border-box;
+    border: 1px solid #333333;
+    background-color: #C6C9CC;
+    cursor: pointer;
+}
+
+.listArea {
+    width: 80%;
+}
+
+.tableArea {
+    background-color: #f8f9fa;
+}
+
+.w60{
+  width: 60%;
+}

@@ -1,14 +1,14 @@
 .contents {
     width: 100%; /* コンテンツの横幅を指定する */
     overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
-    padding-top: 100px;
+    padding-top: 120px;
     padding-bottom: 80px;
     background-color: #dee2e6;
 }
 
 .noticeArea {
     width: 75%;
-    margin: 30px auto;
+    margin: 40px auto;
 }
 
 .table {
@@ -30,7 +30,7 @@
     min-width: 200px;
     padding: 20px;
     box-sizing: border-box;
-    border: 1px solid #678b99;
+    border: 1px solid #333333;
     background-color: #a0d8ef;
     cursor: pointer;
 }
