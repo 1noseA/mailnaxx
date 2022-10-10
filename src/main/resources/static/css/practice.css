@@ -68,3 +68,7 @@
 .text-white {
     color: #FFFFFF;
 }
+
+#sample {
+    display: none;
+}

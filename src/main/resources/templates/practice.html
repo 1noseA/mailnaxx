@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('practice',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/practice.css}" />
+<script th:src="@{/js/practice.js}"></script>
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -16,20 +17,32 @@
 
                     <div class="col-10 d-flex justify-content-start align-items-center">
                         <input type="text" class="form-control w60" placeholder="" name="userName" id="userName" />
-                        <div class="form-check ms-3">
-                          <input class="form-check-input" type="radio" name="prefixMatch" id="prefixMatch">
+                        <div class="form-check form-check-inline ms-3">
+                          <input class="form-check-input js-check" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" onclick="checkradio('none');"  checked>
                           <label class="form-check-label" for="prefixMatch">
                             前方一致
                           </label>
                         </div>
-                        <div class="form-check ms-3">
-                          <input class="form-check-input" type="radio" name="partialMatch" id="partialMatch">
+                        <div class="form-check form-check-inline ms-3">
+                          <input class="form-check-input js-check" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" onclick="checkradio('block');">
                           <label class="form-check-label" for="partialMatch">
                             部分一致
                           </label>
                         </div>
                     </div>
                 </div>
+                <!-- 練習用 -->
+                <div id="sample">
+                    <div class="row mb-3">
+                        <div class="col-2 text-end">
+                            <label for="userNameKana" class="col-form-label">カタカナ</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" class="form-control w60" name="userNameKana" id="userNameKana" />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <div class="col-2 text-end">
                         <label for="roleClass" class="col-form-label ms-1">権限区分</label>
@@ -109,20 +122,20 @@
         </div>
         <div class="container-fluid menu">
             <div class="row">
-                <div class="col-2 text-white text-center">
-                    <button type="button" class="btn mx-2 w-100">あいう</button>
+                <div class="col-2 text-center">
+                    <button type="button" class="btn mx-2 w-100 text-white ">あいう</button>
                 </div>
-                <div class="col-2 text-white text-center">
-                    <button type="button" class="btn mx-2 w-100">かきく</button>
+                <div class="col-2 text-center">
+                    <button type="button" class="btn mx-2 w-100 text-white ">かきく</button>
                 </div>
-                <div class="col-2 text-white text-center">
-                    <button type="button" class="btn mx-2 w-100">さしす</button>
+                <div class="col-2 text-center">
+                    <button type="button" class="btn mx-2 w-100 text-white ">さしす</button>
                 </div>
-                <div class="col-2 text-white text-center">
-                    <button type="button" class="btn mx-2 w-100">たちつ</button>
+                <div class="col-2 text-center">
+                    <button type="button" class="btn mx-2 w-100 text-white ">たちつ</button>
                 </div>
-                <div class="col-2 text-white"></div>
-                <div class="col-2 text-white"></div>
+                <div class="col-2"></div>
+                <div class="col-2"></div>
             </div>
         </div>
     </div>
