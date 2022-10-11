@@ -73,32 +73,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <th:block th:each="userList : ${userList}">
                             <tr>
                                 <td class="d-flex justify-content-center align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                     </div>
                                 </td>
-                                <td>あ</td>
-                                <td>い</td>
-                                <td>う</td>
-                                <td>え</td>
-                                <td>お</td>
-                                <td></td>
+                                <td th:text="${userList.user_id}"></td>
+                                <td th:text="${userList.user_name}"></td>
+                                <td th:text="${userList.hire_date}"></td>
+                                <td th:text="${userList.affiliation_id}"></td>
+                                <td th:text="${userList.role_class}"></td>
+                                <td th:text="${userList.is_sales == true} ? '営業' : ' '"></td>
                             </tr>
-                            <tr>
-                                <td class="d-flex justify-content-center align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    </div>
-                                </td>
-                                <td>か</td>
-                                <td>き</td>
-                                <td>く</td>
-                                <td>け</td>
-                                <td>こ</td>
-                                <td></td>
-                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>

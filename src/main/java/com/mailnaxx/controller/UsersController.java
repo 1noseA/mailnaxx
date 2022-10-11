@@ -45,16 +45,6 @@ public class UsersController {
 
     }
 
-    // 練習用
-    @RequestMapping("/practice")
-    public String practice(Model model) {
-
-        List<Users> userList = usersMapper.selectAll();
-        model.addAttribute("userList", userList);
-        return "practice";
-
-    }
-
     // 詳細画面初期表示（仮）
     @RequestMapping("/user-detail")
     public String detail(Model model) {
