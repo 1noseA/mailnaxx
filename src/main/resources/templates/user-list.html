@@ -83,8 +83,13 @@
                                 <td th:text="${userList.user_id}"></td>
                                 <td th:text="${userList.user_name}"></td>
                                 <td th:text="${userList.hire_date}"></td>
+                                <td th:text="${#dates.format(userList.hire_date, 'yyyy/MM/dd')}"></td>
                                 <td th:text="${userList.affiliation_id}"></td>
-                                <td th:text="${userList.role_class}"></td>
+                                <th:block th:each="roleClass : ${roleClassList}">
+                                    <th:block th:if="${userList.role_class == roleClass.value}">
+                                        <td th:text="${roleClass.viewName}"></td>
+                                    </th:block>
+                                </th:block>
                                 <td th:text="${userList.is_sales == true} ? '営業' : ' '"></td>
                             </tr>
                         </th:block>

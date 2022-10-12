@@ -41,6 +41,7 @@ public class UsersController {
 
         List<Users> userList = usersMapper.selectAll();
         model.addAttribute("userList", userList);
+        model.addAttribute("roleClassList", RoleClass.values());
         return "user-list";
 
     }
