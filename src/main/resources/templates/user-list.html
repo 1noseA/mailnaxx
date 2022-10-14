@@ -82,8 +82,7 @@
                                 </td>
                                 <td th:text="${userList.user_id}"></td>
                                 <td th:text="${userList.user_name}"></td>
-                                <td th:text="${userList.hire_date}"></td>
-                                <td th:text="${#dates.format(userList.hire_date, 'yyyy/MM/dd')}"></td>
+                                <td th:text="${#strings.replace(userList.hire_date, '-', '/')}"></td>
                                 <td th:text="${userList.affiliation_id}"></td>
                                 <th:block th:each="roleClass : ${roleClassList}">
                                     <th:block th:if="${userList.role_class == roleClass.value}">
