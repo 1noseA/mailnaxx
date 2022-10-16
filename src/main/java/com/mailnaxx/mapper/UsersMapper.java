@@ -9,7 +9,9 @@ import com.mailnaxx.entity.Users;
 @Mapper
 public interface UsersMapper {
 
-    public List<Users> selectAll();
+    public List<Users> findAll();
+
+    public Users findOne(int user_id);
 
     public void insert(Users users);
 

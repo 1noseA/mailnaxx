@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('User List',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/user-list.css}" />
+<script th:src="@{/js/user-list.js}"></script>
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -75,6 +76,7 @@
                             </thead>
                             <tbody>
                             <th:block th:each="userList : ${userList}">
+                                <!-- <tr th:href="@{'/user-detail/' + ${userList.user_id}}"> -->
                                 <tr>
                                     <td class="d-flex justify-content-center align-items-center">
                                         <div class="form-check">
@@ -82,7 +84,11 @@
                                             <input type="hidden" name="user_id" th:value="${userList.user_id}">
                                         </div>
                                     </td>
-                                    <td th:text="${userList.user_number}"></td>
+                                    <td>
+                                        <a th:href="@{'/user-detail/' + ${userList.user_id}}">
+                                            <span th:text="${userList.user_number}"></span>
+                                        </a>
+                                    </td>
                                     <td th:text="${userList.user_name}"></td>
                                     <td th:text="${#strings.replace(userList.hire_date, '-', '/')}"></td>
                                     <td th:text="${userList.affiliation_id}"></td>

@@ -9,52 +9,54 @@
     <div class="contents">
         <div class="container">
             <div class="userInfoArea">
-                <table class="table table-bordered">
-                    <tr>
-                        <th scope="row" class="w-25">ID</th>
-                        <td>あいうえお</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">氏名（漢字）</th>
-                        <td>かきくけこ</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">氏名（カタカナ）</th>
-                        <td>さしすせそ</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">入社年月</th>
-                        <td>たちつてと</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">所属</th>
-                        <td>なにぬねの</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">権限区分</th>
-                        <td>はひふへほ</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">生年月日</th>
-                        <td>まみむめも</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">郵便番号</th>
-                        <td>やゆよ</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">住所</th>
-                        <td>らりるれろ</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">電話番号</th>
-                        <td>わをん</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="w-25">メールアドレス</th>
-                        <td>がぎぐげご</td>
-                    </tr>
-                </table>
+                <div th:object="${userInfo}">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th scope="row" class="w-25">社員番号</th>
+                            <td th:text="*{user_number}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">氏名（漢字）</th>
+                            <td th:text="*{user_name}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">氏名（カタカナ）</th>
+                            <td th:text="*{user_name_kana}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">入社年月</th>
+                            <td th:text="*{hire_date}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">所属</th>
+                            <td th:text="*{affiliation_id}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">権限区分</th>
+                            <td th:text="*{role_class}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">生年月日</th>
+                            <td th:text="*{birth_date}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">郵便番号</th>
+                            <td th:text="*{post_code}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">住所</th>
+                            <td th:text="*{address}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">電話番号</th>
+                            <td th:text="*{phone_number}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-25">メールアドレス</th>
+                            <td th:text="*{email_address}"></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
 
             <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">

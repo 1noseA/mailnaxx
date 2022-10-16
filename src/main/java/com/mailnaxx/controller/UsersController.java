@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,7 +40,7 @@ public class UsersController {
     @RequestMapping("/user-list")
     public String index(Model model) {
 
-        List<Users> userList = usersMapper.selectAll();
+        List<Users> userList = usersMapper.findAll();
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
         return "user-list";
@@ -47,9 +48,11 @@ public class UsersController {
     }
 
     // 詳細画面初期表示（仮）
-    @RequestMapping("/user-detail")
-    public String detail(Model model) {
+    @RequestMapping("/user-detail/{user_id:.+}")
+    public String detail(@PathVariable("user_id") int user_id, Model model) {
 
+        Users userInfo = usersMapper.findOne(user_id);
+        model.addAttribute("userInfo", userInfo);
         return "user-detail";
 
     }
