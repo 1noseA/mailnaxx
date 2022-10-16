@@ -13,4 +13,6 @@ public interface UsersMapper {
 
     public void insert(Users users);
 
+    public void delete(Users users);
+
 }

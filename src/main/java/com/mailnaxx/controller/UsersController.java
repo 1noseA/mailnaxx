@@ -99,7 +99,7 @@ public class UsersController {
         }
         int random = (int)(Math.random()*100);
         String num = random >= 10 ? Integer.toString(random) : "0" + Integer.toString(random);
-        users.setUser_id(hireYear + hireMonth + num);
+        users.setUser_number(hireYear + hireMonth + num);
 
         // 氏名
         users.setUser_name(usersForm.getUserLastName() + " " + usersForm.getUserFirstName());
@@ -127,7 +127,7 @@ public class UsersController {
         users.setBirth_date(birthYear + birthMonth + birthDay);
 
         // 営業担当
-        users.set_sales(usersForm.isCheckSales());
+        users.setSales_flg(usersForm.getSalesFlg());
 
         // 郵便番号
         users.setPost_code(usersForm.getPostCode1() + "-" +usersForm.getPostCode2());
@@ -146,11 +146,19 @@ public class UsersController {
         users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
         // 作成者はセッションのユーザID（現状は仮値）
-        users.setCreated_by("XXX");
+        users.setCreated_by(1);
 
-        // 更新者もなしか
         usersMapper.insert(users);
-        return "user-list";
+        return "redirect:/user-list";
+
+    }
+
+    // 論理削除処理
+    @RequestMapping(value="/delete")
+    public String delete(Users users) {
+
+        usersMapper.delete(users);
+        return "redirect:/user-list";
 
     }
 

@@ -5,57 +5,52 @@
 <mapper namespace="com.mailnaxx.mapper.UsersMapper">
     <select id="selectAll" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
+        WHERE deleted_flg = '0'
     </select>
 
-    <insert id="insert" parameterType="com.mailnaxx.entity.Users">
+    <insert id="insert" parameterType="com.mailnaxx.entity.Users" useGeneratedKeys="true" keyProperty="user_id">
         INSERT INTO users
         (
-            user_id,
+            user_number,
             user_name,
             user_name_kana,
             hire_date,
             affiliation_id,
             role_class,
-            is_sales,
+            sales_flg,
             birth_date,
             post_code,
             address,
             phone_number,
             email_address,
             password,
-            pass_changed_date,
-            old_password,
-            last_login_date,
-            is_deleted,
             created_by,
-            created_at,
-            updated_by,
-            updated_at
+            created_at
         )
         VALUES
         (
-            #{user_id},
+            #{user_number},
             #{user_name},
             #{user_name_kana},
             TO_DATE(#{hire_date},'YYYYMMDD'),
             #{affiliation_id},
             #{role_class},
-            #{is_sales},
+            #{sales_flg},
             TO_DATE(#{birth_date},'YYYYMMDD'),
             #{post_code},
             #{address},
             #{phone_number},
             #{email_address},
             #{password},
-            #{pass_changed_date},
-            #{old_password},
-            #{last_login_date},
-            #{is_deleted},
             #{created_by},
-            CURRENT_TIMESTAMP,
-            #{updated_by},
-            #{updated_at}
-
+            CURRENT_TIMESTAMP
         )
     </insert>
+
+    <!-- 論理削除 -->
+    <update id="delete" parameterType="com.mailnaxx.entity.Users">
+        UPDATE users SET
+            deleted_flg = #{deleted_flg}
+        WHERE user_id = #{user_id}
+    </update>
 </mapper>
