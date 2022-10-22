@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('Register',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/user-register.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script th:src="@{/js/common.js}"></script>
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -193,8 +195,9 @@
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-8 passForm">
                             <input type="password" class="form-control" placeholder="8文字以上の半角英数字" name="password" id="password" />
+                            <i class="togglePass fa-regular fa-eye"></i>
                         </div>
                     </div>
 

@@ -29,6 +29,18 @@ a {
     border: 2px solid #2ca9e1;
 }
 
+/* パスワード表示非表示 */
+.passForm {
+    position: relative;
+}
+
+.togglePass {
+    position:absolute;
+    top:50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
 footer {
     /* position: fixed; フッターを固定する
     bottom: 0; 上部から配置の基準位置を決める

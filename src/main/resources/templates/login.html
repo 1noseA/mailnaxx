@@ -4,6 +4,8 @@
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="common :: meta_header('Login',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/login.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script th:src="@{/js/common.js}"></script>
 </head>
 <body>
 <form method="POST" th:action="@{/login}">
@@ -21,7 +23,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 パスワード：
             </td>
             <td>
-                <input type="password" id="password" name="password"/>
+                <div class="passForm">
+                    <input type="password" id="password" name="password" />
+                    <i class="togglePass fa-regular fa-eye"></i>
+                </div>
             </td>
         </tr>
         <tr>

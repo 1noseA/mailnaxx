@@ -16,6 +16,10 @@
     background-color: #f8f9fa;
 }
 
+.togglePass {
+    right: 20px;
+}
+
 .btnRegistration {
     width: 20%;
     padding: 10px;
