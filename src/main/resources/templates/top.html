@@ -11,51 +11,53 @@
             <div class="noticeArea">
                 <h5 class="ps-3">お知らせ</h5>
                 <div class="overflow-auto">
-                    <table class="table table-bordered table-hover">
-                        <tr th:each="notice : ${noticeList}">
-                            <td th:text="${notice.start_date}" class="w-25" />
-                            <td th:text="${notice.notice_message}" />
-                        </tr>
-                    </table>
+                    <div class="table-responsive tableArea">
+                        <table class="table table-bordered table-hover border border-dark">
+                            <tr th:each="notice : ${noticeList}">
+                                <td th:text="${notice.start_date}" class="w-25" />
+                                <td th:text="${notice.notice_message}" />
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <div class="menuArea">
                 <div class="row">
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" onclick="location.href='/user-list'" class="btn btnMenu w-100" value="btnUserList">社員一覧</button>
                     </div>
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="btn btnMenu w-100" value="btnDailyReport">日次報告</button>
                     </div>
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="btn btnMenu w-100" value="btnWeeklyReport">週次報告</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="col btn btnMenu w-100" value="btnAttendanceReport">勤怠連絡</button>
                     </div>
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="col btn btnMenu w-100" value="btnRoster">勤務表</button>
                     </div>
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="col btn btnMenu w-100" value="btnAccountingReport">会計報告</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="col btn btnMenu w-100" value="btnQuestionnaire">アンケート</button>
                     </div>
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="col btn btnMenu w-100" value="btnVariousApplications">各種申請</button>
                     </div>
-                    <div class="col-4 p-1">
+                    <div class="col-12 col-md-4 p-1">
                         <button type="button" class="col btn btnMenu w-100" value="btnVariousDownloads">各種ダウンロード</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 p-1 text-start">
+                    <div class="col-12 col-md-4 p-1 text-start">
                         <button type="button" class="col btn btnMenu w-100" value="btnMasterAdmin">マスタ管理</button>
                     </div>
                 </div>
