@@ -16,18 +16,26 @@
 </head>
 <body>
      <header th:fragment="header">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <h1 class="col-6 siteLogo">
+                <h1 class="col-6 order-1 col-md-4 col-lg-6 siteLogo">
                     <a href="/top">mailnaxx</a>
                 </h1>
-                <div class="col-3 loginUserInfo">
-                    <div class="loginUserId">ログインユーザID：</div>
-                    <div class="loginUserName">ログインユーザ名：</div>
-                    <div class="lastLoginDate">最終ログイン日時：</div>
+                <div class="col-12 order-3 col-md-6 order-md-2 col-lg-4 d-flex justify-content-start flex-md-column">
+                    <div class="loginUserId">
+                        <span>ＩＤ：</span>
+                        20221001　
+                    </div>
+                    <div class="loginUserName">
+                        <span>名前：</span>
+                        〇〇　〇〇　
+                    </div>
+                    <div class="lastLoginDate">
+                        <span>最終ログイン：</span>
+                        2022/10/22 20:00
+                    </div>
                 </div>
-                <div class="col-3 text-end">
-                    <button type="button" class="btn p-10" value="btnSetting">設定</button>
+                <div class="col-6 order-2 col-md-2 order-md-3 text-end">
                     <button type="button" class="btn btnLogout" value="btnLogout">ログアウト</button>
                 </div>
             </div>

@@ -20,10 +20,6 @@ a {
     color: #2ca9e1;
 }
 
-.loginUserInfo {
-    text-align: left;
-}
-
 .btnLogout {
     color: #2ca9e1;
     border: 2px solid #2ca9e1;
@@ -52,4 +48,15 @@ footer {
     color: #ffffff; /* フッターのフォントの色を指定する */
     text-align: center;
     background-color: #2ca9e1;
+}
+
+/* レスポンシブ */
+@media screen and (max-width: 960px) {
+    /* 960px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 600px) {
+    /* 520px以下に適用されるCSS（スマホ用） */
+    .lastLoginDate {
+        display: none;
+    }
 }
