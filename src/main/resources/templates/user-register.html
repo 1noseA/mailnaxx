@@ -11,44 +11,40 @@
     <div class="contents">
         <div class="container">
             <div class="formArea">
-                <h4 class="text-center m-4">社員登録</h4>
+                <div class="title text-center m-4">社員登録</div>
 
                 <form method="POST" th:action="@{/user-register}" th:object="${usersForm}">
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="userName" class="col-form-label">氏名(漢字)
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-8 d-flex justify-content-md-center">
                             <input type="text" class="form-control" placeholder="姓" name="userLastName" id="userLastName" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control" placeholder="名" name="userFirstName" id="userFirstName" />
+                            <input type="text" class="form-control ms-2" placeholder="名" name="userFirstName" id="userFirstName" />
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="userNameKana" class="col-form-label">氏名(カタカナ)
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-8 d-flex justify-content-md-center">
                             <input type="text" class="form-control" placeholder="セイ" name="userLastKana" id="userLastKana" />
-                        </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control" placeholder="メイ" name="userFirstKana" id="userFirstKana" />
+                            <input type="text" class="form-control ms-2" placeholder="メイ" name="userFirstKana" id="userFirstKana" />
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="hireDate" class="col-form-label">入社年月
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8 d-flex align-items-center">
+                        <div class="col-12 col-md-8 d-flex align-content-center">
                             <select class="form-select w30" name="hireYear" id="hireYear">
                                 <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
                                         th:value="${hireYear}"
@@ -56,7 +52,7 @@
                                         th:selected="${hireYear == currentYear}">
                                 </option>
                             </select>
-                            <span class="dateLabel">年</span>
+                            <span class="p-2">年</span>
                             <select class="form-select w20" name="hireMonth" id="hireMonth">
                                 <option th:each="hireMonth : ${#numbers.sequence(1, 12)}"
                                         th:value="${hireMonth}"
@@ -64,17 +60,17 @@
                                         th:selected="${hireMonth == currentMonth}">
                                 </option>
                             </select>
-                            <span class="dateLabel">月</span>
+                            <span class="p-2">月</span>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="affiliationId" class="col-form-label">所属
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12 col-md-8">
                             <select class="form-select w60" name="affiliationId" id="affiliationId">
                                 <option>選択してください</option>
                                 <option th:each="affiliation : ${affiliationList}"
@@ -86,12 +82,12 @@
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="roleClass" class="col-form-label ms-1">権限区分
                                 <span class="badge bg-dark">必須</span>
                             </label>
                         </div>
-                        <div class="col-8 d-flex align-items-center">
+                        <div class="col-12 col-md-8 d-flex align-items-center">
                             <select class="form-select w60" name="roleClass" id="roleClass">
                                 <option th:each="roleClass : ${roleClassList}"
                                         th:value="${roleClass.value}"
@@ -106,12 +102,12 @@
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="birthDay" class="col-form-label">生年月日
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8 d-flex align-items-center">
+                        <div class="col-12 col-md-8 d-flex align-items-center">
                             <select class="form-select w30" name="birthYear" id="birthYear">
                                 <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
                                         th:value="${birthYear}"
@@ -119,7 +115,7 @@
                                         th:selected="${birthYear == birthYearDefault}">
                                 </option>
                             </select>
-                            <span class="dateLabel">年</span>
+                            <span class="p-2">年</span>
                             <select class="form-select w20" name="birthMonth" id="birthMonth">
                                 <option></option>
                                 <option th:each="birthMonth : ${#numbers.sequence(1, 12)}"
@@ -127,7 +123,7 @@
                                         th:text="${birthMonth}">
                                 </option>
                             </select>
-                            <span class="dateLabel">月</span>
+                            <span class="p-2">月</span>
                             <select class="form-select w20" name="birthDay" id="birthDay">
                                 <option></option>
                                 <option th:each="birthDay : ${#numbers.sequence(1, 31)}"
@@ -135,17 +131,17 @@
                                         th:text="${birthDay}">
                                 </option>
                             </select>
-                            <span>日</span>
+                            <span class="p-2">日</span>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="postCode" class="col-form-label">郵便番号
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8 d-flex align-items-center">
+                        <div class="col-12 col-md-8 d-flex align-items-center">
                             <input type="text" class="form-control w20" placeholder="123" name="postCode1" id="postCode1" />
                             <span class="px-3">-</span>
                             <input type="text" class="form-control w30" placeholder="4567" name="postCode2" id="postCode2" />
@@ -153,23 +149,23 @@
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 d-flex justify-content-end align-items-center">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="address" class="col-form-label">住所
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12 col-md-8">
                             <textarea class="form-control" placeholder="東京都XX区YY1丁目23番地ZZマンション456号室" name="address" id="address"></textarea>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="phoneNumber" class="col-form-label">電話番号
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8 d-flex align-items-center">
+                        <div class="col-12 col-md-8 d-flex align-items-center">
                             <input type="text" class="form-control w30" name="phoneNumber1" id="phoneNumber1" />
                             <span class="px-3">-</span>
                             <input type="text" class="form-control w30" name="phoneNumber2" id="phoneNumber2" />
@@ -179,23 +175,23 @@
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="emailAddress" class="col-form-label">メールアドレス
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12 col-md-8">
                             <input type="text" class="form-control" placeholder="test@mailnaxx.com" name="emailAddress" id="emailAddress" />
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-3 text-end">
+                        <div class="col-12 col-md-3 text-md-end">
                             <label for="password" class="col-form-label">パスワード
                                 <span class="badge bg-dark ms-1">必須</span>
                             </label>
                         </div>
-                        <div class="col-8 passForm">
+                        <div class="col-12 col-md-8 passForm">
                             <input type="password" class="form-control" placeholder="8文字以上の半角英数字" name="password" id="password" />
                             <i class="togglePass fa-regular fa-eye"></i>
                         </div>
