@@ -12,60 +12,60 @@
                 <div th:object="${userInfo}">
                     <table class="table table-bordered">
                         <tr>
-                            <th scope="row" class="w-25">社員番号</th>
+                            <th>社員番号</th>
                             <td th:text="*{user_number}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">氏名（漢字）</th>
+                            <th>氏名（漢字）</th>
                             <td th:text="*{user_name}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">氏名（カタカナ）</th>
+                            <th>氏名（カタカナ）</th>
                             <td th:text="*{user_name_kana}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">入社年月</th>
+                            <th>入社年月</th>
                             <td th:text="*{hire_date}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">所属</th>
+                            <th>所属</th>
                             <td th:text="*{affiliation_id}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">権限区分</th>
+                            <th>権限区分</th>
                             <td th:text="*{role_class}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">生年月日</th>
+                            <th>生年月日</th>
                             <td th:text="*{birth_date}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">郵便番号</th>
+                            <th>郵便番号</th>
                             <td th:text="*{post_code}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">住所</th>
+                            <th>住所</th>
                             <td th:text="*{address}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">電話番号</th>
+                            <th>電話番号</th>
                             <td th:text="*{phone_number}"></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="w-25">メールアドレス</th>
+                            <th>メールアドレス</th>
                             <td th:text="*{email_address}"></td>
                         </tr>
                     </table>
                 </div>
             </div>
 
-            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="mb-4">
-                    <button type="submit" class="btn btnUpdate">編集する</button>
-                    <button type="button" class="btn btnShowReport ms-3">報告を見る</button>
+            <div class="btn-toolbar justify-content-between" role="toolbar">
+                <div>
+                    <button type="submit" class="btn btnUpdate m-1">編集する</button>
+                    <button type="button" class="btn btnShowReport m-1">報告を見る</button>
                 </div>
-                <div class="mb-4" role="group">
-                    <button type="button" class="btn btnBack" onclick="location.href='/user-list'">戻る</button>
+                <div>
+                    <button type="button" class="btn btnBack m-1" onclick="location.href='/user-list'">戻る</button>
                 </div>
             </div>
         </div>

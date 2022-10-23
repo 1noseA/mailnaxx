@@ -49,3 +49,14 @@ footer {
     text-align: center;
     background-color: #2ca9e1;
 }
+
+/* レスポンシブ */
+@media screen and (max-width: 960px) {
+    /* 960px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 600px) {
+    /* 600px以下に適用されるCSS（スマホ用） */
+    .lastLoginDate {
+        display: none;
+    }
+}

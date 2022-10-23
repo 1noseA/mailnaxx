@@ -6,10 +6,14 @@
     background-color: #dee2e6;
 }
 
-.userInfoArea {
-    width: 60%;
+.container {
     margin: 40px auto;
-    padding-top: 30px;
+}
+
+.userInfoArea, .btn-toolbar {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .table {
@@ -17,17 +21,13 @@
 }
 
 .table th {
+    width: 30%;
     background-color: #7C7E80;
     color: #f8f9fa;
 }
 
 .table th, .table td {
     padding: 10px 20px;
-}
-
-.btn-toolbar {
-    width: 60%;
-    margin: 0 auto;
 }
 
 .btnUpdate {
@@ -53,4 +53,22 @@
     border: 1px solid #333333;
     background-color: #C6C9CC;
     cursor: pointer;
+}
+
+/* レスポンシブ */
+@media screen and (max-width: 960px) {
+    /* 960px以下に適用されるCSS（タブレット用） */
+    .table th {
+        padding: 10px;
+    }
+}
+@media screen and (max-width: 600px) {
+    /* 600px以下に適用されるCSS（スマホ用） */
+    .userInfoArea, .btn-toolbar {
+        width: 80%;
+    }
+    .table th, .table td {
+        width: 100%;
+        display: block;
+    }
 }
