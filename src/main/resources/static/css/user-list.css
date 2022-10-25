@@ -21,14 +21,23 @@
     background-color: #a0d8ef;
     cursor: pointer;
 }
+.btnSearch:hover, .btnRegistration:hover {
+    background-color: #c0e2f0;
+    color: #555555;
+    border: 1px solid #555555;
+}
 
 .btnShowReport {
     padding: 8px 32px;
     box-sizing: border-box;
-    border: 2px solid #2ca9e1;
+    background-color: #2ca9e1;
+    color: #f8f9fa;
+    cursor: pointer;
+}
+.btnShowReport:hover {
     background-color: #f8f9fa;
     color: #2ca9e1;
-    cursor: pointer;
+    border: 2px solid #2ca9e1;
 }
 
 .btnDelete {
@@ -39,6 +48,11 @@
     color: #f8f9fa;
     cursor: pointer;
 }
+.btnDelete:hover {
+    background-color: #f8f9fa;
+    color: #7C7E80;
+    border: 2px solid #7C7E80;
+}
 
 .btnBack {
     padding: 8px 32px;
@@ -46,6 +60,11 @@
     border: 1px solid #333333;
     background-color: #C6C9CC;
     cursor: pointer;
+}
+.btnBack:hover{
+    background-color: #C6C9CC;
+    color: #555555;
+    border: 1px solid #555555;
 }
 
 .listArea {
