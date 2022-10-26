@@ -1,11 +1,3 @@
-.contents {
-    width: 100%; /* コンテンツの横幅を指定する */
-    overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
-    padding-top: 120px;
-    padding-bottom: 80px;
-    background-color: #dee2e6;
-}
-
 .noticeArea {
     width: 80%;
     max-width: 800px;
@@ -41,13 +33,10 @@
 }
 
 /* レスポンシブ */
-@media screen and (max-width: 960px) {
-    /* 960px以下に適用されるCSS（タブレット用） */
+@media screen and (max-width: 992px) {
     .noticeArea, .menuArea {
         width: 90%;
     }
 }
-@media screen and (max-width: 520px) {
-    /* 520px以下に適用されるCSS（スマホ用） */
-
+@media screen and (max-width: 576px) {
 }

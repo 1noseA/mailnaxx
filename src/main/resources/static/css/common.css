@@ -25,6 +25,17 @@ a {
     border: 2px solid #2ca9e1;
 }
 
+body {
+    background-color: #dee2e6;
+}
+
+.contents {
+    width: 100%; /* コンテンツの横幅を指定する */
+    overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
+    padding-top: 120px;
+    padding-bottom: 80px;
+}
+
 /* パスワード表示非表示 */
 .passForm {
     position: relative;
@@ -38,9 +49,9 @@ a {
 }
 
 footer {
-    /* position: fixed; フッターを固定する
-    bottom: 0; 上部から配置の基準位置を決める
-    left: 0; 左から配置の基準位置を決める */
+    position: fixed; /* フッターを固定する */
+    bottom: 0; /* 上部から配置の基準位置を決める */
+    left: 0; /* 左から配置の基準位置を決める */
     width: 100%; /* フッターの横幅を指定する */
     height: 80px; /* フッターの高さを指定する */
     padding:10px; /* フッター内側の余白を指定する(上下左右) */

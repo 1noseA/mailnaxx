@@ -1,0 +1,27 @@
+.container {
+    width: 60%;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+}
+
+.btnUpdate {
+    padding: 10px 30px;
+    box-sizing: border-box;
+    border: 1px solid #333333;
+    background-color: #a0d8ef;
+    cursor: pointer;
+}
+.btnUpdate:hover {
+    background-color: #c0e2f0;
+    color: #555555;
+    border: 1px solid #555555;
+}
+
+/* レスポンシブ */
+@media screen and (max-width: 992px) {
+    .container {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 576px) {
+}
