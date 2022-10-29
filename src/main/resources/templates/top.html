@@ -12,64 +12,62 @@
             <div class="noticeArea">
                 <h5 class="ps-3">お知らせ</h5>
                 <div class="overflow-auto">
-                    <div class="table-responsive tableArea">
-                        <table class="table table-bordered table-hover border border-dark">
-                            <tr th:each="notice : ${noticeList}">
-                                <td th:text="${notice.start_date}" class="w-25" />
-                                <td th:text="${notice.notice_message}" />
-                            </tr>
-                        </table>
-                    </div>
+                    <table class="table table-bordered table-hover border border-dark">
+                        <tr th:each="notice : ${noticeList}">
+                            <td th:text="${notice.start_date}" class="w-25" />
+                            <td th:text="${notice.notice_message}" />
+                        </tr>
+                    </table>
                 </div>
             </div>
 
             <div class="menuArea">
                 <div class="row">
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" onclick="location.href='/user-list'" class="btn btnMenu w-100" value="btnUserList" data-bs-toggle="tooltip" data-bs-placement="top" title="実装中だよ">
+                        <button type="button" onclick="location.href='/user-list'" class="btn btnSub w-100" value="btnUserList" data-bs-toggle="tooltip" data-bs-placement="top" title="実装中だよ">
                             社員一覧
                         </button>
                     </div>
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="btn btnMenu w-100" value="btnDailyReport"
+                        <button type="button" class="btn btnSub w-100" value="btnDailyReport"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="ただの飾りだよ">日次報告</button>
                     </div>
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="btn btnMenu w-100" value="btnWeeklyReport"
+                        <button type="button" class="btn btnSub w-100" value="btnWeeklyReport"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="これから実装するよ">週次報告</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="col btn btnMenu w-100" value="btnAttendanceReport"
+                        <button type="button" class="col btn btnSub w-100" value="btnAttendanceReport"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="ただの飾りだよ">勤怠連絡</button>
                     </div>
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="col btn btnMenu w-100" value="btnRoster"
+                        <button type="button" class="col btn btnSub w-100" value="btnRoster"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="ただの飾りだよ">勤務表</button>
                     </div>
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="col btn btnMenu w-100" value="btnAccountingReport"
+                        <button type="button" class="col btn btnSub w-100" value="btnAccountingReport"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="ただの飾りだよ">会計報告</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="col btn btnMenu w-100" value="btnQuestionnaire"
+                        <button type="button" class="col btn btnSub w-100" value="btnQuestionnaire"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="ただの飾りだよ">アンケート</button>
                     </div>
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="col btn btnMenu w-100" value="btnVariousApplications"
+                        <button type="button" class="col btn btnSub w-100" value="btnVariousApplications"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="ただの飾りだよ">各種申請</button>
                     </div>
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" class="col btn btnMenu w-100" value="btnVariousDownloads"
+                        <button type="button" class="col btn btnSub w-100" value="btnVariousDownloads"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="ただの飾りだよ">各種ダウンロード</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-4 p-1 text-start">
-                        <button type="button" class="col btn btnMenu w-100" value="btnMasterAdmin"
+                        <button type="button" class="col btn btnSub w-100" value="btnMasterAdmin"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="今後実装するかも">マスタ管理</button>
                     </div>
                 </div>

@@ -20,26 +20,29 @@
 <body>
      <header th:fragment="header">
         <div class="container-fluid">
-            <div class="row">
-                <h1 class="col-6 order-1 col-md-4 col-lg-6 siteLogo">
-                    <a href="/top">mailnaxx</a>
-                </h1>
+            <div class="row d-flex align-items-center">
+                <div class="col-6 order-1 col-md-4 col-lg-6">
+                    <a href="/top"><span class="logo">mailnaxx</span></a><br>
+                    <span class="motto">mail de teisyutu mendoi.</span>
+                </div>
                 <div class="col-12 order-3 col-md-6 order-md-2 col-lg-4 d-flex justify-content-start flex-md-column">
                     <div class="loginUserId">
-                        <span>ＩＤ：</span>
+                        ＩＤ：
                         20221001&emsp;
                     </div>
                     <div class="loginUserName">
-                        <span>名前：</span>
+                        名前：
                         〇〇&emsp;〇〇&emsp;
                     </div>
                     <div class="lastLoginDate">
-                        <span>最終ログイン：</span>
+                        最終ログイン：
                         2022/10/22 20:00
                     </div>
                 </div>
                 <div class="col-6 order-2 col-md-2 order-md-3 text-end">
-                    <button type="button" class="btn btnLogout" value="btnLogout">ログアウト</button>
+                    <a href="#">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
                 </div>
             </div>
         </div>

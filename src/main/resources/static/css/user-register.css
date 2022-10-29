@@ -2,10 +2,11 @@
     width: 80%;
     padding: 0;
 }
+
 .formArea {
-    margin: 32px auto;
     padding: 8px 24px;
-    background-color: #f8f9fa;
+    background-color: #F5F5F5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .title {
@@ -19,32 +20,6 @@
 
 .togglePass {
     right: 20px;
-}
-
-.btnRegistration {
-    padding: 8px 32px;
-    box-sizing: border-box;
-    border: 1px solid #333333;
-    background-color: #a0d8ef;
-    cursor: pointer;
-}
-.btnRegistration:hover {
-    background-color: #c0e2f0;
-    color: #555555;
-    border: 1px solid #555555;
-}
-
-.btnBack {
-    padding: 8px 32px;
-    box-sizing: border-box;
-    border: 1px solid #333333;
-    background-color: #adb0b3;
-    cursor: pointer;
-}
-.btnBack:hover{
-    background-color: #C6C9CC;
-    color: #555555;
-    border: 1px solid #555555;
 }
 
 .w20{

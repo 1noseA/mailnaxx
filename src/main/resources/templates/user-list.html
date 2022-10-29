@@ -9,7 +9,7 @@
 
     <div class="contents">
         <div class="container">
-            <div class="searchArea">
+            <div class="searchArea mx-auto my-5">
                 <div class="row mb-3 align-items-center">
                     <div class="col-md-2 text-md-end">
                         <label for="userName" class="col-form-label fw-bold">氏名</label>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btnSearch">検索</button>
+                    <button type="submit" class="btn btnMain">検索</button>
                 </div>
             </div>
 
@@ -55,18 +55,18 @@
                 <form method="post" th:action="@{/delete}">
                     <div class="btn-toolbar justify-content-between" role="toolbar">
                         <div class="mb-4">
-                            <button type="button" class="btn btnRegistration" onclick="location.href='./user-register'">新規登録</button>
+                            <button type="button" class="btn btnLight" onclick="location.href='./user-register'">新規登録</button>
                         </div>
                         <div class="mb-4" role="group">
-                            <button type="button" class="btn btnShowReport me-3">報告を見る</button>
-                            <input type="submit" class="btn btnDelete" value="削除">
+                            <button type="button" class="btn btnAccent me-3">報告を見る</button>
+                            <input type="submit" class="btn btnDark" value="削除">
                         </div>
                     </div>
 
-                    <div class="table-responsive tableArea">
+                    <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
-                                <tr>
+                                <tr class="border-bottom border-dark">
                                     <th scope="col"><!-- 選択 --></th>
                                     <th scope="col">社員番号</th>
                                     <th scope="col">氏名</th>
@@ -106,7 +106,7 @@
                         </table>
                     </div>
                 </form>
-                <div class="mt-4">
+                <div class="my-5">
                     <button type="button" class="btn btnBack" onclick="location.href='./top'">戻る</button>
                 </div>
             </div>

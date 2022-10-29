@@ -10,14 +10,14 @@
 
     <div class="contents">
         <div class="container">
-            <div class="formArea">
-                <div class="title text-center m-4">社員登録</div>
+            <div class="formArea mx-auto my-5">
+                <div class="title text-center m-5">社員登録</div>
 
                 <form method="POST" th:action="@{/user-register}" th:object="${usersForm}">
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="userName" class="col-form-label">氏名(漢字)
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex justify-content-md-center">
@@ -29,7 +29,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="userNameKana" class="col-form-label">氏名(カタカナ)
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex justify-content-md-center">
@@ -41,7 +41,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="hireDate" class="col-form-label">入社年月
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-content-center">
@@ -67,7 +67,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="affiliationId" class="col-form-label">所属
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8">
@@ -84,7 +84,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="roleClass" class="col-form-label ms-1">権限区分
-                                <span class="badge bg-dark">必須</span>
+                                <span class="badge bg-secondary">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
@@ -104,7 +104,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="birthDay" class="col-form-label">生年月日
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
@@ -138,7 +138,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="postCode" class="col-form-label">郵便番号
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
@@ -151,7 +151,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="address" class="col-form-label">住所
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8">
@@ -162,7 +162,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="phoneNumber" class="col-form-label">電話番号
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
@@ -177,7 +177,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="emailAddress" class="col-form-label">メールアドレス
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8">
@@ -188,7 +188,7 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="password" class="col-form-label">パスワード
-                                <span class="badge bg-dark ms-1">必須</span>
+                                <span class="badge bg-secondary ms-1">必須</span>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 passForm">
@@ -197,12 +197,12 @@
                         </div>
                     </div>
 
-                    <div class="text-center m-4">
-                        <button type="submit" class="btn btnRegistration">登録</button>
+                    <div class="text-center m-5">
+                        <button type="submit" class="btn btnMain">登録</button>
                     </div>
                 </form>
             </div>
-            <div class="row">
+            <div class="row mb-5">
                 <div class="col-auto">
                     <button type="button" class="btn btnBack" onclick="location.href='./user-list'">戻る</button>
                 </div>

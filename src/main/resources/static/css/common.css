@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 * {
-    color: #333333;
+    color: #333333; /* テキストカラー */
+    font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
 }
 
 header {
@@ -9,24 +10,41 @@ header {
     top: 0; /* 上部から配置の基準位置を決める */
     left: 0; /* 左から配置の基準位置を決める */
     width: 100%; /* ヘッダーの横幅を指定する */
-    height: 100px; /* ヘッダーの高さを指定する */
+    height: 110px; /* ヘッダーの高さを指定する */
     padding: 10px; /* ヘッダー内側の余白を指定する(上下左右) */
-    background-color:rgba(255,255,255,0.5);
+    background-color: #03A9F4; /* メインカラー(LightBlue500) */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.16);
 }
 
 a {
-    font-weight: bold;
     text-decoration: none;
-    color: #2ca9e1;
+}
+a,a:hover,a:visited{
+    color: inherit;
 }
 
-.btnLogout {
-    color: #2ca9e1;
-    border: 2px solid #2ca9e1;
+/* ロゴ */
+.logo {
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: 40px;
+}
+.motto {
+    color: #B3E5FC; /* メインライトカラー(LightBlue100) */
+}
+
+header i {
+    color: #FFFFFF;
+    font-size: 24px;
+}
+
+.loginUserId, .loginUserName, .lastLoginDate {
+    color: #F5F5F5;
+    font-size: 14px
 }
 
 body {
-    background-color: #dee2e6;
+    background-color: #CFD8DC; /* 背景カラー(BlueGray100) */
 }
 
 .contents {
@@ -34,6 +52,91 @@ body {
     overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
     padding-top: 120px;
     padding-bottom: 80px;
+}
+
+/* ボタンデザイン */
+.btnMain {
+    padding: 8px 32px;
+    box-sizing: border-box;
+    background-color: #0288D1; /* メインダークカラー(LightBlue700) */
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.btnMain:hover {
+    background-color: #039BE5;
+    color: #FFFFFF;
+    box-shadow: none;
+}
+
+.btnSub {
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #00ACC1; /* サブカラー(Cyan600) */
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.btnSub:hover {
+    background-color: #00BCD4;
+    color: #FFFFFF;
+    box-shadow: none;
+}
+
+.btnLight {
+    padding: 8px 32px;
+    box-sizing: border-box;
+    background-color: #4FC3F7; /* メインライトカラー(LightBlue300) */
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.btnLight:hover {
+    background-color: #81D4FA;
+    color: #FFFFFF;
+    box-shadow: none;
+}
+
+.btnAccent {
+    padding: 8px 32px;
+    box-sizing: border-box;
+    background-color: #FFA000; /* アクセントカラー(Amber700) */
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.btnAccent:hover {
+    background-color: #FFB300;
+    color: #FFFFFF;
+    box-shadow: none;
+}
+
+.btnDark {
+    padding: 8px 32px;
+    box-sizing: border-box;
+    background-color: #455A64; /* グレーカラー(BlueGray700) */
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.btnDark:hover {
+    background-color: #607D8B;
+    color: #FFFFFF;
+    box-shadow: none;
+}
+
+.btnBack {
+    padding: 8px 32px;
+    box-sizing: border-box;
+    background-color: #78909C; /* グレーカラー(BlueGray400) */
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.btnBack:hover{
+    background-color: #90A4AE;
+    color: #FFFFFF;
+    box-shadow: none;
 }
 
 /* パスワード表示非表示 */
@@ -55,19 +158,16 @@ footer {
     width: 100%; /* フッターの横幅を指定する */
     height: 80px; /* フッターの高さを指定する */
     padding:10px; /* フッター内側の余白を指定する(上下左右) */
-    background-color: #2ca9e1; /* フッターの背景色を指定する */
-    color: #ffffff; /* フッターのフォントの色を指定する */
+    background-color: #03A9F4; /* メインカラー(LightBlue500) */
+    color: #FFFFFF; /* フッターのフォントの色を指定する */
     text-align: center;
-    background-color: #2ca9e1;
 }
 
 /* レスポンシブ */
-@media screen and (max-width: 960px) {
-    /* 960px以下に適用されるCSS（タブレット用） */
+@media screen and (max-width: 992px) {
 }
-@media screen and (max-width: 600px) {
-    /* 600px以下に適用されるCSS（スマホ用） */
-    .lastLoginDate {
+@media screen and (max-width: 768px) {
+    .motto, .lastLoginDate {
         display: none;
     }
 }
