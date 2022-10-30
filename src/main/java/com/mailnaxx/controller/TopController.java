@@ -21,7 +21,7 @@ public class TopController {
 
         List<Notices> noticeList = noticesMapper.selectAll();
         model.addAttribute("noticeList", noticeList);
-        return "top";
+        return "top/top";
 
     }
 

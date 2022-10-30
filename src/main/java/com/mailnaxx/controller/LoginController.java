@@ -10,7 +10,14 @@ public class LoginController {
     @RequestMapping("/login")
     public String showLoginPage(Model model) {
 
-        return "login";
+        return "login/login";
+
+    }
+
+    @RequestMapping("/reset")
+    public String showPassResetPage(Model model) {
+
+        return "login/reset";
 
     }
 }

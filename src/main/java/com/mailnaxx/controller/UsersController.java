@@ -37,28 +37,28 @@ public class UsersController {
         return new UsersForm();
     }
 
-    @RequestMapping("/user-list")
+    @RequestMapping("/user/list")
     public String index(Model model) {
 
         List<Users> userList = usersMapper.findAll();
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
-        return "user-list";
+        return "user/list";
 
     }
 
     // 詳細画面初期表示（仮）
-    @RequestMapping("/user-detail/{user_id:.+}")
+    @RequestMapping("/user/detail/{user_id:.+}")
     public String detail(@PathVariable("user_id") int user_id, Model model) {
 
         Users userInfo = usersMapper.findOne(user_id);
         model.addAttribute("userInfo", userInfo);
-        return "user-detail";
+        return "user/detail";
 
     }
 
     // 登録画面初期表示
-    @RequestMapping(value="/user-register", method = RequestMethod.GET)
+    @RequestMapping(value="/user/register", method = RequestMethod.GET)
     public String register(Model model) {
 
         // 入社年月プルダウン
@@ -84,12 +84,12 @@ public class UsersController {
         model.addAttribute("birthYearTo", birthYearTo);
         model.addAttribute("birthYearDefault", birthYearDefault);
 
-        return "user-register";
+        return "user/register";
 
     }
 
     // 登録画面登録処理
-    @RequestMapping(value="/user-register", method = RequestMethod.POST)
+    @RequestMapping(value="/user/register", method = RequestMethod.POST)
     public String register(UsersForm usersForm, Model model) {
 
         Users users = new Users();
@@ -152,16 +152,16 @@ public class UsersController {
         users.setCreated_by(1);
 
         usersMapper.insert(users);
-        return "redirect:/user-list";
+        return "redirect:/user/list";
 
     }
 
     // 論理削除処理
-    @RequestMapping(value="/delete")
+    @RequestMapping(value="/user/delete")
     public String delete(Users users) {
 
         usersMapper.delete(users);
-        return "redirect:/user-list";
+        return "redirect:/user/list";
 
     }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('User Detail',~{::link},~{::script})">
-<link rel="stylesheet" th:href="@{/css/user-detail.css}" />
+<link rel="stylesheet" th:href="@{/css/user/detail.css}" />
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -65,7 +65,7 @@
                     <button type="button" class="btn btnAccent m-1">報告を見る</button>
                 </div>
                 <div>
-                    <button type="button" class="btn btnBack m-1" onclick="location.href='/user-list'">戻る</button>
+                    <button type="button" class="btn btnBack m-1" onclick="location.href='/user/list'">戻る</button>
                 </div>
             </div>
         </div>

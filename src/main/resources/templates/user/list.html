@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('User List',~{::link},~{::script})">
-<link rel="stylesheet" th:href="@{/css/user-list.css}" />
-<!-- <script th:src="@{/js/user-list.js}"></script> -->
+<link rel="stylesheet" th:href="@{/css/user/list.css}" />
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -55,7 +54,7 @@
                 <form method="post" th:action="@{/delete}">
                     <div class="btn-toolbar justify-content-between" role="toolbar">
                         <div class="mb-4">
-                            <button type="button" class="btn btnLight" onclick="location.href='./user-register'">新規登録</button>
+                            <button type="button" class="btn btnLight" onclick="location.href='/user/register'">新規登録</button>
                         </div>
                         <div class="mb-4" role="group">
                             <button type="button" class="btn btnAccent me-3">報告を見る</button>
@@ -87,7 +86,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a th:href="@{'/user-detail/' + ${userList.user_id}}">
+                                        <a th:href="@{'/user/detail/' + ${userList.user_id}}">
                                             <span th:text="${userList.user_number}"></span>
                                         </a>
                                     </td>
@@ -107,7 +106,7 @@
                     </div>
                 </form>
                 <div class="my-5">
-                    <button type="button" class="btn btnBack" onclick="location.href='./top'">戻る</button>
+                    <button type="button" class="btn btnBack" onclick="location.href='/top'">戻る</button>
                 </div>
             </div>
         </div>

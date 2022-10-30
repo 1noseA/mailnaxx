@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('TOP',~{::link},~{::script})">
-<link rel="stylesheet" th:href="@{/css/top.css}" />
+<link rel="stylesheet" th:href="@{/css/top/top.css}" />
 <script th:src="@{/js/top.js}"></script>
 </head>
 <body>
@@ -24,7 +24,7 @@
             <div class="menuArea">
                 <div class="row">
                     <div class="col-12 col-md-4 p-1">
-                        <button type="button" onclick="location.href='/user-list'" class="btn btnSub w-100" value="btnUserList" data-bs-toggle="tooltip" data-bs-placement="top" title="実装中だよ">
+                        <button type="button" onclick="location.href='/user/list'" class="btn btnSub w-100" value="btnUserList" data-bs-toggle="tooltip" data-bs-placement="top" title="実装中だよ">
                             社員一覧
                         </button>
                     </div>
