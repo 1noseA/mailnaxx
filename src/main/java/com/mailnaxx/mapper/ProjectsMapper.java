@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.mailnaxx.entity.Notices;
+import com.mailnaxx.entity.Projects;
 
 @Mapper
-public interface NoticesMapper {
+public interface ProjectsMapper {
 
-    public List<Notices> findAll();
+    public List<Projects> findAll();
 
 }

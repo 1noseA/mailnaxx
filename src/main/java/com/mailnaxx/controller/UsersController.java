@@ -69,7 +69,7 @@ public class UsersController {
         model.addAttribute("currentMonth", currentMonth);
 
         // 所属プルダウン
-        List<Affiliations> affiliationList = affiliationsMapper.selectAll();
+        List<Affiliations> affiliationList = affiliationsMapper.findAll();
         model.addAttribute("affiliationList", affiliationList);
 
         // 権限区分プルダウン

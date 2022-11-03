@@ -9,6 +9,6 @@ import com.mailnaxx.entity.Affiliations;
 @Mapper
 public interface AffiliationsMapper {
 
-    public List<Affiliations> selectAll();
+    public List<Affiliations> findAll();
 
 }

@@ -13,6 +13,8 @@ public interface UsersMapper {
 
     public Users findOne(int user_id);
 
+    public List<Users> findSales();
+
     public void insert(Users users);
 
     public void delete(Users users);

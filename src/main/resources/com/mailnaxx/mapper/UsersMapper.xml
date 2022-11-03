@@ -13,6 +13,12 @@
         WHERE user_id = #{user_id}
     </select>
 
+    <select id="findSales" resultType="com.mailnaxx.entity.Users">
+        SELECT * FROM users
+        WHERE sales_flg = '1'
+        AND  deleted_flg = '0'
+    </select>
+
     <insert id="insert" parameterType="com.mailnaxx.entity.Users" useGeneratedKeys="true" keyProperty="user_id">
         INSERT INTO users
         (

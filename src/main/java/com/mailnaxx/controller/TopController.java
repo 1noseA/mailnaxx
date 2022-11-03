@@ -19,7 +19,7 @@ public class TopController {
     @RequestMapping("/top")
     public String index(Model model) {
 
-        List<Notices> noticeList = noticesMapper.selectAll();
+        List<Notices> noticeList = noticesMapper.findAll();
         model.addAttribute("noticeList", noticeList);
         return "top/top";
 
