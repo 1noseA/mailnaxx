@@ -6,7 +6,7 @@ import lombok.Data;
 public class WeeklyReportForm {
 
     // 担当営業
-    private String sales_name;
+    private String salesName;
 
     // 現場ID
     private int projectId;
@@ -38,11 +38,11 @@ public class WeeklyReportForm {
     // スケジュール感
     private int schedule;
 
-    // 成果
+    // 結果
     private String result;
 
-    // 気づき
-    private String realization;
+    // 所感
+    private String impression;
 
     // 改善点
     private String improvements;
@@ -52,8 +52,5 @@ public class WeeklyReportForm {
 
     // 特記事項
     private String remarks;
-
-    // 現場社員有無
-    private String colleagueExists;
 
 }

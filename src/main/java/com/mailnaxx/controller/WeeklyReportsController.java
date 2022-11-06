@@ -1,6 +1,8 @@
 package com.mailnaxx.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,10 +65,21 @@ public class WeeklyReportsController {
 
         // 報告対象週プルダウン
 
+        // ラジオボタン
+        Map<String, String> radioThree = new LinkedHashMap<>();
+        radioThree.put("1", "良い");
+        radioThree.put("2", "やや良い");
+        radioThree.put("3", "普通");
+        radioThree.put("4", "やや悪い");
+        radioThree.put("5", "悪い");
+        model.addAttribute("radioProgress", radioThree);
+        model.addAttribute("radioCondition", radioThree);
+        model.addAttribute("radioRelationship", radioThree);
+        // model.addAttribute("nomal", "3");
+
         // 現場社員プルダウン
         List<Users> userList = usersMapper.findAll();
         model.addAttribute("userList", userList);
-
 
         return "weekly-reports/create";
 

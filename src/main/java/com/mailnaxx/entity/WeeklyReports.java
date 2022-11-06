@@ -21,7 +21,7 @@ public class WeeklyReports {
     private int difficulty;
     private int schedule;
     private String result;
-    private String realization;
+    private String impression;
     private String improvements;
     private String next_plan;
     private String remarks;
