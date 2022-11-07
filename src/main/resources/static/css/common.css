@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 * {
-    color: #333333; /* テキストカラー */
+    color: #333; /* テキストカラー */
     font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
 }
 
@@ -26,7 +26,7 @@ a,a:hover,a:visited{
 /* ロゴ */
 .logo {
     font-weight: bold;
-    color: #FFFFFF;
+    color: #FFF;
     font-size: 40px;
 }
 .motto {
@@ -34,7 +34,7 @@ a,a:hover,a:visited{
 }
 
 header i {
-    color: #FFFFFF;
+    color: #FFF;
     font-size: 24px;
 }
 
@@ -59,13 +59,13 @@ body {
     padding: 8px 32px;
     box-sizing: border-box;
     background-color: #0288D1; /* メインダークカラー(LightBlue700) */
-    color: #FFFFFF;
+    color: #FFF;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .btnMain:hover {
     background-color: #039BE5;
-    color: #FFFFFF;
+    color: #FFF;
     box-shadow: none;
 }
 
@@ -73,13 +73,13 @@ body {
     padding: 20px;
     box-sizing: border-box;
     background-color: #00ACC1; /* サブカラー(Cyan600) */
-    color: #FFFFFF;
+    color: #FFF;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .btnSub:hover {
     background-color: #00BCD4;
-    color: #FFFFFF;
+    color: #FFF;
     box-shadow: none;
 }
 
@@ -87,13 +87,13 @@ body {
     padding: 8px 32px;
     box-sizing: border-box;
     background-color: #4FC3F7; /* メインライトカラー(LightBlue300) */
-    color: #FFFFFF;
+    color: #FFF;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .btnLight:hover {
     background-color: #81D4FA;
-    color: #FFFFFF;
+    color: #FFF;
     box-shadow: none;
 }
 
@@ -101,13 +101,13 @@ body {
     padding: 8px 32px;
     box-sizing: border-box;
     background-color: #FFA000; /* アクセントカラー(Amber700) */
-    color: #FFFFFF;
+    color: #FFF;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .btnAccent:hover {
     background-color: #FFB300;
-    color: #FFFFFF;
+    color: #FFF;
     box-shadow: none;
 }
 
@@ -115,13 +115,13 @@ body {
     padding: 8px 32px;
     box-sizing: border-box;
     background-color: #455A64; /* グレーカラー(BlueGray700) */
-    color: #FFFFFF;
+    color: #FFF;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .btnDark:hover {
     background-color: #607D8B;
-    color: #FFFFFF;
+    color: #FFF;
     box-shadow: none;
 }
 
@@ -129,13 +129,13 @@ body {
     padding: 8px 32px;
     box-sizing: border-box;
     background-color: #78909C; /* グレーカラー(BlueGray400) */
-    color: #FFFFFF;
+    color: #FFF;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .btnBack:hover{
     background-color: #90A4AE;
-    color: #FFFFFF;
+    color: #FFF;
     box-shadow: none;
 }
 
@@ -159,7 +159,7 @@ footer {
     height: 80px; /* フッターの高さを指定する */
     padding:10px; /* フッター内側の余白を指定する(上下左右) */
     background-color: #03A9F4; /* メインカラー(LightBlue500) */
-    color: #FFFFFF; /* フッターのフォントの色を指定する */
+    color: #FFF; /* フッターのフォントの色を指定する */
     text-align: center;
 }
 

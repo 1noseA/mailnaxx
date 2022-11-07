@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common :: meta_header('Register',~{::link},~{::script})">
-<link rel="stylesheet" th:href="@{/css/user/register.css}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<head th:replace="common :: meta_header('Weekly Report Create',~{::link},~{::script})">
+<link rel="stylesheet" th:href="@{/css/weekly-report/create.css}" />
 <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
@@ -10,10 +9,9 @@
 
     <div class="contents">
         <div class="container">
-            <div class="formArea mx-auto my-5">
-                <div class="title text-center m-5">週次報告書</div>
-
-                <form method="POST" th:action="@{/weekly-reports/create}" th:object="${weeklyReportForm}">
+            <div class="title text-center mt-5 p-3">週次報告書</div>
+            <div class="formArea mx-auto mb-5">
+                <form method="POST" th:action="@{/weekly-report/create}" th:object="${weeklyReportForm}">
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="salesName" class="col-form-label">担当営業

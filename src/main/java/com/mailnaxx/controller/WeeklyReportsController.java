@@ -31,7 +31,7 @@ public class WeeklyReportsController {
         return new WeeklyReportForm();
     }
 
-//    @RequestMapping("/weekly-reports/list")
+//    @RequestMapping("/weekly-report/list")
 //    public String index(Model model) {
 //
 //        List<Users> userList = usersMapper.findAll();
@@ -42,7 +42,7 @@ public class WeeklyReportsController {
 //    }
 
     // 詳細画面初期表示（仮）
-//    @RequestMapping("/weekly-reports/detail/{user_id:.+}")
+//    @RequestMapping("/weekly-report/detail/{user_id:.+}")
 //    public String detail(@PathVariable("user_id") int user_id, Model model) {
 //
 //        Users userInfo = usersMapper.findOne(user_id);
@@ -52,7 +52,7 @@ public class WeeklyReportsController {
 //    }
 
     // 登録画面初期表示
-    @RequestMapping(value="/weekly-reports/create", method = RequestMethod.GET)
+    @RequestMapping(value="/weekly-report/create", method = RequestMethod.GET)
     public String create(Model model) {
 
         // 担当営業
@@ -81,12 +81,12 @@ public class WeeklyReportsController {
         List<Users> userList = usersMapper.findAll();
         model.addAttribute("userList", userList);
 
-        return "weekly-reports/create";
+        return "weekly-report/create";
 
     }
 
     // 登録画面登録処理
-//    @RequestMapping(value="/weekly-reports/create", method = RequestMethod.POST)
+//    @RequestMapping(value="/weekly-report/create", method = RequestMethod.POST)
 //    public String register(UsersForm usersForm, Model model) {
 //
 //        Users users = new Users();
