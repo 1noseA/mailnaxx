@@ -41,16 +41,8 @@
 
                     <div class="row mb-3">
                         <div class="col-6">
-                            <label for="reportDate" class="col-form-label">報告対象週
-                                <span class="badge bg-secondary ms-1">必須</span>
-                            </label>
-                            <!-- <select class="form-select w30" name="reportDate" id="reportDate">
-                                <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
-                                        th:value="${hireYear}"
-                                        th:text="${hireYear}"
-                                        th:selected="${hireYear == currentYear}">
-                                </option>
-                            </select> -->
+                            <label for="reportDate" class="col-form-label">報告対象週</label>
+                            <input type="text" class="form-control" name="reportDate" id="reportDate" th:value="${reportDate}" readonly />
                         </div>
                         <div class="col-6">
                             <label for="aveOvertimeHours" class="col-form-label">平均残業時間

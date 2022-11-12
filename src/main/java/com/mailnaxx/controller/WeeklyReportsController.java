@@ -1,5 +1,8 @@
 package com.mailnaxx.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +66,16 @@ public class WeeklyReportsController {
         List<Projects> projectList = projectsMapper.findAll();
         model.addAttribute("projectList", projectList);
 
-        // 報告対象週プルダウン
+        // 報告対象週ラベル
+        // 現在日付を取得
+        LocalDate now = LocalDate.now();
+        // 現在日の週の月曜日を取得
+        LocalDate monday = now.with(DayOfWeek.MONDAY);
+        // 現在日の週の日曜日を取得
+        LocalDate sunday = now.with(DayOfWeek.SUNDAY);
+        String reportDate =
+                monday.format(DateTimeFormatter.ofPattern("yyyy/MM/dd(E)")) + " 〜 " + sunday.format(DateTimeFormatter.ofPattern("yyyy/MM/dd(E)"));
+        model.addAttribute("reportDate", reportDate);
 
         // ラジオボタン
         Map<String, String> radioThree = new LinkedHashMap<>();
@@ -75,7 +87,6 @@ public class WeeklyReportsController {
         model.addAttribute("radioProgress", radioThree);
         model.addAttribute("radioCondition", radioThree);
         model.addAttribute("radioRelationship", radioThree);
-        // model.addAttribute("nomal", "3");
 
         // 現場社員プルダウン
         List<Users> userList = usersMapper.findAll();
