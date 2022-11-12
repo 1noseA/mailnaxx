@@ -3,6 +3,7 @@
 <head th:replace="common :: meta_header('Weekly Report Create',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/weekly-report/create.css}" />
 <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/weekly-report.js}"></script>
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -160,9 +161,47 @@
                         </div>
                     </div>
 
+                    <div>
+                        <button type="button" class="btn btnSub my-3 w-100">現場社員の状況を記載する</button>
+                    </div>
+                    <div id="showColleaguesForm">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label for="colleagueName" class="col-form-label">社員名
+                                    <span class="badge bg-secondary ms-1">必須</span>
+                                </label>
+                                <input type="text" class="form-control" name="colleagueName" id="colleagueName" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="colleagueDifficulty" class="col-form-label">難易度
+                                    <span class="badge bg-secondary ms-1">必須</span>
+                                </label>
+                                <input type="text" class="form-control" placeholder="基準：100" name="colleagueDifficulty" id="colleagueDifficulty" />
+                            </div>
+                            <div class="col-6">
+                                <label for="colleagueSchedule" class="col-form-label">スケジュール感
+                                    <span class="badge bg-secondary ms-1">必須</span>
+                                </label>
+                                <input type="text" class="form-control" placeholder="基準：100" name="colleagueSchedule" id="colleagueSchedule" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label for="colleagueImpression" class="col-form-label">状況
+                                    <span class="badge bg-secondary ms-1">必須</span>
+                                </label>
+                                <textarea class="form-control" placeholder="" name="colleagueImpression" id="colleagueImpression"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="text-center m-5">
                         <button type="submit" class="btn btnLight">一時保存</button>
-                        <button type="submit" class="btn btnMain">提出</button>
+                        <button type="submit" class="btn btnMain ms-3">提出</button>
                     </div>
                 </form>
             </div>
