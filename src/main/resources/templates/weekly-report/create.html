@@ -162,42 +162,59 @@
                     </div>
 
                     <div>
-                        <button type="button" class="btn btnSub my-3 w-100">現場社員の状況を記載する</button>
+                        <button type="button" class="btn btnSub my-3 w-100" data-bs-toggle="modal" data-bs-target="#colleagueModal">現場社員の状況を記載する</button>
                     </div>
-                    <div id="showColleaguesForm">
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <label for="colleagueName" class="col-form-label">社員名
-                                    <span class="badge bg-secondary ms-1">必須</span>
-                                </label>
-                                <input type="text" class="form-control" name="colleagueName" id="colleagueName" />
-                            </div>
-                        </div>
+                    <!-- モーダルここから -->
+                    <div class="modal fade" id="colleagueModal" tabindex="-1" aria-labelledby="ecolleagueModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">現場社員の状況</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <label for="colleagueName" class="col-form-label">社員名
+                                                    <span class="badge bg-secondary ms-1">必須</span>
+                                                </label>
+                                                <input type="text" class="form-control" name="colleagueName" id="colleagueName" />
+                                            </div>
+                                        </div>
 
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <label for="colleagueDifficulty" class="col-form-label">難易度
-                                    <span class="badge bg-secondary ms-1">必須</span>
-                                </label>
-                                <input type="text" class="form-control" placeholder="基準：100" name="colleagueDifficulty" id="colleagueDifficulty" />
-                            </div>
-                            <div class="col-6">
-                                <label for="colleagueSchedule" class="col-form-label">スケジュール感
-                                    <span class="badge bg-secondary ms-1">必須</span>
-                                </label>
-                                <input type="text" class="form-control" placeholder="基準：100" name="colleagueSchedule" id="colleagueSchedule" />
-                            </div>
-                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-6">
+                                                <label for="colleagueDifficulty" class="col-form-label">難易度
+                                                    <span class="badge bg-secondary ms-1">必須</span>
+                                                </label>
+                                                <input type="text" class="form-control" placeholder="基準：100" name="colleagueDifficulty" id="colleagueDifficulty" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="colleagueSchedule" class="col-form-label">スケジュール感
+                                                    <span class="badge bg-secondary ms-1">必須</span>
+                                                </label>
+                                                <input type="text" class="form-control" placeholder="基準：100" name="colleagueSchedule" id="colleagueSchedule" />
+                                            </div>
+                                        </div>
 
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <label for="colleagueImpression" class="col-form-label">状況
-                                    <span class="badge bg-secondary ms-1">必須</span>
-                                </label>
-                                <textarea class="form-control" placeholder="" name="colleagueImpression" id="colleagueImpression"></textarea>
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <label for="colleagueImpression" class="col-form-label">状況
+                                                    <span class="badge bg-secondary ms-1">必須</span>
+                                                </label>
+                                                <textarea class="form-control" placeholder="" name="colleagueImpression" id="colleagueImpression"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                                    <button type="button" class="btn btn-primary">変更を保存</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- モーダルここまで -->
 
                     <div class="text-center m-5">
                         <button type="submit" class="btn btnLight">一時保存</button>
