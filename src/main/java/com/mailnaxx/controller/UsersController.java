@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +34,6 @@ public class UsersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @ModelAttribute
-    UsersForm setUpForm() {
-        return new UsersForm();
-    }
-
     @RequestMapping("/user/list")
     public String index(Model model) {
 
@@ -59,7 +56,7 @@ public class UsersController {
 
     // 登録画面初期表示
     @RequestMapping(value="/user/register", method = RequestMethod.GET)
-    public String register(Model model) {
+    public String register(@ModelAttribute UsersForm usersForm, Model model) {
 
         // 入社年月プルダウン
         int currentYear = YearMonth.now().getYear();
@@ -90,7 +87,14 @@ public class UsersController {
 
     // 登録画面登録処理
     @RequestMapping(value="/user/register", method = RequestMethod.POST)
-    public String register(UsersForm usersForm, Model model) {
+    public String register(@Validated @ModelAttribute UsersForm usersForm, BindingResult result, Model model) {
+
+        // 入力エラーチェック
+        if (result.hasErrors()) {
+            // リダイレクトだと入力エラーの値が引き継がれない
+            // return "redirect:/user/register";
+            return register(usersForm, model);
+        }
 
         Users users = new Users();
 

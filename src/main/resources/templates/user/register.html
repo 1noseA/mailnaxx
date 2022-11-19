@@ -21,8 +21,14 @@
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex justify-content-md-center">
-                            <input type="text" class="form-control" placeholder="姓" name="userLastName" id="userLastName" />
-                            <input type="text" class="form-control ms-2" placeholder="名" name="userFirstName" id="userFirstName" />
+                            <div class="input-group has-validation">
+                                <input type="text" class="form-control" th:errorclass="is-invalid" placeholder="姓" th:field="*{userLastName}" />
+                                <span class="invalid-feedback" th:if="${#fields.hasErrors('userLastName')}" th:errors="*{userLastName}"></span>
+                            </div>
+                            <div class="input-group has-validation">
+                                <input type="text" class="form-control ms-2" th:errorclass="is-invalid" placeholder="名" th:field="*{userFirstName}" />
+                                <span class="invalid-feedback" th:if="${#fields.hasErrors('userFirstName')}"  th:errors="*{userFirstName}"></span>
+                            </div>
                         </div>
                     </div>
 
