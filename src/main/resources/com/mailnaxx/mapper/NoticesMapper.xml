@@ -5,7 +5,10 @@
 <mapper namespace="com.mailnaxx.mapper.NoticesMapper">
     <select id="findAll" resultType="com.mailnaxx.entity.Notices">
         SELECT * FROM notices
-        WHERE start_date &lt;= SYSDATE
-        AND end_date &gt;= SYSDATE
+        WHERE start_date &lt;= CURRENT_DATE
+        AND (
+                end_date IS NULL
+                OR end_date &gt;= CURRENT_DATE
+            )
     </select>
 </mapper>
