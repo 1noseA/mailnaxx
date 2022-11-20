@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
+import com.mailnaxx.form.GroupOrder;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
@@ -87,7 +88,7 @@ public class UsersController {
 
     // 登録画面登録処理
     @RequestMapping(value="/user/register", method = RequestMethod.POST)
-    public String register(@Validated @ModelAttribute UsersForm usersForm, BindingResult result, Model model) {
+    public String register(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model) {
 
         // 入力エラーチェック
         if (result.hasErrors()) {
