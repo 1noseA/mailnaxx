@@ -21,27 +21,25 @@ public class UsersForm {
     // 氏名(漢字)_名
     @NotBlank(groups = ValidGroup1.class, message = "入力してください")
     @Size(max=10, groups = ValidGroup2.class, message = "全角10文字以内で入力してください")
-    @Pattern(regexp="^[^ -~｡-ﾟ]+$", groups = ValidGroup3.class, message = "全角文字で入力してください")
+    @Pattern(regexp="^[^ -~｡-ﾟ]+$", groups = ValidGroup2.class, message = "全角文字で入力してください")
     private String userFirstName;
 
     // 氏名(カタカナ)_姓
     @NotBlank(groups = ValidGroup1.class, message = "入力してください")
     @Size(max=10, groups = ValidGroup2.class, message = "全角10文字以内で入力してください")
-    @Pattern(regexp="^[ァ-ー]+$", groups = ValidGroup3.class, message = "全角カナで入力してください")
+    @Pattern(regexp="^[ァ-ー]+$", groups = ValidGroup2.class, message = "全角カナで入力してください")
     private String userLastKana;
 
     // 氏名(カタカナ)_名
     @NotBlank(groups = ValidGroup1.class, message = "入力してください")
     @Size(max=10, groups = ValidGroup2.class, message = "全角10文字以内で入力してください")
-    @Pattern(regexp="^[ァ-ー]+$", groups = ValidGroup3.class, message = "全角カナで入力してください")
+    @Pattern(regexp="^[ァ-ー]+$", groups = ValidGroup2.class, message = "全角カナで入力してください")
     private String userFirstKana;
 
     // 入社年月_年
-    // @Positive(message = "入社年月_年を選択してください")
     private int hireYear;
 
     // 入社年月_月
-    // @Positive(message = "入社年月_年を選択してください")
     private int hireMonth;
 
     // 所属
@@ -49,7 +47,6 @@ public class UsersForm {
     private int affiliationId;
 
     // 権限区分
-    // @NotBlank(message = "権限区分を選択してください")
     private String roleClass;
 
     // 営業担当
@@ -80,7 +77,7 @@ public class UsersForm {
     // 住所
     @NotBlank(groups = ValidGroup1.class, message = "入力してください")
     @Size(max=256, groups = ValidGroup2.class, message = "全角256文字以内で入力してください")
-    @Pattern(regexp="^[^ -~｡-ﾟ]+$", groups = ValidGroup3.class, message = "全角文字で入力してください")
+    @Pattern(regexp="^[^ -~｡-ﾟ]+$", groups = ValidGroup2.class, message = "全角文字で入力してください")
     private String address;
 
     // 電話番号1
