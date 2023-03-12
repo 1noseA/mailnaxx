@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.GroupOrder;
+import com.mailnaxx.form.SearchUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
@@ -35,6 +36,16 @@ public class UsersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    /**
+     * 検索用Formオブジェクトを初期化して返却する
+     * @return 検索用Formオブジェクト
+     */
+    @ModelAttribute("searchUsersForm")
+    public SearchUsersForm createSearchForm(){
+        SearchUsersForm searchUsersForm = new SearchUsersForm();
+        return searchUsersForm;
+    }
+
     @RequestMapping("/user/list")
     public String index(Model model) {
 
@@ -45,11 +56,21 @@ public class UsersController {
 
     }
 
+    @RequestMapping("/user/search")
+    public String search(SearchUsersForm searchUsersForm, Model model) {
+
+        List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
+        model.addAttribute("userList", resultList);
+        model.addAttribute("roleClassList", RoleClass.values());
+        return "user/list";
+
+    }
+
     // 詳細画面初期表示（仮）
     @RequestMapping("/user/detail/{user_id:.+}")
     public String detail(@PathVariable("user_id") int user_id, Model model) {
 
-        Users userInfo = usersMapper.findOne(user_id);
+        Users userInfo = usersMapper.findById(user_id);
         model.addAttribute("userInfo", userInfo);
         return "user/detail";
 

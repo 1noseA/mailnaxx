@@ -8,15 +8,29 @@
         WHERE deleted_flg = '0'
     </select>
 
-    <select id="findOne" resultType="com.mailnaxx.entity.Users">
+    <select id="findBySearchForm" parameterType="com.mailnaxx.form.SearchUsersForm" resultType="com.mailnaxx.entity.Users">
+        SELECT * FROM users
+        WHERE deleted_flg = '0'
+        <if test="userName != null and userName != '' and searchCondition == '0'" >
+            AND user_name LIKE #{userName} || '%'
+        </if>
+        <if test="userName != null and userName != '' and searchCondition == '1'" >
+            AND user_name LIKE '%' || #{userName} || '%'
+        </if>
+        <if test="roleClass != null and roleClass != '' ">
+            AND role_class = #{roleClass}
+        </if>
+    </select>
+
+    <select id="findById" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
         WHERE user_id = #{user_id}
     </select>
 
-    <select id="findSales" resultType="com.mailnaxx.entity.Users">
+    <select id="findBySales" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
         WHERE sales_flg = '1'
-        AND  deleted_flg = '0'
+        AND deleted_flg = '0'
     </select>
 
     <insert id="insert" parameterType="com.mailnaxx.entity.Users" useGeneratedKeys="true" keyProperty="user_id">

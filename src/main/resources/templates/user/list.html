@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common :: meta_header('User List',~{::link},~{::script})">
+<head th:replace="common :: meta_header('社員一覧',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/user/list.css}" />
 </head>
 <body>
@@ -9,45 +9,48 @@
     <div class="contents">
         <div class="container">
             <div class="searchArea mx-auto my-5">
-                <div class="row mb-3 align-items-center">
-                    <div class="col-md-2 text-md-end">
-                        <label for="userName" class="col-form-label fw-bold">氏名</label>
-                    </div>
+                <form method="post" th:action="@{/user/search}" th:object="${searchUsersForm}">
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-md-2 text-md-end">
+                            <label for="userName" class="col-form-label fw-bold">氏名</label>
+                        </div>
 
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="" name="userName" id="userName" />
-                    </div>
-                    <div class="col-md-4 d-flex justify-content-start align-items-start flex-md-column flex-lg-row">
-                        <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="searchCondition" id="prefixMatch" value="prefixMatch" checked>
-                            <label class="form-check-label" for="prefixMatch">
-                                前方一致
-                            </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="userName" id="userName" th:value="*{userName}" th:field="*{userName}" />
                         </div>
-                        <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="searchCondition" id="partialMatch" value="partialMatch">
-                            <label class="form-check-label" for="partialMatch">
-                                部分一致
-                            </label>
+                        <div class="col-md-4 d-flex justify-content-start align-items-start flex-md-column flex-lg-row">
+                            <div class="form-check ms-3">
+                                <input class="form-check-input" type="radio" name="searchCondition" id="prefixMatch" th:value="0" th:field="*{searchCondition}" checked>
+                                <label class="form-check-label" for="prefixMatch">
+                                    前方一致
+                                </label>
+                            </div>
+                            <div class="form-check ms-3">
+                                <input class="form-check-input" type="radio" name="searchCondition" id="partialMatch" th:value="1" th:field="*{searchCondition}">
+                                <label class="form-check-label" for="partialMatch">
+                                    部分一致
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-2 text-md-end">
-                        <label for="roleClass" class="col-form-label fw-bold ms-1">権限区分</label>
+                    <div class="row mb-3">
+                        <div class="col-md-2 text-md-end">
+                            <label for="roleClass" class="col-form-label fw-bold ms-1">権限区分</label>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-md-center">
+                            <select class="form-select" name="roleClass" id="roleClass">
+                                <option th:each="roleClass : ${roleClassList}"
+                                        th:value="${roleClass.value}"
+                                        th:text="${roleClass.viewName}"
+                                        th:field="*{roleClass}">
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-6 d-flex align-items-md-center">
-                        <select class="form-select" name="roleClass" id="roleClass">
-                            <option th:each="roleClass : ${roleClassList}"
-                                    th:value="${roleClass.value}"
-                                    th:text="${roleClass.viewName}">
-                            </option>
-                        </select>
+                    <div class="text-center">
+                        <button type="submit" class="btn btnMain">検索</button>
                     </div>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btnMain">検索</button>
-                </div>
+                </form>
             </div>
 
             <div class="listArea mx-auto">
