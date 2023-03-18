@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -56,7 +57,13 @@ public class UsersController {
 
     }
 
-    @RequestMapping("/user/search")
+    /**
+     * 検索処理を行う
+     * @param searchForm 検索用Formオブジェクト
+     * @param model Modelオブジェクト
+     * @return 一覧画面のパス
+     */
+    @PostMapping("/user/search")
     public String search(SearchUsersForm searchUsersForm, Model model) {
 
         List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
