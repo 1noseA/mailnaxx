@@ -48,11 +48,14 @@ public class UsersController {
     }
 
     @RequestMapping("/user/list")
-    public String index(Model model) {
+    public String index(SearchUsersForm searchUsersForm, Model model) {
 
         List<Users> userList = usersMapper.findAll();
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
+
+        searchUsersForm.setSearchCondition("0");
+        model.addAttribute("searchUsersForm", searchUsersForm);
         return "user/list";
 
     }
