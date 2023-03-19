@@ -71,7 +71,7 @@
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr class="border-bottom border-dark">
-                                        <th scope="col"><!-- 選択 --></th>
+                                        <th scope="col" class="text-canter">選択</th>
                                         <th scope="col">社員番号</th>
                                         <th scope="col">氏名</th>
                                         <th scope="col">入社年月</th>
@@ -81,31 +81,50 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="userList : ${userList}">
-                                    <!-- <tr th:href="@{'/user-detail/' + ${userList.user_id}}"> -->
-                                    <tr>
-                                        <td>
-                                            <div class="form-check d-flex justify-content-center align-items-center">
-                                                <input class="form-check-input" type="checkbox" name="deleted_flg" value="1">
-                                                <input type="hidden" name="user_id" th:value="${userList.user_id}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a th:href="@{'/user/detail/' + ${userList.user_id}}">
-                                                <span th:text="${userList.user_number}"></span>
-                                            </a>
-                                        </td>
-                                        <td th:text="${userList.user_name}"></td>
-                                        <td th:text="${#strings.replace(userList.hire_date, '-', '/')}"></td>
-                                        <td th:text="${userList.affiliation_id}"></td>
-                                        <th:block th:each="roleClass : ${roleClassList}">
-                                            <th:block th:if="${userList.role_class == roleClass.value}">
-                                                <td th:text="${roleClass.viewName}"></td>
-                                            </th:block>
-                                        </th:block>
-                                        <td th:text="${userList.sales_flg == '1'} ? '営業' : ' '"></td>
-                                    </tr>
-                                </th:block>
+                                    <th:block th:each="userList : ${userList}">
+                                        <tr>
+                                            <td>
+                                                <div class="form-check d-flex justify-content-center align-items-center">
+                                                    <input class="form-check-input" type="checkbox" name="deleted_flg" value="1">
+                                                    <input type="hidden" name="user_id" th:value="${userList.user_id}">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                    <span th:text="${userList.user_number}"></span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                    <span th:text="${userList.user_name}"></span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                    <span th:text="${#strings.replace(userList.hire_date, '-', '/')}"></span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                    <span th:text="${userList.affiliation_id}"></span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                    <th:block th:each="roleClass : ${roleClassList}">
+                                                        <th:block th:if="${userList.role_class == roleClass.value}">
+                                                            <span th:text="${roleClass.viewName}"></span>
+                                                        </th:block>
+                                                    </th:block>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                    <span th:text="${userList.sales_flg == '1'} ? '営業' : ' '"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </th:block>
                                 </tbody>
                             </table>
                         </div>
