@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,8 +76,8 @@ public class UsersController {
     }
 
     // 詳細画面初期表示（仮）
-    @RequestMapping("/user/detail/{user_id:.+}")
-    public String detail(@PathVariable("user_id") int user_id, Model model) {
+    @PostMapping("/user/detail")
+    public String detail(int user_id, Model model) {
 
         Users userInfo = usersMapper.findById(user_id);
         model.addAttribute("userInfo", userInfo);

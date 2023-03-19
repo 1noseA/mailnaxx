@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('社員一覧',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/user/list.css}" />
+<script th:src="@{/js/user.js}"></script>
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -90,27 +91,27 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.user_id}]]')">
                                                     <span th:text="${userList.user_number}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.user_id}]]')">
                                                     <span th:text="${userList.user_name}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.user_id}]]')">
                                                     <span th:text="${#strings.replace(userList.hire_date, '-', '/')}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.user_id}]]')">
                                                     <span th:text="${userList.affiliation_id}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.user_id}]]')">
                                                     <th:block th:each="roleClass : ${roleClassList}">
                                                         <th:block th:if="${userList.role_class == roleClass.value}">
                                                             <span th:text="${roleClass.viewName}"></span>
@@ -119,7 +120,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/user/detail/' + ${userList.user_id}}">
+                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.user_id}]]')">
                                                     <span th:text="${userList.sales_flg == '1'} ? '営業' : ' '"></span>
                                                 </a>
                                             </td>
@@ -139,6 +140,8 @@
             </div>
         </div>
     </div>
+    <form method="post" th:action="@{/user/detail}" id="detailForm">
+    </form>
 
     <div th:replace="common :: footer"></div>
 </body>
