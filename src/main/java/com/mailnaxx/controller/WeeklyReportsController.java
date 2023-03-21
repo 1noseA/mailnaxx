@@ -59,7 +59,7 @@ public class WeeklyReportsController {
     public String create(Model model) {
 
         // 担当営業
-        List<Users> salesList = usersMapper.findSales();
+        List<Users> salesList = usersMapper.findBySales();
         model.addAttribute("salesList", salesList);
 
         // 現場プルダウン

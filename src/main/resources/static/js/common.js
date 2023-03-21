@@ -1,4 +1,6 @@
-/* パスワード表示非表示 */
+/* --------------------------------
+    パスワード表示非表示
+-------------------------------- */
 $(function() {
   $(".togglePass").on("click", function() {
     $(this).toggleClass("fa-eye fa-eye-slash");

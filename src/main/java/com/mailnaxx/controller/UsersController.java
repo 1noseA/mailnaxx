@@ -8,13 +8,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
+import com.mailnaxx.form.GroupOrder;
+import com.mailnaxx.form.SearchUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
@@ -32,26 +36,50 @@ public class UsersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @ModelAttribute
-    UsersForm setUpForm() {
-        return new UsersForm();
+    /**
+     * 検索用Formオブジェクトを初期化して返却する
+     * @return 検索用Formオブジェクト
+     */
+    @ModelAttribute("searchUsersForm")
+    public SearchUsersForm createSearchForm(){
+        SearchUsersForm searchUsersForm = new SearchUsersForm();
+        return searchUsersForm;
     }
 
     @RequestMapping("/user/list")
-    public String index(Model model) {
+    public String index(SearchUsersForm searchUsersForm, Model model) {
 
         List<Users> userList = usersMapper.findAll();
         model.addAttribute("userList", userList);
+        model.addAttribute("roleClassList", RoleClass.values());
+
+        searchUsersForm.setSearchCondition("0");
+        model.addAttribute("searchUsersForm", searchUsersForm);
+        return "user/list";
+
+    }
+
+    /**
+     * 検索処理を行う
+     * @param searchForm 検索用Formオブジェクト
+     * @param model Modelオブジェクト
+     * @return 一覧画面のパス
+     */
+    @PostMapping("/user/search")
+    public String search(SearchUsersForm searchUsersForm, Model model) {
+
+        List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
+        model.addAttribute("userList", resultList);
         model.addAttribute("roleClassList", RoleClass.values());
         return "user/list";
 
     }
 
     // 詳細画面初期表示（仮）
-    @RequestMapping("/user/detail/{user_id:.+}")
-    public String detail(@PathVariable("user_id") int user_id, Model model) {
+    @PostMapping("/user/detail")
+    public String detail(int user_id, Model model) {
 
-        Users userInfo = usersMapper.findOne(user_id);
+        Users userInfo = usersMapper.findById(user_id);
         model.addAttribute("userInfo", userInfo);
         return "user/detail";
 
@@ -59,7 +87,7 @@ public class UsersController {
 
     // 登録画面初期表示
     @RequestMapping(value="/user/register", method = RequestMethod.GET)
-    public String register(Model model) {
+    public String register(@ModelAttribute UsersForm usersForm, Model model) {
 
         // 入社年月プルダウン
         int currentYear = YearMonth.now().getYear();
@@ -90,7 +118,14 @@ public class UsersController {
 
     // 登録画面登録処理
     @RequestMapping(value="/user/register", method = RequestMethod.POST)
-    public String register(UsersForm usersForm, Model model) {
+    public String register(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model) {
+
+        // 入力エラーチェック
+        if (result.hasErrors()) {
+            // リダイレクトだと入力エラーの値が引き継がれない
+            // return "redirect:/user/register";
+            return register(usersForm, model);
+        }
 
         Users users = new Users();
 
