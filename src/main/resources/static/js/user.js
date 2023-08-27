@@ -8,6 +8,5 @@ function showDetail(id) {
     input.setAttribute('name', 'user_id');
     input.setAttribute('value', id);
     form.appendChild(input);
-
     form.submit();
 }

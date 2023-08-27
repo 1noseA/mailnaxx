@@ -10,10 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
@@ -36,19 +36,13 @@ public class UsersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    /**
-     * 検索用Formオブジェクトを初期化して返却する
-     * @return 検索用Formオブジェクト
-     */
     @ModelAttribute("searchUsersForm")
     public SearchUsersForm createSearchForm(){
-        SearchUsersForm searchUsersForm = new SearchUsersForm();
-        return searchUsersForm;
+        return new SearchUsersForm();
     }
 
     @RequestMapping("/user/list")
     public String index(SearchUsersForm searchUsersForm, Model model) {
-
         List<Users> userList = usersMapper.findAll();
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
@@ -56,7 +50,6 @@ public class UsersController {
         searchUsersForm.setSearchCondition("0");
         model.addAttribute("searchUsersForm", searchUsersForm);
         return "user/list";
-
     }
 
     /**
@@ -67,28 +60,23 @@ public class UsersController {
      */
     @PostMapping("/user/search")
     public String search(SearchUsersForm searchUsersForm, Model model) {
-
         List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
         model.addAttribute("userList", resultList);
         model.addAttribute("roleClassList", RoleClass.values());
         return "user/list";
-
     }
 
-    // 詳細画面初期表示（仮）
+    // 詳細画面初期表示
     @PostMapping("/user/detail")
     public String detail(int user_id, Model model) {
-
         Users userInfo = usersMapper.findById(user_id);
         model.addAttribute("userInfo", userInfo);
         return "user/detail";
-
     }
 
     // 登録画面初期表示
-    @RequestMapping(value="/user/register", method = RequestMethod.GET)
+    @GetMapping("/user/register")
     public String register(@ModelAttribute UsersForm usersForm, Model model) {
-
         // 入社年月プルダウン
         int currentYear = YearMonth.now().getYear();
         int currentMonth = YearMonth.now().getMonthValue();
@@ -113,13 +101,11 @@ public class UsersController {
         model.addAttribute("birthYearDefault", birthYearDefault);
 
         return "user/register";
-
     }
 
     // 登録画面登録処理
-    @RequestMapping(value="/user/register", method = RequestMethod.POST)
+    @PostMapping("/user/register")
     public String register(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model) {
-
         // 入力エラーチェック
         if (result.hasErrors()) {
             // リダイレクトだと入力エラーの値が引き継がれない
@@ -188,16 +174,12 @@ public class UsersController {
 
         usersMapper.insert(users);
         return "redirect:/user/list";
-
     }
 
     // 論理削除処理
-    @RequestMapping(value="/user/delete")
+    @RequestMapping("/user/delete")
     public String delete(Users users) {
-
         usersMapper.delete(users);
         return "redirect:/user/list";
-
     }
-
 }

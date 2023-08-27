@@ -1,6 +1,7 @@
 package com.mailnaxx.mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +10,9 @@ import com.mailnaxx.form.SearchUsersForm;
 
 @Mapper
 public interface UsersMapper {
+
+    // ログイン
+    public Optional<Users> findLoginUser(String userNumber);
 
     // 全件取得
     public List<Users> findAll();
