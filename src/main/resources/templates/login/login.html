@@ -8,14 +8,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
-<form method="POST" th:action="@{/login}">
+<form method="POST" th:action="@{/login}" th:object="${loginForm}">
     <table>
         <tr>
             <td>
-                ID：
+                社員番号：
             </td>
             <td>
-                <input type="text" id="userId" name="userId" />
+                <input type="text" id="userNumber" name="userNumber" th:field="*{userNumber}" />
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('userNumber')}" th:errors="*{userNumber}"></span>
             </td>
         </tr>
         <tr>
@@ -24,8 +25,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             </td>
             <td>
                 <div class="passForm">
-                    <input type="password" id="password" name="password" />
+                    <input type="password" id="password" name="password" th:field="*{password}" />
                     <i class="togglePass fa-regular fa-eye"></i>
+                    <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
             </td>
         </tr>
@@ -33,7 +35,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <td>
             </td>
             <td>
-                <button type="submit" class="btn btnLogin">ログイン</button>
+                <button type="submit" class="btn btnMain">ログイン</button>
             </td>
         </tr>
     </table>
