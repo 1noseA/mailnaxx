@@ -24,9 +24,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute LoginForm form, BindingResult br) {
+    public String login(@Validated @ModelAttribute LoginForm form, BindingResult result) {
         // 入力エラーがある場合、元の画面に戻る
-        if (br.hasErrors()) {
+        if (result.hasErrors()) {
             return "login/login";
         }
         // SecurityConfigで設定した認証処理にフォワードする

@@ -7,7 +7,9 @@
     <select id="findLoginUser" parameterType="String" resultType="com.mailnaxx.entity.Users">
         SELECT
            user_number,
-           password
+           user_name,
+           password,
+           last_login_date
         FROM
            users
         WHERE

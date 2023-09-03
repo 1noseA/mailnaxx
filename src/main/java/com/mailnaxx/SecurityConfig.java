@@ -34,12 +34,10 @@ public class SecurityConfig {
         // URLごとの認可設定
         ).authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                // ROLE_GENERALのみアクセス可
-                //.mvcMatchers("/general").hasRole("GENERAL")
                 // ROLE_ADMINのみアクセス可
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 // 他のURLはログイン後のみ（後でコメントを外す）
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
         );
         return http.build();
     }

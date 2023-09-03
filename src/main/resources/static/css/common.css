@@ -40,7 +40,7 @@ header i {
     font-size: 24px;
 }
 
-.loginUserId, .loginUserName, .lastLoginDate {
+.loginUserNo, .loginUserName, .lastLoginDate {
     color: #F5F5F5;
     font-size: 14px
 }
