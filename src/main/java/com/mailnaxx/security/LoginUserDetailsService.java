@@ -1,4 +1,4 @@
-package com.mailnaxx.service;
+package com.mailnaxx.security;
 
 import java.util.Optional;
 
@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mailnaxx.entity.LoginUserDetails;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.mapper.UsersMapper;
 

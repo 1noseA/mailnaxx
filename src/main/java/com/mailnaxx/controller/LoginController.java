@@ -18,7 +18,7 @@ public class LoginController {
         return new LoginForm();
     }
 
-    @GetMapping("/login")
+    @GetMapping("/")
     public String showLoginPage() {
         return "login/login";
     }

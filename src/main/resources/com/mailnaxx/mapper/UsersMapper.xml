@@ -16,6 +16,13 @@
            user_number = #{userNumber}
     </select>
 
+    <update id="update" parameterType="com.mailnaxx.entity.Users">
+        UPDATE users SET
+            last_login_date = CURRENT_TIMESTAMP
+            <!-- 認証エラー回数 -->
+        WHERE user_number = #{user_number}
+    </update>
+
     <select id="findAll" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
         WHERE deleted_flg = '0'

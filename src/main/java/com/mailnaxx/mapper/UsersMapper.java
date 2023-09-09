@@ -14,6 +14,9 @@ public interface UsersMapper {
     // ログイン
     public Optional<Users> findLoginUser(String userNumber);
 
+    // ログイン成功時更新
+    public void update(String userNumber);
+
     // 全件取得
     public List<Users> findAll();
 

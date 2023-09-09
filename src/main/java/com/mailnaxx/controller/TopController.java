@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mailnaxx.entity.LoginUserDetails;
 import com.mailnaxx.entity.Notices;
 import com.mailnaxx.mapper.NoticesMapper;
+import com.mailnaxx.security.LoginUserDetails;
 
 @Controller
 public class TopController {
