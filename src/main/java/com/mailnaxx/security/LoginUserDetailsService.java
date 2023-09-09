@@ -2,6 +2,8 @@ package com.mailnaxx.security;
 
 import java.util.Optional;
 
+import org.springframework.context.event.EventListener;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,5 +26,20 @@ public class LoginUserDetailsService implements UserDetailsService {
         Optional<Users> userOp = mapper.findLoginUser(number);
         return userOp.map(users -> new LoginUserDetails(users))
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
+    }
+
+//    // ログイン失敗時のハンドラ
+//    @EventListener
+//    public void loginFailureHandle(AuthenticationFailureBadCredentialsEvent event) {
+//        String userNumber = event.getAuthentication().getName();
+//        mapper.incrementFailureCount(userNumber);
+//    }
+
+    // ログイン成功時のハンドラ
+    @EventListener
+    public void loginSuccessHandle(AuthenticationSuccessEvent event) {
+        String userNumber = event.getAuthentication().getName();
+        // 最終ログイン日時の更新とログイン失敗回数初期化
+        mapper.update(userNumber);
     }
 }
