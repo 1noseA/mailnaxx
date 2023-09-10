@@ -37,7 +37,7 @@
                     </div>
                     <div class="lastLoginDate">
                         最終ログイン：
-                        <span th:text="${loginUserInfo.last_login_date}"></span>
+                        <span th:text="${#temporals.format(loginUserInfo.last_login_date, 'yyyy/MM/dd HH:mm')}"></span>
                     </div>
                 </div>
                 <div class="col-6 order-2 col-md-2 order-md-3 text-end">

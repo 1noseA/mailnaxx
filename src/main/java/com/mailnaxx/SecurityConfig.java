@@ -7,17 +7,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import com.mailnaxx.security.UserAuthenticationSuccessHandler;
 
 @EnableWebSecurity
 public class SecurityConfig {
-
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler(){
-        return new UserAuthenticationSuccessHandler();
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,8 +21,6 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login")
                 // ログイン画面のURL
                 .loginPage("/")
-                // ログイン成功時の処理
-                .successHandler(authenticationSuccessHandler())
                 // ログイン成功後のリダイレクト先URL
                 .defaultSuccessUrl("/top")
                 // ログイン失敗後のリダイレクト先URL

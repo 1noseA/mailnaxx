@@ -1,6 +1,7 @@
 package com.mailnaxx.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -23,7 +24,7 @@ public class Users {
     private String password;
     private Timestamp pass_changed_date;
     private String old_password;
-    private Timestamp last_login_date;
+    private LocalDateTime last_login_date;
     private String deleted_flg;
     private int created_by;
     private Timestamp created_at;
