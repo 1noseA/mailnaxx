@@ -7,9 +7,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.mailnaxx.security.UserAuthenticationSuccessHandler;
 
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new UserAuthenticationSuccessHandler();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -20,7 +28,9 @@ public class SecurityConfig {
                 // 入力値送信先URL
                 .loginProcessingUrl("/login")
                 // ログイン画面のURL
-                .loginPage("/login")
+                .loginPage("/")
+                // ログイン成功時の処理
+                .successHandler(authenticationSuccessHandler())
                 // ログイン成功後のリダイレクト先URL
                 .defaultSuccessUrl("/top")
                 // ログイン失敗後のリダイレクト先URL
@@ -34,12 +44,10 @@ public class SecurityConfig {
         // URLごとの認可設定
         ).authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                // ROLE_GENERALのみアクセス可
-                //.mvcMatchers("/general").hasRole("GENERAL")
                 // ROLE_ADMINのみアクセス可
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 // 他のURLはログイン後のみ（後でコメントを外す）
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
         );
         return http.build();
     }
