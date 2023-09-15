@@ -56,14 +56,19 @@
             </div>
 
             <div class="listArea mx-auto">
-                <form method="post" th:action="@{/delete}">
+                <form method="post" th:action="@{/user/delete}">
                     <div class="btn-toolbar justify-content-between" role="toolbar">
                         <div class="mb-4">
                             <button type="button" class="btn btnLight" onclick="location.href='/user/register'">新規登録</button>
                         </div>
                         <div class="mb-4" role="group">
                             <button type="button" class="btn btnAccent me-3">報告を見る</button>
-                            <input type="submit" class="btn btnDark" value="削除">
+                            <th:block th:if="${isAdmin}">
+                                <input type="submit" class="btn btnDark" value="削除">
+                            </th:block>
+                            <th:block th:unless="${isAdmin}">
+                                <input type="submit" class="btn btnDark" value="削除" disabled>
+                            </th:block>
                         </div>
                     </div>
 
@@ -87,7 +92,7 @@
                                             <td>
                                                 <div class="form-check d-flex justify-content-center align-items-center">
                                                     <input class="form-check-input" type="checkbox" name="deleted_flg" value="1">
-                                                    <input type="hidden" name="user_id" th:value="${userList.user_id}">
+                                                    <input type="hidden" name="userId" th:value="${userList.user_id}">
                                                 </div>
                                             </td>
                                             <td>

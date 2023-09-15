@@ -24,7 +24,7 @@ public interface UsersMapper {
     public List<Users> findBySearchForm(SearchUsersForm searchUsersForm);
 
     // 1件取得
-    public Users findById(int user_id);
+    public Users findById(int userId);
 
     // 営業担当取得
     public List<Users> findBySales();
@@ -33,6 +33,5 @@ public interface UsersMapper {
     public void insert(Users users);
 
     // 削除
-    public void delete(Users users);
-
+    public void delete(int userId);
 }

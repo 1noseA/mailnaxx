@@ -51,6 +51,12 @@ public class UsersController {
 
         searchUsersForm.setSearchCondition("0");
         model.addAttribute("searchUsersForm", searchUsersForm);
+
+        boolean isAdmin = false;
+        if (loginUser.getLoginUser().getRole_class().equals("4")) {
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/list";
     }
@@ -72,8 +78,8 @@ public class UsersController {
 
     // 詳細画面初期表示
     @PostMapping("/user/detail")
-    public String detail(int user_id, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        Users userInfo = usersMapper.findById(user_id);
+    public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        Users userInfo = usersMapper.findById(userId);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/detail";
@@ -183,8 +189,13 @@ public class UsersController {
 
     // 論理削除処理
     @RequestMapping("/user/delete")
-    public String delete(Users users) {
-        usersMapper.delete(users);
+    public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 削除権限チェック
+        if (loginUser.getLoginUser().getRole_class().equals("4")) {
+            usersMapper.delete(userId);
+        } else {
+            // エラーメッセージを設定する
+        }
         return "redirect:/user/list";
     }
 }

@@ -4,10 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mailnaxx.mapper.UsersMapper">
 
-    <select id="findLoginUser" parameterType="String" resultType="com.mailnaxx.entity.Users">
+    <select id="findLoginUser" resultType="com.mailnaxx.entity.Users">
         SELECT
            user_number,
            user_name,
+           role_class,
            password,
            last_login_date
         FROM
@@ -16,7 +17,7 @@
            user_number = #{userNumber}
     </select>
 
-    <update id="update" parameterType="com.mailnaxx.entity.Users">
+    <update id="update">
         UPDATE users SET
             last_login_date = CURRENT_TIMESTAMP
             <!-- 認証エラー回数 -->
@@ -28,7 +29,7 @@
         WHERE deleted_flg = '0'
     </select>
 
-    <select id="findBySearchForm" parameterType="com.mailnaxx.form.SearchUsersForm" resultType="com.mailnaxx.entity.Users">
+    <select id="findBySearchForm" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
         WHERE deleted_flg = '0'
         <!-- <if test="userName != '' and searchCondition == '0'.toString()"> -->
@@ -46,7 +47,7 @@
 
     <select id="findById" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
-        WHERE user_id = #{user_id}
+        WHERE user_id = #{userId}
     </select>
 
     <select id="findBySales" resultType="com.mailnaxx.entity.Users">
@@ -55,7 +56,7 @@
         AND deleted_flg = '0'
     </select>
 
-    <insert id="insert" parameterType="com.mailnaxx.entity.Users" useGeneratedKeys="true" keyProperty="user_id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="user_id">
         INSERT INTO users
         (
             user_number,
@@ -95,9 +96,9 @@
     </insert>
 
     <!-- 論理削除 -->
-    <update id="delete" parameterType="com.mailnaxx.entity.Users">
+    <update id="delete">
         UPDATE users SET
-            deleted_flg = #{deleted_flg}
-        WHERE user_id = #{user_id}
+            deleted_flg = '1'
+        WHERE user_id = #{userId}
     </update>
 </mapper>
