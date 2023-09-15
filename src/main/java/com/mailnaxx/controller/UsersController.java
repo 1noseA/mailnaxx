@@ -3,6 +3,8 @@ package com.mailnaxx.controller;
 import java.time.YearMonth;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,6 +30,9 @@ import com.mailnaxx.values.RoleClass;
 
 @Controller
 public class UsersController {
+
+    @Autowired
+    HttpSession session;
 
     @Autowired
     AffiliationsMapper affiliationsMapper;
@@ -56,6 +61,7 @@ public class UsersController {
         if (loginUser.getLoginUser().getRole_class().equals("4")) {
             isAdmin = true;
         }
+        session.setAttribute("session_isAdmin", isAdmin);
         model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/list";
@@ -72,6 +78,9 @@ public class UsersController {
         List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
         model.addAttribute("userList", resultList);
         model.addAttribute("roleClassList", RoleClass.values());
+
+        boolean isAdmin = (boolean) session.getAttribute("session_isAdmin");
+        model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/list";
     }
