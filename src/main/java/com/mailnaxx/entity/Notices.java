@@ -1,7 +1,7 @@
 package com.mailnaxx.entity;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import lombok.Getter;
 
@@ -9,8 +9,8 @@ import lombok.Getter;
 public class Notices {
 
     private int notice_id;
-    private Date start_date;
-    private Date end_date;
+    private LocalDate start_date;
+    private LocalDate end_date;
     private String display_range;
     private int user_id;
     private String notice_message;

@@ -37,4 +37,9 @@ public class LoginController {
     public String showResetPage(Model model) {
         return "login/reset";
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "/";
+    }
 }

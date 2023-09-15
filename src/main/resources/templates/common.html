@@ -11,6 +11,8 @@
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- 共通CSS -->
 <link rel="stylesheet" th:href="@{/css/common.css}" />
 <!-- <script th:src="@{/js/validation.js}"></script> -->
@@ -26,24 +28,26 @@
                     <a href="/top"><span class="logo">mailnaxx</span></a><br>
                     <span class="motto">mail de teisyutu mendoi.</span>
                 </div>
-                <div class="col-12 order-3 col-md-6 order-md-2 col-lg-4 d-flex justify-content-start flex-md-column">
-                    <div class="loginUserNo">
-                        社員番号：
-                        <span th:text="${loginUserInfo.user_number}"></span>
+                <div class="col-12 order-3 col-md-6 order-md-2 col-lg-4 d-flex justify-content-start flex-md-column pt-md-3">
+                    <div class="text-white fs-14">
+                        社員番号:
+                        <span th:text="${loginUserInfo.user_number}" class="text-white"></span>&emsp;
                     </div>
-                    <div class="loginUserName">
-                        名前：
-                        <span th:text="${loginUserInfo.user_name}"></span>
+                    <div class="text-white fs-14">
+                        名前:
+                        <span th:text="${loginUserInfo.user_name}" class="text-white"></span>
                     </div>
-                    <div class="lastLoginDate">
-                        最終ログイン：
-                        <span th:text="${loginUserInfo.last_login_date}"></span>
+                    <div class="text-white fs-14 lastLoginDate">
+                        最終ログイン:
+                        <span th:text="${#temporals.format(loginUserInfo.last_login_date, 'yyyy/MM/dd HH:mm')}" class="text-white"></span>
                     </div>
                 </div>
                 <div class="col-6 order-2 col-md-2 order-md-3 text-end">
-                    <a href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    </a>
+                    <form th:action="@{/logout}" method="POST">
+                        <button>
+                            <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
