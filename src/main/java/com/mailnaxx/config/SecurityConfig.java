@@ -36,6 +36,8 @@ public class SecurityConfig {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 // ROLE_ADMINのみアクセス可
                 .mvcMatchers("/admin").hasRole("ADMIN")
+                // テストログイン
+                .antMatchers("/testLogin").permitAll()
                 // 他のURLはログイン後のみ（後でコメントを外す）
                 .anyRequest().authenticated()
         );

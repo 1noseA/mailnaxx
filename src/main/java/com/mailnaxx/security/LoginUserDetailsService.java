@@ -18,15 +18,15 @@ import com.mailnaxx.mapper.UsersMapper;
 @Service
 public class LoginUserDetailsService implements UserDetailsService {
 
-    private final UsersMapper userMapper;
+    private final UsersMapper usersMapper;
 
-    public LoginUserDetailsService(UsersMapper userMapper) {
-        this.userMapper = userMapper;
+    public LoginUserDetailsService(UsersMapper usersMapper) {
+        this.usersMapper = usersMapper;
     }
 
     @Override
     public UserDetails loadUserByUsername(String number) throws UsernameNotFoundException {
-        Optional<Users> userOp = userMapper.findLoginUser(number);
+        Optional<Users> userOp = usersMapper.findLoginUser(number);
         return userOp.map(users -> new LoginUserDetails(users))
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
     }
@@ -43,10 +43,10 @@ public class LoginUserDetailsService implements UserDetailsService {
     public void loginSuccessHandle(AuthenticationSuccessEvent event) {
         String userNumber = event.getAuthentication().getName();
         // 最終ログイン日時の更新とログイン失敗回数初期化
-        userMapper.update(userNumber);
+        usersMapper.update(userNumber);
 
         // セキュリティコンテキストの内容を更新
-        Optional<Users> user = userMapper.findLoginUser(userNumber);
+        Optional<Users> user = usersMapper.findLoginUser(userNumber);
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
