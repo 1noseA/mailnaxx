@@ -33,18 +33,18 @@ public class LoginController {
     }
 
     @GetMapping("/")
-    public String showLoginPage() {
+    public String showLoginPage(@ModelAttribute LoginForm loginForm) {
         return "login/login";
     }
 
-    @PostMapping("/login")
-    public String login(@Validated @ModelAttribute LoginForm form, BindingResult result) {
+    @PostMapping("/loginCheck")
+    public String loginCheck(@Validated @ModelAttribute LoginForm loginForm, BindingResult result) {
         // 入力エラーがある場合、元の画面に戻る
         if (result.hasErrors()) {
             return "login/login";
         }
         // SecurityConfigで設定した認証処理にフォワードする
-        return "forward:/login";
+        return "redirect:/login";
     }
 
     // テストログイン

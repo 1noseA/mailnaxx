@@ -19,3 +19,7 @@
 .spacing {
     letter-spacing: 0.23em;
 }
+
+.invalid-feedback {
+    display: initial;
+}

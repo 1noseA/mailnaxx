@@ -8,11 +8,11 @@ import lombok.Data;
 public class LoginForm {
 
     // 社員番号
-    @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+    @NotBlank(message = "入力してください")
     private String userNumber;
 
     // パスワード
-    @NotBlank(groups = ValidGroup1.class, message = "入力してください")
+    @NotBlank(message = "入力してください")
     private String password;
 
 }

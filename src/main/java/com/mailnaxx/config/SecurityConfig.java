@@ -24,7 +24,7 @@ public class SecurityConfig {
                 // ログイン成功後のリダイレクト先URL
                 .defaultSuccessUrl("/top")
                 // ログイン失敗後のリダイレクト先URL
-                .failureUrl("/login?error")
+                .failureUrl("/")
                 // ログイン画面はログインなしでもアクセス可
                 .permitAll()
         // ログアウト設定
@@ -36,8 +36,8 @@ public class SecurityConfig {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 // ROLE_ADMINのみアクセス可
                 .mvcMatchers("/admin").hasRole("ADMIN")
-                // テストログイン
-                .antMatchers("/testLogin").permitAll()
+                // アクセス許可
+                .antMatchers("/loginCheck", "/testLogin").permitAll()
                 // 他のURLはログイン後のみ（後でコメントを外す）
                 .anyRequest().authenticated()
         );
