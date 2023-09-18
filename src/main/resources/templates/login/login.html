@@ -1,44 +1,41 @@
 <!DOCTYPE html>
-<!-- 認証済みか否か、権限があるか否かでHTML要素の表示/非表示を切り替えられる。ユーザー情報を画面に表示できる -->
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="common :: meta_header('Login',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/login/login.css}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
-<form method="POST" th:action="@{/login}" th:object="${loginForm}">
-    <table>
-        <tr>
-            <td>
-                社員番号：
-            </td>
-            <td>
-                <input type="text" id="userNumber" name="userNumber" th:field="*{userNumber}" />
-                <span class="invalid-feedback" th:if="${#fields.hasErrors('userNumber')}" th:errors="*{userNumber}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                パスワード：
-            </td>
-            <td>
-                <div class="passForm">
-                    <input type="password" id="password" name="password" th:field="*{password}" />
-                    <i class="togglePass fa-regular fa-eye"></i>
-                    <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+    <div class="contents">
+        <div class="container">
+            <div class="title text-center mt-5 p-3">ログイン</div>
+            <div class="formArea mx-auto mb-5">
+                <div class="invalid-feedback ms-5" th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
+                    ログインに失敗しました。ユーザが存在しないか、入力内容が間違っています。
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-                <button type="submit" class="btn btnMain">ログイン</button>
-            </td>
-        </tr>
-    </table>
-</form>
+                <form method="POST" th:action="@{/login}">
+                    <div class="row my-3">
+                        <div class="offset-2 col-10 justify-content-md-center">
+                            <label for="userNumber" class="col-form-label"><span class="spacing">社員番号</span>：</label>
+                            <input type="text" id="userNumber" name="userNumber" class="w-50" />
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="offset-2 col-10 justify-content-md-center passForm">
+                            <label for="password" class="col-form-label">パスワード：</label>
+                            <input type="password" id="password" name="password" class="w-50" />
+                            <i class="togglePass fa-regular fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="offset-3 col-9 justify-content-md-center">
+                            <button type="submit" class="btn btnMain" formaction="login">ログイン</button>
+                            <button type="submit" class="btn btnLight ms-3" formaction="testLogin">テストログイン</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

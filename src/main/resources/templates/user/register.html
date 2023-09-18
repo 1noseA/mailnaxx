@@ -27,7 +27,7 @@
                             </div>
                             <div class="input-group has-validation">
                                 <input type="text" class="form-control ms-2" placeholder="名" th:errorclass="is-invalid" th:field="*{userFirstName}" />
-                                <span class="invalid-feedback" th:if="${#fields.hasErrors('userFirstName')}"  th:errors="*{userFirstName}"></span>
+                                <span class="invalid-feedback" th:if="${#fields.hasErrors('userFirstName')}" th:errors="*{userFirstName}"></span>
                             </div>
                         </div>
                     </div>
