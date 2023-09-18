@@ -28,7 +28,7 @@ public class LoginUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String number) throws UsernameNotFoundException {
         Optional<Users> userOp = usersMapper.findLoginUser(number);
         return userOp.map(users -> new LoginUserDetails(users))
-                .orElseThrow(() -> new UsernameNotFoundException("not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("ログインに失敗しました。"));
     }
 
 //    // ログイン失敗時のハンドラ
