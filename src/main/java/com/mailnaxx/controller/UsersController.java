@@ -189,8 +189,8 @@ public class UsersController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
-        // 作成者はセッションのユーザID（現状は仮値）
-        users.setCreated_by(1);
+        // 作成者はセッションのユーザID
+        users.setCreated_by(loginUser.getLoginUser().getPhone_number());
 
         usersMapper.insert(users);
         return "redirect:/user/list";

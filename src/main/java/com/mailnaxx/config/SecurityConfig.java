@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 // アクセス許可
                 .antMatchers("/loginCheck", "/testLogin").permitAll()
-                // 他のURLはログイン後のみ（後でコメントを外す）
+                // 他のURLはログイン後のみ
                 .anyRequest().authenticated()
         );
         return http.build();

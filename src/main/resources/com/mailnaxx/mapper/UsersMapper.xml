@@ -32,11 +32,9 @@
     <select id="findBySearchForm" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
         WHERE deleted_flg = '0'
-        <!-- <if test="userName != '' and searchCondition == '0'.toString()"> -->
         <if test='userName != "" and searchCondition == "0"'>
             AND user_name LIKE #{userName} || '%'
         </if>
-        <!-- <if test="userName != '' and searchCondition == '1'.toString()"> -->
         <if test='userName != "" and searchCondition == "1"'>
             AND user_name LIKE '%' || #{userName} || '%'
         </if>
