@@ -3,36 +3,25 @@ package com.mailnaxx.controller;
 import java.time.YearMonth;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.GroupOrder;
-import com.mailnaxx.form.SearchUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
-import com.mailnaxx.security.LoginUserDetails;
 import com.mailnaxx.values.RoleClass;
 
-@Controller
-public class UsersController {
-
-    @Autowired
-    HttpSession session;
+public class TestController {
 
     @Autowired
     AffiliationsMapper affiliationsMapper;
@@ -43,60 +32,9 @@ public class UsersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @ModelAttribute("searchUsersForm")
-    public SearchUsersForm createSearchForm(){
-        return new SearchUsersForm();
-    }
-
-    @RequestMapping("/user/list")
-    public String index(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        List<Users> userList = usersMapper.findAll();
-        model.addAttribute("userList", userList);
-        model.addAttribute("roleClassList", RoleClass.values());
-
-        searchUsersForm.setSearchCondition("0");
-        model.addAttribute("searchUsersForm", searchUsersForm);
-
-        boolean isAdmin = false;
-        if (loginUser.getLoginUser().getRole_class().equals("4")) {
-            isAdmin = true;
-        }
-        session.setAttribute("session_isAdmin", isAdmin);
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
-        return "user/list";
-    }
-
-    /**
-     * 検索処理を行う
-     * @param searchForm 検索用Formオブジェクト
-     * @param model Modelオブジェクト
-     * @return 一覧画面のパス
-     */
-    @PostMapping("/user/search")
-    public String search(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
-        model.addAttribute("userList", resultList);
-        model.addAttribute("roleClassList", RoleClass.values());
-
-        boolean isAdmin = (boolean) session.getAttribute("session_isAdmin");
-        model.addAttribute("isAdmin", isAdmin);
-        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
-        return "user/list";
-    }
-
-    // 詳細画面初期表示
-    @PostMapping("/user/detail")
-    public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        Users userInfo = usersMapper.findById(userId);
-        model.addAttribute("userInfo", userInfo);
-        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
-        return "user/detail";
-    }
-
     // 登録画面初期表示
-    @GetMapping("/user/create")
-    public String create(@ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    @GetMapping("/test/create")
+    public String create(@ModelAttribute UsersForm usersForm, Model model) {
         // 入社年月プルダウン
         int currentYear = YearMonth.now().getYear();
         int currentMonth = YearMonth.now().getMonthValue();
@@ -119,18 +57,15 @@ public class UsersController {
         model.addAttribute("birthYearFrom", birthYearFrom);
         model.addAttribute("birthYearTo", birthYearTo);
         model.addAttribute("birthYearDefault", birthYearDefault);
-        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
-        return "user/create";
+        return "test/create";
     }
 
     // 登録画面登録処理
-    @PostMapping("/user/create")
-    public String create(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    @PostMapping("/test/create")
+    public String create(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model) {
         // 入力エラーチェック
         if (result.hasErrors()) {
-            // リダイレクトだと入力エラーの値が引き継がれない
-            // return "redirect:/user/create";
-            return create(usersForm, model, loginUser);
+            return create(usersForm, model);
         }
 
         Users users = new Users();
@@ -190,21 +125,9 @@ public class UsersController {
         users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
         // 作成者はセッションのユーザID
-        users.setCreated_by(loginUser.getLoginUser().getPhone_number());
+        users.setCreated_by("test");
 
         usersMapper.insert(users);
-        return "redirect:/user/list";
-    }
-
-    // 論理削除処理
-    @RequestMapping("/user/delete")
-    public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        // 削除権限チェック
-        if (loginUser.getLoginUser().getRole_class().equals("4")) {
-            usersMapper.delete(userId);
-        } else {
-            // エラーメッセージを設定する
-        }
-        return "redirect:/user/list";
+        return "/";
     }
 }
