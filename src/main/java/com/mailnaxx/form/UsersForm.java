@@ -9,6 +9,9 @@ import javax.validation.constraints.Size;
 
 import lombok.Data;
 
+/**
+ * 社員登録
+ */
 @Data
 public class UsersForm {
 
@@ -106,5 +109,4 @@ public class UsersForm {
     @Size(min=8, max=10, groups = ValidGroup2.class, message = "半角英数字8文字以上10文字以内で入力してください")
     @Pattern(regexp="^[A-Za-z0-9]+$", groups = ValidGroup3.class, message = "半角英数字で入力してください")
     private String password;
-
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 public class WeeklyReportForm {
 
     // 担当営業
-    private String salesName;
+    private int salesUserId;
 
     // 現場ID
     private int projectId;
