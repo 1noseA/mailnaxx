@@ -135,14 +135,18 @@ public class UsersController {
 
         Users users = new Users();
 
-        // ユーザID生成（これだとかぶることがある。ランダムじゃなくて連番にする？）
+     // 社員番号生成
         String hireYear = String.valueOf(usersForm.getHireYear());
         String hireMonth = String.valueOf(usersForm.getHireMonth());
         if (hireMonth.length() == 1) {
             hireMonth = "0" + hireMonth;
         }
-        int random = (int)(Math.random()*100);
-        String num = random >= 10 ? Integer.toString(random) : "0" + Integer.toString(random);
+        String hireDate = hireYear + hireMonth + "01";
+        List<Users> usersList =  usersMapper.findAll();
+        int max = (int) usersList.stream()
+                .filter(u -> u.getHire_date().equals(hireDate))
+                .count() + 1;
+        String num = max >= 10 ? Integer.toString(max) : "0" + Integer.toString(max);
         users.setUser_number(hireYear + hireMonth + num);
 
         // 氏名
@@ -150,7 +154,7 @@ public class UsersController {
         users.setUser_name_kana(usersForm.getUserLastKana() + " " + usersForm.getUserFirstKana());
 
         // 入社年月
-        users.setHire_date(hireYear + hireMonth + "01");
+        users.setHire_date(hireDate);
 
         // 所属
         users.setAffiliation_id(usersForm.getAffiliationId());
