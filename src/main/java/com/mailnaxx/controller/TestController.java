@@ -1,6 +1,8 @@
 package com.mailnaxx.controller;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +80,10 @@ public class TestController {
         if (hireMonth.length() == 1) {
             hireMonth = "0" + hireMonth;
         }
-        String hireDate = hireYear + hireMonth + "01";
+        LocalDate hireDate = LocalDate.parse(hireYear + "/" + hireMonth + "/01", DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         List<Users> usersList =  usersMapper.findAll();
         int max = (int) usersList.stream()
-                .filter(u -> u.getHire_date().equals(hireDate))
+                .filter(u -> u.getHire_date().isEqual(hireDate))
                 .count() + 1;
         String num = max >= 10 ? Integer.toString(max) : "0" + Integer.toString(max);
         users.setUser_number(hireYear + hireMonth + num);
@@ -91,7 +93,7 @@ public class TestController {
         users.setUser_name_kana(usersForm.getUserLastKana() + " " + usersForm.getUserFirstKana());
 
         // 入社年月
-        users.setHire_date(hireYear + hireMonth + "01");
+        users.setHire_date(hireDate);
 
         // 所属
         users.setAffiliation_id(usersForm.getAffiliationId());
@@ -109,7 +111,7 @@ public class TestController {
         if (birthDay.length() == 1) {
             birthDay = "0" + birthDay;
         }
-        users.setBirth_date(birthYear + birthMonth + birthDay);
+        users.setBirth_date(LocalDate.parse(birthYear + "/" + birthMonth + "/" + birthDay, DateTimeFormatter.ofPattern("yyyy/MM/dd")));
 
         // 営業担当
         users.setSales_flg(usersForm.getSalesFlg());

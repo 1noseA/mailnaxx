@@ -1,5 +1,6 @@
 package com.mailnaxx.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -23,7 +24,7 @@ public class Users {
     private String user_name_kana;
 
     // 入社年月
-    private String hire_date;
+    private LocalDate hire_date;
 
     // 所属ID
     private int affiliation_id;
@@ -35,7 +36,7 @@ public class Users {
     private String sales_flg;
 
     // 生年月日
-    private String birth_date;
+    private LocalDate birth_date;
 
     // 郵便番号
     private String post_code;

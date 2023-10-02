@@ -1,6 +1,8 @@
 package com.mailnaxx.controller;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -135,16 +137,16 @@ public class UsersController {
 
         Users users = new Users();
 
-     // 社員番号生成
+        // 社員番号生成
         String hireYear = String.valueOf(usersForm.getHireYear());
         String hireMonth = String.valueOf(usersForm.getHireMonth());
         if (hireMonth.length() == 1) {
             hireMonth = "0" + hireMonth;
         }
-        String hireDate = hireYear + hireMonth + "01";
+        LocalDate hireDate = LocalDate.parse(hireYear + "/" + hireMonth + "/01", DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         List<Users> usersList =  usersMapper.findAll();
         int max = (int) usersList.stream()
-                .filter(u -> u.getHire_date().equals(hireDate))
+                .filter(u -> u.getHire_date().isEqual(hireDate))
                 .count() + 1;
         String num = max >= 10 ? Integer.toString(max) : "0" + Integer.toString(max);
         users.setUser_number(hireYear + hireMonth + num);
@@ -172,7 +174,7 @@ public class UsersController {
         if (birthDay.length() == 1) {
             birthDay = "0" + birthDay;
         }
-        users.setBirth_date(birthYear + birthMonth + birthDay);
+        users.setBirth_date(LocalDate.parse(birthYear + "/" + birthMonth + "/" + birthDay, DateTimeFormatter.ofPattern("yyyy/MM/dd")));
 
         // 営業担当
         users.setSales_flg(usersForm.getSalesFlg());
