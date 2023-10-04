@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.mailnaxx.constants.UserConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.GroupOrder;
@@ -61,6 +62,7 @@ public class TestController {
         model.addAttribute("birthYearFrom", birthYearFrom);
         model.addAttribute("birthYearTo", birthYearTo);
         model.addAttribute("birthYearDefault", birthYearDefault);
+        model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
         return "test/create";
     }
 
@@ -96,7 +98,7 @@ public class TestController {
         users.setHire_date(hireDate);
 
         // 所属
-        users.setAffiliation_id(usersForm.getAffiliationId());
+        users.setAffiliation_id(Integer.parseInt(usersForm.getAffiliationId()));
 
         // 権限区分
         users.setRole_class(usersForm.getRoleClass());

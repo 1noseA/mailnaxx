@@ -4,7 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -46,8 +45,8 @@ public class UsersForm {
     private int hireMonth;
 
     // 所属
-    @PositiveOrZero(groups = ValidGroup1.class, message = "選択してください")
-    private int affiliationId;
+    @NotBlank(groups = ValidGroup1.class, message = "選択してください")
+    private String affiliationId;
 
     // 権限区分
     private String roleClass;

@@ -85,10 +85,10 @@
                         </div>
                         <div class="col-12 col-md-8">
                             <select class="form-select w60" th:errorclass="is-invalid" name="affiliationId">
-                                <option value="">選択してください</option>
                                 <option th:each="affiliation : ${affiliationList}"
                                         th:value="${affiliation.affiliation_id}"
-                                        th:text="${affiliation.affiliation_name}">
+                                        th:text="${affiliation.affiliation_name}"
+                                        th:selected="${affiliation.affiliation_id.equals('1')}">
                                 </option>
                             </select>
                             <span class="invalid-feedback" th:if="${#fields.hasErrors('affiliationId')}" th:errors="*{affiliationId}"></span>
