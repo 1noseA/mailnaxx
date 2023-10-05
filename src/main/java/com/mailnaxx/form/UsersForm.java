@@ -3,7 +3,6 @@ package com.mailnaxx.form;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -39,10 +38,12 @@ public class UsersForm {
     private String userFirstKana;
 
     // 入社年月_年
-    private int hireYear;
+    @NotBlank(groups = ValidGroup1.class, message = "選択してください")
+    private String hireYear;
 
     // 入社年月_月
-    private int hireMonth;
+    @NotBlank(groups = ValidGroup1.class, message = "選択してください")
+    private String hireMonth;
 
     // 所属
     @NotBlank(groups = ValidGroup1.class, message = "選択してください")
@@ -55,16 +56,16 @@ public class UsersForm {
     private String salesFlg;
 
     // 生年月日_年
-    @Positive(groups = ValidGroup1.class, message = "選択してください")
-    private int birthYear;
+    @NotBlank(groups = ValidGroup1.class, message = "選択してください")
+    private String birthYear;
 
     // 生年月日_月
-    @Positive(groups = ValidGroup1.class, message = "選択してください")
-    private int birthMonth;
+    @NotBlank(groups = ValidGroup1.class, message = "選択してください")
+    private String birthMonth;
 
     // 生年月日_日
-    @Positive(groups = ValidGroup1.class, message = "選択してください")
-    private int birthDay;
+    @NotBlank(groups = ValidGroup1.class, message = "選択してください")
+    private String birthDay;
 
     // 郵便番号1
     @NotBlank(groups = ValidGroup1.class, message = "入力してください")

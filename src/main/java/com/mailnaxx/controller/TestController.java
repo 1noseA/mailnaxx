@@ -3,6 +3,7 @@ package com.mailnaxx.controller;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,23 @@ public class TestController {
     // 登録画面初期表示
     @GetMapping("/test/create")
     public String create(@ModelAttribute UsersForm usersForm, Model model) {
-        // 入社年月プルダウン
+        // 現在
         int currentYear = YearMonth.now().getYear();
         int currentMonth = YearMonth.now().getMonthValue();
-
-        model.addAttribute("currentYear", currentYear);
-        model.addAttribute("currentMonth", currentMonth);
+        // 入社年月_年プルダウン
+        List<String> hireYearList = new ArrayList<>();
+        for (int i = currentYear; i <= currentYear+1; i++) {
+            hireYearList.add(String.valueOf(i));
+        }
+        // 月プルダウン
+        List<String> monthList = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            monthList.add(String.valueOf(i));
+        }
+        model.addAttribute("currentYear", String.valueOf(currentYear));
+        model.addAttribute("currentMonth", String.valueOf(currentMonth));
+        model.addAttribute("hireYearList", hireYearList);
+        model.addAttribute("monthList", monthList);
 
         // 所属プルダウン
         List<Affiliations> affiliationList = affiliationsMapper.findAll();
@@ -54,13 +66,14 @@ public class TestController {
         // 権限区分プルダウン
         model.addAttribute("roleClassList", RoleClass.values());
 
-        // 生年月日プルダウン
-        int birthYearFrom = currentYear - 70;
-        int birthYearTo = currentYear - 20;
-        int birthYearDefault = currentYear - 30;
-
-        model.addAttribute("birthYearFrom", birthYearFrom);
-        model.addAttribute("birthYearTo", birthYearTo);
+        // 生年月日_年プルダウン
+        List<String> birthYearList = new ArrayList<>();
+        for (int i = currentYear-70; i <= currentYear-20; i++) {
+            birthYearList.add(String.valueOf(i));
+        }
+        // 初期値
+        String birthYearDefault = String.valueOf(currentYear-30);
+        model.addAttribute("birthYearList", birthYearList);
         model.addAttribute("birthYearDefault", birthYearDefault);
         model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
         return "test/create";
@@ -77,8 +90,8 @@ public class TestController {
         Users users = new Users();
 
         // 社員番号生成
-        String hireYear = String.valueOf(usersForm.getHireYear());
-        String hireMonth = String.valueOf(usersForm.getHireMonth());
+        String hireYear = usersForm.getHireYear();
+        String hireMonth = usersForm.getHireMonth();
         if (hireMonth.length() == 1) {
             hireMonth = "0" + hireMonth;
         }
@@ -87,7 +100,7 @@ public class TestController {
         int max = (int) usersList.stream()
                 .filter(u -> u.getHire_date().isEqual(hireDate))
                 .count() + 1;
-        String num = max >= 10 ? Integer.toString(max) : "0" + Integer.toString(max);
+        String num = max >= 10 ? String.valueOf(max) : "0" + String.valueOf(max);
         users.setUser_number(hireYear + hireMonth + num);
 
         // 氏名
@@ -104,9 +117,9 @@ public class TestController {
         users.setRole_class(usersForm.getRoleClass());
 
         // 生年月日
-        String birthYear = String.valueOf(usersForm.getBirthYear());
-        String birthMonth = String.valueOf(usersForm.getBirthMonth());
-        String birthDay = String.valueOf(usersForm.getBirthDay());
+        String birthYear = usersForm.getBirthYear();
+        String birthMonth = usersForm.getBirthMonth();
+        String birthDay = usersForm.getBirthDay();
         if (birthMonth.length() == 1) {
             birthMonth = "0" + birthMonth;
         }
