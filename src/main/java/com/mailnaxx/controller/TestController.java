@@ -82,7 +82,7 @@ public class TestController {
         if (hireMonth.length() == 1) {
             hireMonth = "0" + hireMonth;
         }
-        LocalDate hireDate = LocalDate.parse(hireYear + "/" + hireMonth + "/01", DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        LocalDate hireDate = LocalDate.parse(hireYear + hireMonth + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
         List<Users> usersList =  usersMapper.findAll();
         int max = (int) usersList.stream()
                 .filter(u -> u.getHire_date().isEqual(hireDate))
@@ -113,7 +113,7 @@ public class TestController {
         if (birthDay.length() == 1) {
             birthDay = "0" + birthDay;
         }
-        users.setBirth_date(LocalDate.parse(birthYear + "/" + birthMonth + "/" + birthDay, DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+        users.setBirth_date(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         // 営業担当
         users.setSales_flg(usersForm.getSalesFlg());
