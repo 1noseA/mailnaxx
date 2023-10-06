@@ -1,9 +1,7 @@
 package com.mailnaxx.controller;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -101,41 +99,15 @@ public class UsersController {
     // 登録画面初期表示
     @GetMapping("/user/create")
     public String create(@ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        // 現在
-        int currentYear = YearMonth.now().getYear();
-        int currentMonth = YearMonth.now().getMonthValue();
-        // 入社年月_年プルダウン
-        List<String> hireYearList = new ArrayList<>();
-        for (int i = currentYear; i <= currentYear+1; i++) {
-            hireYearList.add(String.valueOf(i));
-        }
-        // 月プルダウン
-        List<String> monthList = new ArrayList<>();
-        for (int i = 1; i <= 12; i++) {
-            monthList.add(String.valueOf(i));
-        }
-        model.addAttribute("currentYear", String.valueOf(currentYear));
-        model.addAttribute("currentMonth", String.valueOf(currentMonth));
-        model.addAttribute("hireYearList", hireYearList);
-        model.addAttribute("monthList", monthList);
 
         // 所属プルダウン
         List<Affiliations> affiliationList = affiliationsMapper.findAll();
         model.addAttribute("affiliationList", affiliationList);
+        model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
 
         // 権限区分プルダウン
         model.addAttribute("roleClassList", RoleClass.values());
 
-        // 生年月日_年プルダウン
-        List<String> birthYearList = new ArrayList<>();
-        for (int i = currentYear-70; i <= currentYear-20; i++) {
-            birthYearList.add(String.valueOf(i));
-        }
-        // 初期値
-        String birthYearDefault = String.valueOf(currentYear-30);
-        model.addAttribute("birthYearList", birthYearList);
-        model.addAttribute("birthYearDefault", birthYearDefault);
-        model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/create";
     }

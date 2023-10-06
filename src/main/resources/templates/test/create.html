@@ -4,6 +4,7 @@
 <link rel="stylesheet" th:href="@{/css/user/create.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/user.js}"></script>
 </head>
 <body>
     <div class="contents">
@@ -55,22 +56,10 @@
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-content-center">
-                            <select class="form-select w30" name="hireYear">
-                                <option th:each="hireYear : ${hireYearList}"
-                                        th:value="${hireYear}"
-                                        th:text="${hireYear}"
-                                        th:selected="${hireYear.equals(currentYear)}">
-                                </option>
-                            </select>
+                            <select class="form-select w30" name="hireYear" id="hireYearList"></select>
                             <span class="p-2">年</span>
 
-                            <select class="form-select w20" name="hireMonth">
-                                <option th:each="hireMonth : ${monthList}"
-                                        th:value="${hireMonth}"
-                                        th:text="${hireMonth}"
-                                        th:selected="${hireMonth.equals(currentMonth)}">
-                                </option>
-                            </select>
+                            <select class="form-select w20 monthList" name="hireMonth"></select>
                             <span class="p-2">月</span>
                         </div>
                     </div>
@@ -123,23 +112,11 @@
                         </div>
 
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <select class="form-select" th:errorclass="is-invalid" name="birthYear" id="yearList">
-                                <option th:each="birthYear : ${birthYearList}"
-                                        th:value="${birthYear}"
-                                        th:text="${birthYear}"
-                                        th:selected="${birthYear.equals(birthYearDefault)}">
-                                </option>
-                            </select>
+                            <select class="form-select" th:errorclass="is-invalid" name="birthYear" id="yearList"></select>
                             <span class="p-2">年</span>
 
                             <div class="input-group has-validation">
-                                <select class="form-select w20" th:errorclass="is-invalid" name="birthMonth" id="monthList">
-                                    <option value=""></option>
-                                    <option th:each="birthMonth : ${monthList}"
-                                            th:value="${birthMonth}"
-                                            th:text="${birthMonth}">
-                                    </option>
-                                </select>
+                                <select class="form-select w20 monthList" th:errorclass="is-invalid" name="birthMonth" id="monthList"></select>
                                 <span class="invalid-feedback" th:if="${#fields.hasErrors('birthMonth')}" th:errors="*{birthMonth}"></span>
                             </div>
                             <span class="p-2">月</span>
