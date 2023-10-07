@@ -1,5 +1,5 @@
 /**
- * 年プルダウン生成
+ * 年プルダウン作成
  * @param {string} id プルダウンのid属性
  * @param {string} startYear 開始年
  * @param {string} endYear 終了年
@@ -14,7 +14,7 @@ function createYearList(id, startYear, endYear, initialYear) {
 }
 
 /**
- * 月プルダウン生成
+ * 月プルダウン作成
  */
 function createMonthList() {
     $('.monthList').empty();
