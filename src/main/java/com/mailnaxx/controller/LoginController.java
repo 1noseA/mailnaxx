@@ -33,7 +33,7 @@ public class LoginController {
     public String testLogin() {
         String userNumber = "20230805";
         // 最終ログイン日時の更新とログイン失敗回数初期化
-        usersMapper.update(userNumber);
+        usersMapper.loginSuccess(userNumber);
         Optional<Users> user = usersMapper.findLoginUser(userNumber);
         UserDetails userDetails = user.map(users -> new LoginUserDetails(users))
                 .orElseThrow(() -> new UsernameNotFoundException("ログインに失敗しました。"));

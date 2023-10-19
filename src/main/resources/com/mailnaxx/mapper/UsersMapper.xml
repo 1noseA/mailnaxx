@@ -17,10 +17,16 @@
            user_number = #{userNumber}
     </select>
 
-    <update id="update">
+    <update id="loginFailure">
         UPDATE users SET
-            last_login_date = CURRENT_TIMESTAMP
-            <!-- 認証エラー回数 -->
+            failure_count = failure_count + 1
+        WHERE user_number = #{user_number}
+    </update>
+
+    <update id="loginSuccess">
+        UPDATE users SET
+            last_login_date = CURRENT_TIMESTAMP,
+            failure_count = 0
         WHERE user_number = #{user_number}
     </update>
 
