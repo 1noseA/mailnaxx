@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mailnaxx.constants.CommonConstants;
 import com.mailnaxx.constants.UserConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
@@ -56,11 +57,11 @@ public class UsersController {
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
 
-        searchUsersForm.setSearchCondition("0");
+        searchUsersForm.setSearchCondition(CommonConstants.PREFIX_MATCH);
         model.addAttribute("searchUsersForm", searchUsersForm);
 
         boolean isAdmin = false;
-        if (loginUser.getLoginUser().getRole_class().equals("4")) {
+        if (loginUser.getLoginUser().getRole_class().equals(RoleClass.GeneralAffairs.getValue())) {
             isAdmin = true;
         }
         session.setAttribute("session_isAdmin", isAdmin);
@@ -128,19 +129,19 @@ public class UsersController {
         String hireYear = usersForm.getHireYear();
         String hireMonth = usersForm.getHireMonth();
         if (hireMonth.length() == 1) {
-            hireMonth = "0" + hireMonth;
+            hireMonth = CommonConstants.FILLED_ZERO + hireMonth;
         }
-        LocalDate hireDate = LocalDate.parse(hireYear + hireMonth + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
+        LocalDate hireDate = LocalDate.parse(hireYear + hireMonth + CommonConstants.FIRST_DAY, DateTimeFormatter.ofPattern("yyyyMMdd"));
         List<Users> usersList =  usersMapper.findAll();
         int max = (int) usersList.stream()
                 .filter(u -> u.getHire_date().isEqual(hireDate))
                 .count() + 1;
-        String num = max >= 10 ? String.valueOf(max) : "0" + String.valueOf(max);
+        String num = max >= 10 ? String.valueOf(max) : CommonConstants.FILLED_ZERO + String.valueOf(max);
         users.setUser_number(hireYear + hireMonth + num);
 
         // 氏名
-        users.setUser_name(usersForm.getUserLastName() + " " + usersForm.getUserFirstName());
-        users.setUser_name_kana(usersForm.getUserLastKana() + " " + usersForm.getUserFirstKana());
+        users.setUser_name(usersForm.getUserLastName() + CommonConstants.HALF_SPACE + usersForm.getUserFirstName());
+        users.setUser_name_kana(usersForm.getUserLastKana() + CommonConstants.HALF_SPACE + usersForm.getUserFirstKana());
 
         // 入社年月
         users.setHire_date(hireDate);
@@ -156,10 +157,10 @@ public class UsersController {
         String birthMonth = usersForm.getBirthMonth();
         String birthDay = usersForm.getBirthDay();
         if (birthMonth.length() == 1) {
-            birthMonth = "0" + birthMonth;
+            birthMonth = CommonConstants.FILLED_ZERO + birthMonth;
         }
         if (birthDay.length() == 1) {
-            birthDay = "0" + birthDay;
+            birthDay = CommonConstants.FILLED_ZERO + birthDay;
         }
         users.setBirth_date(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
 
@@ -167,13 +168,13 @@ public class UsersController {
         users.setSales_flg(usersForm.getSalesFlg());
 
         // 郵便番号
-        users.setPost_code(usersForm.getPostCode1() + "-" +usersForm.getPostCode2());
+        users.setPost_code(usersForm.getPostCode1() + CommonConstants.HALF_HYPHEN +usersForm.getPostCode2());
 
         // 住所
         users.setAddress(usersForm.getAddress());
 
         // 電話番号
-        users.setPhone_number(usersForm.getPhoneNumber1() + "-" + usersForm.getPhoneNumber2() + "-" + usersForm.getPhoneNumber3());
+        users.setPhone_number(usersForm.getPhoneNumber1() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber2() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber3());
 
         // メールアドレス
         users.setEmail_address(usersForm.getEmailAddress());
@@ -193,7 +194,7 @@ public class UsersController {
     @RequestMapping("/user/delete")
     public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 削除権限チェック
-        if (loginUser.getLoginUser().getRole_class().equals("4")) {
+        if (loginUser.getLoginUser().getRole_class().equals(RoleClass.GeneralAffairs.getValue())) {
             usersMapper.delete(userId);
         } else {
             // エラーメッセージを設定する
