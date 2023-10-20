@@ -30,22 +30,42 @@
         WHERE user_number = #{user_number}
     </update>
 
-    <select id="findAll" resultType="com.mailnaxx.entity.Users">
-        SELECT * FROM users
-        WHERE deleted_flg = '0'
+    <select id="findAll" resultMap="userMap">
+        SELECT
+            u.user_number
+            ,u.user_name
+            ,u.hire_date
+            ,a.affiliation_name
+            ,u.role_class
+            ,u.sales_flg
+        FROM users u
+        INNER JOIN affiliations a
+            ON u.affiliation_id = a.affiliation_id
+        WHERE
+            u.deleted_flg = '0'
     </select>
 
-    <select id="findBySearchForm" resultType="com.mailnaxx.entity.Users">
-        SELECT * FROM users
-        WHERE deleted_flg = '0'
+    <select id="findBySearchForm" resultMap="userMap">
+        SELECT
+            u.user_number
+            ,u.user_name
+            ,u.hire_date
+            ,a.affiliation_name
+            ,u.role_class
+            ,u.sales_flg
+        FROM users u
+        INNER JOIN affiliations a
+            ON u.affiliation_id = a.affiliation_id
+        WHERE
+            u.deleted_flg = '0'
         <if test='userName != "" and searchCondition == "0"'>
-            AND user_name LIKE #{userName} || '%'
+            AND u.user_name LIKE #{userName} || '%'
         </if>
         <if test='userName != "" and searchCondition == "1"'>
-            AND user_name LIKE '%' || #{userName} || '%'
+            AND u.user_name LIKE '%' || #{userName} || '%'
         </if>
         <if test='roleClass != ""'>
-            AND role_class = #{roleClass}
+            AND u.role_class = #{roleClass}
         </if>
     </select>
 
@@ -75,6 +95,7 @@
         <result property="user_name_kana" column="user_name_kana" />
         <result property="hire_date" column="hire_date" />
         <result property="role_class" column="role_class" />
+        <result property="sales_flg" column="sales_flg" />
         <result property="birth_date" column="birth_date" />
         <result property="post_code" column="post_code" />
         <result property="address" column="address" />

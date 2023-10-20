@@ -78,8 +78,8 @@ public class UsersController {
      */
     @PostMapping("/user/search")
     public String search(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
-        model.addAttribute("userList", resultList);
+        List<Users> userList = usersMapper.findBySearchForm(searchUsersForm);
+        model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
 
         boolean isAdmin = (boolean) session.getAttribute("session_isAdmin");
