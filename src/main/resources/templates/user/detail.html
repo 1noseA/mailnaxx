@@ -25,11 +25,11 @@
                         </tr>
                         <tr>
                             <th>入社年月</th>
-                            <td th:text="*{hire_date}"></td>
+                            <td th:text="*{#strings.replace(hire_date, '-', '/')}"></td>
                         </tr>
                         <tr>
                             <th>所属</th>
-                            <td th:text="*{affiliation_id}"></td>
+                            <td th:text="*{affiliation.affiliation_name}"></td>
                         </tr>
                         <tr>
                             <th>権限区分</th>
@@ -37,11 +37,11 @@
                         </tr>
                         <tr>
                             <th>生年月日</th>
-                            <td th:text="*{birth_date}"></td>
+                            <td th:text="*{#strings.replace(birth_date, '-', '/')}"></td>
                         </tr>
                         <tr>
                             <th>郵便番号</th>
-                            <td th:text="*{post_code}"></td>
+                            <td th:text="'〒' + *{post_code}"></td>
                         </tr>
                         <tr>
                             <th>住所</th>

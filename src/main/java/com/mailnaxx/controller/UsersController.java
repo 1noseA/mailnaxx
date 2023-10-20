@@ -123,7 +123,7 @@ public class UsersController {
             return create(usersForm, model, loginUser);
         }
 
-        Users users = new Users();
+        Users user = new Users();
 
         // 社員番号生成
         String hireYear = usersForm.getHireYear();
@@ -137,20 +137,22 @@ public class UsersController {
                 .filter(u -> u.getHire_date().isEqual(hireDate))
                 .count() + 1;
         String num = max >= 10 ? String.valueOf(max) : CommonConstants.FILLED_ZERO + String.valueOf(max);
-        users.setUser_number(hireYear + hireMonth + num);
+        user.setUser_number(hireYear + hireMonth + num);
 
         // 氏名
-        users.setUser_name(usersForm.getUserLastName() + CommonConstants.HALF_SPACE + usersForm.getUserFirstName());
-        users.setUser_name_kana(usersForm.getUserLastKana() + CommonConstants.HALF_SPACE + usersForm.getUserFirstKana());
+        user.setUser_name(usersForm.getUserLastName() + CommonConstants.HALF_SPACE + usersForm.getUserFirstName());
+        user.setUser_name_kana(usersForm.getUserLastKana() + CommonConstants.HALF_SPACE + usersForm.getUserFirstKana());
 
         // 入社年月
-        users.setHire_date(hireDate);
+        user.setHire_date(hireDate);
 
         // 所属
-        users.setAffiliation_id(Integer.parseInt(usersForm.getAffiliationId()));
+        Affiliations affiliation = new Affiliations();
+        affiliation.setAffiliation_id(Integer.parseInt(usersForm.getAffiliationId()));
+        user.setAffiliation(affiliation);
 
         // 権限区分
-        users.setRole_class(usersForm.getRoleClass());
+        user.setRole_class(usersForm.getRoleClass());
 
         // 生年月日
         String birthYear = usersForm.getBirthYear();
@@ -162,31 +164,31 @@ public class UsersController {
         if (birthDay.length() == 1) {
             birthDay = CommonConstants.FILLED_ZERO + birthDay;
         }
-        users.setBirth_date(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
+        user.setBirth_date(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         // 営業担当
-        users.setSales_flg(usersForm.getSalesFlg());
+        user.setSales_flg(usersForm.getSalesFlg());
 
         // 郵便番号
-        users.setPost_code(usersForm.getPostCode1() + CommonConstants.HALF_HYPHEN +usersForm.getPostCode2());
+        user.setPost_code(usersForm.getPostCode1() + CommonConstants.HALF_HYPHEN +usersForm.getPostCode2());
 
         // 住所
-        users.setAddress(usersForm.getAddress());
+        user.setAddress(usersForm.getAddress());
 
         // 電話番号
-        users.setPhone_number(usersForm.getPhoneNumber1() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber2() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber3());
+        user.setPhone_number(usersForm.getPhoneNumber1() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber2() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber3());
 
         // メールアドレス
-        users.setEmail_address(usersForm.getEmailAddress());
+        user.setEmail_address(usersForm.getEmailAddress());
 
         // パスワードはハッシュにする
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
+        user.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
         // 作成者はセッションのユーザID
-        users.setCreated_by("test");
+        user.setCreated_by("test");
 
-        usersMapper.insert(users);
+        usersMapper.insert(user);
         return "redirect:/user/list";
     }
 

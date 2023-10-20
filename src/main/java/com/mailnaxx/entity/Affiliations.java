@@ -2,12 +2,12 @@ package com.mailnaxx.entity;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * 所属
  */
-@Getter
+@Data
 public class Affiliations {
 
     // 所属ID

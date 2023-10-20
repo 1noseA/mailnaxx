@@ -26,8 +26,8 @@ public class Users {
     // 入社年月
     private LocalDate hire_date;
 
-    // 所属ID
-    private int affiliation_id;
+    // 所属
+    private Affiliations affiliation;
 
     // 権限区分
     private String role_class;

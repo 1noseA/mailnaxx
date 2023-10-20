@@ -6,11 +6,11 @@
 
     <select id="findLoginUser" resultType="com.mailnaxx.entity.Users">
         SELECT
-           user_number,
-           user_name,
-           role_class,
-           password,
-           last_login_date
+           user_number
+           ,user_name
+           ,role_class
+           ,password
+           ,last_login_date
         FROM
            users
         WHERE
@@ -49,10 +49,44 @@
         </if>
     </select>
 
-    <select id="findById" resultType="com.mailnaxx.entity.Users">
-        SELECT * FROM users
-        WHERE user_id = #{userId}
+    <select id="findById" resultMap="userMap">
+        SELECT
+            u.user_number
+            ,u.user_name
+            ,u.user_name_kana
+            ,u.hire_date
+            ,a.affiliation_name
+            ,u.role_class
+            ,u.birth_date
+            ,u.post_code
+            ,u.address
+            ,u.phone_number
+            ,u.email_address
+        FROM users u
+        INNER JOIN affiliations a
+            ON u.affiliation_id = a.affiliation_id
+        WHERE
+            user_id = #{userId}
     </select>
+
+    <resultMap id="userMap" type="com.mailnaxx.entity.Users">
+        <result property="user_number" column="user_number" />
+        <result property="user_name" column="user_name" />
+        <result property="user_name_kana" column="user_name_kana" />
+        <result property="hire_date" column="hire_date" />
+        <result property="role_class" column="role_class" />
+        <result property="birth_date" column="birth_date" />
+        <result property="post_code" column="post_code" />
+        <result property="address" column="address" />
+        <result property="phone_number" column="phone_number" />
+        <result property="email_address" column="email_address" />
+        <association property="affiliation" resultMap="affiliationResult"/>
+    </resultMap>
+
+    <resultMap id="affiliationResult" type="com.mailnaxx.entity.Affiliations">
+        <result property="affiliation_id" column="affiliation_id" />
+        <result property="affiliation_name" column="affiliation_name" />
+    </resultMap>
 
     <select id="findBySales" resultType="com.mailnaxx.entity.Users">
         SELECT * FROM users
