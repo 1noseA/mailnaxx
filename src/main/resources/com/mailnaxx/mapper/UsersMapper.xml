@@ -44,6 +44,7 @@
             ON u.affiliation_id = a.affiliation_id
         WHERE
             u.deleted_flg = '0'
+        ORDER BY u.user_number
     </select>
 
     <select id="findBySearchForm" resultMap="userMap">
@@ -69,6 +70,7 @@
         <if test='roleClass != ""'>
             AND u.role_class = #{roleClass}
         </if>
+        ORDER BY u.user_number
     </select>
 
     <select id="findById" resultMap="userMap">
