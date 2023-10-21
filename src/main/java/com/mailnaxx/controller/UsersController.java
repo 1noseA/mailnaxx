@@ -61,7 +61,7 @@ public class UsersController {
         model.addAttribute("searchUsersForm", searchUsersForm);
 
         boolean isAdmin = false;
-        if (loginUser.getLoginUser().getRole_class().equals(RoleClass.GeneralAffairs.getValue())) {
+        if (loginUser.getLoginUser().getRole_class().equals(RoleClass.AFFAIRS.getCode())) {
             isAdmin = true;
         }
         session.setAttribute("session_isAdmin", isAdmin);
@@ -93,6 +93,7 @@ public class UsersController {
     public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         Users userInfo = usersMapper.findById(userId);
         model.addAttribute("userInfo", userInfo);
+        model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRole_class()));
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/detail";
     }
@@ -196,7 +197,7 @@ public class UsersController {
     @RequestMapping("/user/delete")
     public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 削除権限チェック
-        if (loginUser.getLoginUser().getRole_class().equals(RoleClass.GeneralAffairs.getValue())) {
+        if (loginUser.getLoginUser().getRole_class().equals(RoleClass.AFFAIRS.getCode())) {
             usersMapper.delete(userId);
         } else {
             // エラーメッセージを設定する

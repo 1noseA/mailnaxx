@@ -42,7 +42,7 @@
                             <select class="form-select" name="roleClass" id="roleClass">
                                 <option value="">全て</option>
                                 <option th:each="roleClass : ${roleClassList}"
-                                        th:value="${roleClass.value}"
+                                        th:value="${roleClass.code}"
                                         th:text="${roleClass.viewName}"
                                         th:field="*{roleClass}">
                                 </option>
@@ -118,7 +118,7 @@
                                             <td>
                                                 <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.user_id}]]')">
                                                     <th:block th:each="roleClass : ${roleClassList}">
-                                                        <th:block th:if="${userList.role_class == roleClass.value}">
+                                                        <th:block th:if="${userList.role_class == roleClass.code}">
                                                             <span th:text="${roleClass.viewName}"></span>
                                                         </th:block>
                                                     </th:block>

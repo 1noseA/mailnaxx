@@ -36,7 +36,7 @@ public class LoginUserDetails implements UserDetails {
     // 権限のコレクションを返す
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_" + RoleClass.getByCode(users.getRole_class()));
+        return AuthorityUtils.createAuthorityList("ROLE_" + RoleClass.getValueByCode(users.getRole_class()));
     }
 
     // ユーザーが期限切れでなければtrueを返す
