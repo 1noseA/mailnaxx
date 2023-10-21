@@ -32,7 +32,8 @@
 
     <select id="findAll" resultMap="userMap">
         SELECT
-            u.user_number
+            u.user_id
+            ,u.user_number
             ,u.user_name
             ,u.hire_date
             ,a.affiliation_name
@@ -47,7 +48,8 @@
 
     <select id="findBySearchForm" resultMap="userMap">
         SELECT
-            u.user_number
+            u.user_id
+            ,u.user_number
             ,u.user_name
             ,u.hire_date
             ,a.affiliation_name
@@ -71,7 +73,8 @@
 
     <select id="findById" resultMap="userMap">
         SELECT
-            u.user_number
+            u.user_id
+            ,u.user_number
             ,u.user_name
             ,u.user_name_kana
             ,u.hire_date
@@ -90,6 +93,7 @@
     </select>
 
     <resultMap id="userMap" type="com.mailnaxx.entity.Users">
+        <result property="user_id" column="user_id" />
         <result property="user_number" column="user_number" />
         <result property="user_name" column="user_name" />
         <result property="user_name_kana" column="user_name_kana" />
