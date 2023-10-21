@@ -3,10 +3,10 @@ package com.mailnaxx.constants;
 public class CommonConstants {
 
     // 半角ハイフン
-    public static final String HALF_SPACE = "-";
+    public static final String HALF_HYPHEN = "-";
 
     // 半角スペース
-    public static final String HALF_HYPHEN = " ";
+    public static final String HALF_SPACE = " ";
 
     // 0埋め用
     public static final String FILLED_ZERO = "0";
