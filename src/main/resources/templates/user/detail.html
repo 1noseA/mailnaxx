@@ -13,23 +13,23 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>社員番号</th>
-                            <td th:text="*{user_number}"></td>
+                            <td th:text="*{userNumber}"></td>
                         </tr>
                         <tr>
                             <th>氏名（漢字）</th>
-                            <td th:text="*{user_name}"></td>
+                            <td th:text="*{userName}"></td>
                         </tr>
                         <tr>
                             <th>氏名（カタカナ）</th>
-                            <td th:text="*{user_name_kana}"></td>
+                            <td th:text="*{userNameKana}"></td>
                         </tr>
                         <tr>
                             <th>入社年月</th>
-                            <td th:text="*{#strings.replace(hire_date, '-', '/')}"></td>
+                            <td th:text="*{#strings.replace(hireDate, '-', '/')}"></td>
                         </tr>
                         <tr>
                             <th>所属</th>
-                            <td th:text="*{affiliation.affiliation_name}"></td>
+                            <td th:text="*{affiliation.affiliationName}"></td>
                         </tr>
                         <tr>
                             <th>権限区分</th>
@@ -37,11 +37,11 @@
                         </tr>
                         <tr>
                             <th>生年月日</th>
-                            <td th:text="*{#strings.replace(birth_date, '-', '/')}"></td>
+                            <td th:text="*{#strings.replace(birthDate, '-', '/')}"></td>
                         </tr>
                         <tr>
                             <th>郵便番号</th>
-                            <td th:text="'〒' + *{post_code}"></td>
+                            <td th:text="'〒' + *{postCode}"></td>
                         </tr>
                         <tr>
                             <th>住所</th>
@@ -49,11 +49,11 @@
                         </tr>
                         <tr>
                             <th>電話番号</th>
-                            <td th:text="*{phone_number}"></td>
+                            <td th:text="*{phoneNumber}"></td>
                         </tr>
                         <tr>
                             <th>メールアドレス</th>
-                            <td th:text="*{email_address}"></td>
+                            <td th:text="*{emailAddress}"></td>
                         </tr>
                     </table>
                 </div>

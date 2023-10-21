@@ -75,9 +75,9 @@
                         <div class="col-12 col-md-8">
                             <select class="form-select w60" th:errorclass="is-invalid" name="affiliationId">
                                 <option th:each="affiliation : ${affiliationList}"
-                                        th:value="${affiliation.affiliation_id}"
-                                        th:text="${affiliation.affiliation_name}"
-                                        th:selected="${affiliation.affiliation_id.equals('1')}">
+                                        th:value="${affiliation.affiliationId}"
+                                        th:text="${affiliation.affiliationName}"
+                                        th:selected="${affiliation.affiliationId.equals('1')}">
                                 </option>
                             </select>
                             <span class="invalid-feedback" th:if="${#fields.hasErrors('affiliationId')}" th:errors="*{affiliationId}"></span>
@@ -93,7 +93,7 @@
                         <div class="col-12 col-md-8 d-flex align-items-center">
                             <select class="form-select w60" th:errorclass="is-invalid" name="roleClass">
                                 <option th:each="roleClass : ${roleClassList}"
-                                        th:value="${roleClass.value}"
+                                        th:value="${roleClass.code}"
                                         th:text="${roleClass.viewName}">
                                 </option>
                             </select>

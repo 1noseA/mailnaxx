@@ -31,15 +31,15 @@
                 <div class="col-12 order-3 col-md-6 order-md-2 col-lg-4 d-flex justify-content-start flex-md-column pt-md-3">
                     <div class="text-white fs-14">
                         社員番号:
-                        <span th:text="${loginUserInfo.user_number}" class="text-white"></span>&emsp;
+                        <span th:text="${loginUserInfo.userNumber}" class="text-white"></span>&emsp;
                     </div>
                     <div class="text-white fs-14">
                         名前:
-                        <span th:text="${loginUserInfo.user_name}" class="text-white"></span>
+                        <span th:text="${loginUserInfo.userName}" class="text-white"></span>
                     </div>
                     <div class="text-white fs-14 lastLoginDate">
                         最終ログイン:
-                        <span th:text="${#temporals.format(loginUserInfo.last_login_date, 'yyyy/MM/dd HH:mm')}" class="text-white"></span>
+                        <span th:text="${#temporals.format(loginUserInfo.lastLoginDate, 'yyyy/MM/dd HH:mm')}" class="text-white"></span>
                     </div>
                 </div>
                 <div class="col-6 order-2 col-md-2 order-md-3 text-end">

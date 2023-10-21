@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mailnaxx.mapper.UsersMapper">
 
-    <select id="findLoginUser" resultType="com.mailnaxx.entity.Users">
+    <select id="findLoginUser" resultMap="userMap">
         SELECT
-           user_number
-           ,user_name
-           ,role_class
-           ,password
-           ,last_login_date
+           user_number,
+           user_name,
+           role_class,
+           password,
+           last_login_date
         FROM
            users
         WHERE
@@ -20,25 +20,25 @@
     <update id="loginFailure">
         UPDATE users SET
             failure_count = failure_count + 1
-        WHERE user_number = #{user_number}
+        WHERE user_number = #{userNumber}
     </update>
 
     <update id="loginSuccess">
         UPDATE users SET
             last_login_date = CURRENT_TIMESTAMP,
             failure_count = 0
-        WHERE user_number = #{user_number}
+        WHERE user_number = #{userNumber}
     </update>
 
     <select id="findAll" resultMap="userMap">
         SELECT
-            u.user_id
-            ,u.user_number
-            ,u.user_name
-            ,u.hire_date
-            ,a.affiliation_name
-            ,u.role_class
-            ,u.sales_flg
+            u.user_id,
+            u.user_number,
+            u.user_name,
+            u.hire_date,
+            a.affiliation_name,
+            u.role_class,
+            u.sales_flg
         FROM users u
         INNER JOIN affiliations a
             ON u.affiliation_id = a.affiliation_id
@@ -49,13 +49,13 @@
 
     <select id="findBySearchForm" resultMap="userMap">
         SELECT
-            u.user_id
-            ,u.user_number
-            ,u.user_name
-            ,u.hire_date
-            ,a.affiliation_name
-            ,u.role_class
-            ,u.sales_flg
+            u.user_id,
+            u.user_number,
+            u.user_name,
+            u.hire_date,
+            a.affiliation_name,
+            u.role_class,
+            u.sales_flg
         FROM users u
         INNER JOIN affiliations a
             ON u.affiliation_id = a.affiliation_id
@@ -75,18 +75,18 @@
 
     <select id="findById" resultMap="userMap">
         SELECT
-            u.user_id
-            ,u.user_number
-            ,u.user_name
-            ,u.user_name_kana
-            ,u.hire_date
-            ,a.affiliation_name
-            ,u.role_class
-            ,u.birth_date
-            ,u.post_code
-            ,u.address
-            ,u.phone_number
-            ,u.email_address
+            u.user_id,
+            u.user_number,
+            u.user_name,
+            u.user_name_kana,
+            u.hire_date,
+            a.affiliation_name,
+            u.role_class,
+            u.birth_date,
+            u.post_code,
+            u.address,
+            u.phone_number,
+            u.email_address
         FROM users u
         INNER JOIN affiliations a
             ON u.affiliation_id = a.affiliation_id
@@ -95,24 +95,34 @@
     </select>
 
     <resultMap id="userMap" type="com.mailnaxx.entity.Users">
-        <result property="user_id" column="user_id" />
-        <result property="user_number" column="user_number" />
-        <result property="user_name" column="user_name" />
-        <result property="user_name_kana" column="user_name_kana" />
-        <result property="hire_date" column="hire_date" />
-        <result property="role_class" column="role_class" />
-        <result property="sales_flg" column="sales_flg" />
-        <result property="birth_date" column="birth_date" />
-        <result property="post_code" column="post_code" />
+        <result property="userId" column="user_id" />
+        <result property="userNumber" column="user_number" />
+        <result property="userName" column="user_name" />
+        <result property="userNameKana" column="user_name_kana" />
+        <result property="hireDate" column="hire_date" />
+        <result property="roleClass" column="role_class" />
+        <result property="salesFlg" column="sales_flg" />
+        <result property="birthDate" column="birth_date" />
+        <result property="postCode" column="post_code" />
         <result property="address" column="address" />
-        <result property="phone_number" column="phone_number" />
-        <result property="email_address" column="email_address" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="emailAddress" column="email_address" />
+        <result property="password" column="password" />
+        <result property="passChangedDate" column="pass_changed_date" />
+        <result property="oldPassword" column="old_password" />
+        <result property="failureCount" column="failure_count" />
+        <result property="lastLoginDate" column="last_login_date" />
+        <result property="deletedFlg" column="deleted_flg" />
+        <result property="createdBy" column="created_by" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedBy" column="updated_by" />
+        <result property="updatedAt" column="updated_at" />
         <association property="affiliation" resultMap="affiliationResult"/>
     </resultMap>
 
     <resultMap id="affiliationResult" type="com.mailnaxx.entity.Affiliations">
-        <result property="affiliation_id" column="affiliation_id" />
-        <result property="affiliation_name" column="affiliation_name" />
+        <result property="affiliationId" column="affiliation_id" />
+        <result property="affiliationName" column="affiliation_name" />
     </resultMap>
 
     <select id="findBySales" resultType="com.mailnaxx.entity.Users">
@@ -121,7 +131,7 @@
         AND deleted_flg = '0'
     </select>
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="user_id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO users
         (
             user_number,
@@ -142,20 +152,20 @@
         )
         VALUES
         (
-            #{user_number},
-            #{user_name},
-            #{user_name_kana},
-            #{hire_date},
-            #{affiliation_id},
-            #{role_class},
-            #{sales_flg},
-            #{birth_date},
-            #{post_code},
+            #{userNumber},
+            #{userName},
+            #{userNameKana},
+            #{hireDate},
+            #{affiliation.affiliationId},
+            #{roleClass},
+            #{salesFlg},
+            #{birthDate},
+            #{postCode},
             #{address},
-            #{phone_number},
-            #{email_address},
+            #{phoneNumber},
+            #{emailAddress},
             #{password},
-            #{created_by},
+            #{createdBy},
             CURRENT_TIMESTAMP
         )
     </insert>

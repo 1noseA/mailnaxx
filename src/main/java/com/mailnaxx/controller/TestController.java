@@ -69,25 +69,25 @@ public class TestController {
         LocalDate hireDate = LocalDate.parse(hireYear + hireMonth + "01", DateTimeFormatter.ofPattern("yyyyMMdd"));
         List<Users> usersList =  usersMapper.findAll();
         int max = (int) usersList.stream()
-                .filter(u -> u.getHire_date().isEqual(hireDate))
+                .filter(u -> u.getHireDate().isEqual(hireDate))
                 .count() + 1;
         String num = max >= 10 ? String.valueOf(max) : "0" + String.valueOf(max);
-        user.setUser_number(hireYear + hireMonth + num);
+        user.setUserNumber(hireYear + hireMonth + num);
 
         // 氏名
-        user.setUser_name(usersForm.getUserLastName() + " " + usersForm.getUserFirstName());
-        user.setUser_name_kana(usersForm.getUserLastKana() + " " + usersForm.getUserFirstKana());
+        user.setUserName(usersForm.getUserLastName() + " " + usersForm.getUserFirstName());
+        user.setUserNameKana(usersForm.getUserLastKana() + " " + usersForm.getUserFirstKana());
 
         // 入社年月
-        user.setHire_date(hireDate);
+        user.setHireDate(hireDate);
 
         // 所属
         Affiliations affiliation = new Affiliations();
-        affiliation.setAffiliation_id(Integer.parseInt(usersForm.getAffiliationId()));
+        affiliation.setAffiliationId(Integer.parseInt(usersForm.getAffiliationId()));
         user.setAffiliation(affiliation);
 
         // 権限区分
-        user.setRole_class(usersForm.getRoleClass());
+        user.setRoleClass(usersForm.getRoleClass());
 
         // 生年月日
         String birthYear = usersForm.getBirthYear();
@@ -99,29 +99,29 @@ public class TestController {
         if (birthDay.length() == 1) {
             birthDay = "0" + birthDay;
         }
-        user.setBirth_date(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
+        user.setBirthDate(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         // 営業担当
-        user.setSales_flg(usersForm.getSalesFlg());
+        user.setSalesFlg(usersForm.getSalesFlg());
 
         // 郵便番号
-        user.setPost_code(usersForm.getPostCode1() + "-" +usersForm.getPostCode2());
+        user.setPostCode(usersForm.getPostCode1() + "-" +usersForm.getPostCode2());
 
         // 住所
         user.setAddress(usersForm.getAddress());
 
         // 電話番号
-        user.setPhone_number(usersForm.getPhoneNumber1() + "-" + usersForm.getPhoneNumber2() + "-" + usersForm.getPhoneNumber3());
+        user.setPhoneNumber(usersForm.getPhoneNumber1() + "-" + usersForm.getPhoneNumber2() + "-" + usersForm.getPhoneNumber3());
 
         // メールアドレス
-        user.setEmail_address(usersForm.getEmailAddress());
+        user.setEmailAddress(usersForm.getEmailAddress());
 
         // パスワードはハッシュにする
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
         // 作成者はセッションのユーザID
-        user.setCreated_by("test");
+        user.setCreatedBy("test");
 
         usersMapper.insert(user);
         return "login/login";
