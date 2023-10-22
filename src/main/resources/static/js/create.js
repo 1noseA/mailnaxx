@@ -3,27 +3,39 @@ $(function() {
     const nowYear = new Date().getFullYear();
 
     // 入社年月_年プルダウン作成
+    let targetHireYear = $('#hireYearList').val();
     createYearList('#hireYearList', nowYear, nowYear+1, nowYear);
+    if (targetHireYear != '') {
+        $('#hireYearList').val(targetHireYear);
+    }
 
     // 生年月日_年プルダウン作成
+    let targetBirthYear = $('#yearList').val();
     createYearList('#yearList', nowYear-70, nowYear-20, nowYear-30);
+    if (targetBirthYear != '') {
+        $('#yearList').val(targetBirthYear);
+    }
 
     // 月プルダウン作成
+    let targetHireMonth = $('#hireMonthList').val();
+    let targetBirthMonth = $('#monthList').val();
     createMonthList();
+    if (targetHireMonth != '') {
+        $('#hireMonthList').val(targetHireMonth);
+    }
+    if (targetBirthMonth != '') {
+        $('#monthList').val(targetBirthMonth);
+    }
 
     // 日プルダウン作成
+    let targetDay = $('#dayList').val();
+    createDayList();
+    if (targetDay != '') {
+        $('#dayList').val(targetDay);
+    }
+    // 年プルダウンか月プルダウンが変更されたら
     $('#yearList, #monthList').on('change', function() {
-        const year = $('#yearList').val();
-        const month = $('#monthList').val();
-        if (month === '') {
-            return;
-        }
-        const daysInMonth = new Date(year, month, 0).getDate();
-        $('#dayList').empty();
-        $('#dayList').append($('<option>').val('').text(''));
-        for (let i = 1; i <= daysInMonth; i++) {
-            $('#dayList').append($('<option>').val(i).text(i));
-        }
+        createDayList();
     });
 
     // パスワード表示非表示
@@ -37,3 +49,4 @@ $(function() {
         }
     });
 });
+

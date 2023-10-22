@@ -58,10 +58,14 @@
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-content-center">
-                            <select class="form-select w30" name="hireYear" id="hireYearList"></select>
+                            <select class="form-select w30" name="hireYear" id="hireYearList">
+                                <option th:value="${usersForm.hireYear}">
+                            </select>
                             <span class="p-2">年</span>
 
-                            <select class="form-select w20 monthList" name="hireMonth" id="hireMonthList"></select>
+                            <select class="form-select w20 monthList" name="hireMonth" id="hireMonthList">
+                                <option th:value="${usersForm.hireMonth}">
+                            </select>
                             <span class="p-2">月</span>
                         </div>
                     </div>
@@ -115,17 +119,23 @@
                         </div>
 
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <select class="form-select" th:errorclass="is-invalid" name="birthYear" id="yearList"></select>
+                            <select class="form-select" th:errorclass="is-invalid" name="birthYear" id="yearList">
+                                <option th:value="${usersForm.birthYear}">
+                            </select>
                             <span class="p-2">年</span>
 
                             <div class="input-group has-validation">
-                                <select class="form-select w20 monthList" th:errorclass="is-invalid" name="birthMonth" id="monthList"></select>
+                                <select class="form-select w20 monthList" th:errorclass="is-invalid" name="birthMonth" id="monthList">
+                                    <option th:value="${usersForm.birthMonth}">
+                                </select>
                                 <span class="invalid-feedback" th:if="${#fields.hasErrors('birthMonth')}" th:errors="*{birthMonth}"></span>
                             </div>
                             <span class="p-2">月</span>
 
                             <div class="input-group has-validation">
-                                <select class="form-select w20" th:errorclass="is-invalid" name="birthDay" id="dayList"></select>
+                                <select class="form-select w20" th:errorclass="is-invalid" name="birthDay" id="dayList">
+                                    <option th:value="${usersForm.birthDay}">
+                                </select>
                                 <span class="invalid-feedback" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></span>
                             </div>
                             <span class="p-2">日</span>

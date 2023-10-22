@@ -23,3 +23,21 @@ function createMonthList() {
         $('.monthList').append($('<option>').val(i).text(i));
     }
 }
+
+/**
+ * 日プルダウン作成
+ */
+function createDayList() {
+    const year = $('#yearList').val();
+    const month = $('#monthList').val();
+    if (month === '') {
+        return;
+    }
+
+    const daysInMonth = new Date(year, month, 0).getDate();
+    $('#dayList').empty();
+    $('#dayList').append($('<option>').val('').text(''));
+    for (let i = 1; i <= daysInMonth; i++) {
+        $('#dayList').append($('<option>').val(i).text(i));
+    }
+}

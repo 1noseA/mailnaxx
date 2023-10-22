@@ -213,27 +213,27 @@ public class UsersController {
         model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
 
         // Formクラスに設定
-        String[] userName = userInfo.getUserName().split(" ");
+        String[] userName = userInfo.getUserName().split(CommonConstants.HALF_SPACE);
         usersForm.setUserLastName(userName[0]);
         usersForm.setUserFirstName(userName[1]);
-        String[] userNameKana = userInfo.getUserNameKana().split(" ");
+        String[] userNameKana = userInfo.getUserNameKana().split(CommonConstants.HALF_SPACE);
         usersForm.setUserLastKana(userNameKana[0]);
         usersForm.setUserFirstKana(userNameKana[1]);
-        String[] hireDate = userInfo.getHireDate().toString().split("-");
+        String[] hireDate = userInfo.getHireDate().toString().split(CommonConstants.HALF_HYPHEN);
         usersForm.setHireYear(hireDate[0]);
-        usersForm.setHireMonth(hireDate[1]);
+        usersForm.setHireMonth(hireDate[1].replaceFirst("^0+", ""));
         usersForm.setAffiliationId(String.valueOf(userInfo.getAffiliation().getAffiliationId()));
         usersForm.setRoleClass(userInfo.getRoleClass());
         usersForm.setSalesFlg(userInfo.getSalesFlg());
-        String[] birthDate = userInfo.getBirthDate().toString().split("-");
+        String[] birthDate = userInfo.getBirthDate().toString().split(CommonConstants.HALF_HYPHEN);
         usersForm.setBirthYear(birthDate[0]);
-        usersForm.setBirthMonth(birthDate[1]);
-        usersForm.setBirthDay(birthDate[2]);
-        String[] postCode = userInfo.getPostCode().split("-");
+        usersForm.setBirthMonth(birthDate[1].replaceFirst("^0+", ""));
+        usersForm.setBirthDay(birthDate[2].replaceFirst("^0+", ""));
+        String[] postCode = userInfo.getPostCode().split(CommonConstants.HALF_HYPHEN);
         usersForm.setPostCode1(postCode[0]);
         usersForm.setPostCode2(postCode[1]);
         usersForm.setAddress(userInfo.getAddress());
-        String[] phoneNumber = userInfo.getPhoneNumber().split("-");
+        String[] phoneNumber = userInfo.getPhoneNumber().split(CommonConstants.HALF_HYPHEN);
         usersForm.setPhoneNumber1(phoneNumber[0]);
         usersForm.setPhoneNumber2(phoneNumber[1]);
         usersForm.setPhoneNumber3(phoneNumber[2]);
