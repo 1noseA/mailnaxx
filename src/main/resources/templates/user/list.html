@@ -95,27 +95,27 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.userId}]]')">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${userList.userId}')|">
                                                     <span th:text="${userList.userNumber}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.userId}]]')">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${userList.userId}')|">
                                                     <span th:text="${userList.userName}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.userId}]]')">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${userList.userId}')|">
                                                     <span th:text="${#strings.replace(userList.hireDate, '-', '/')}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.userId}]]')">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${userList.userId}')|">
                                                     <span th:text="${userList.affiliation.affiliationName}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.userId}]]')">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${userList.userId}')|">
                                                     <th:block th:each="roleClass : ${roleClassList}">
                                                         <th:block th:if="${userList.roleClass == roleClass.code}">
                                                             <span th:text="${roleClass.viewName}"></span>
@@ -124,7 +124,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="showDetail('[[${userList.userId}]]')">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${userList.userId}')|">
                                                     <span th:text="${userList.salesFlg == '1'} ? '営業' : ' '"></span>
                                                 </a>
                                             </td>
@@ -139,7 +139,7 @@
                     </th:block>
                 </form>
                 <div class="my-5">
-                    <button type="button" class="btn btnBack" onclick="location.href='/top'">戻る</button>
+                    <button type="button" class="btn btnBack" th:onclick="location.href='/top'">戻る</button>
                 </div>
             </div>
         </div>

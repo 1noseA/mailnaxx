@@ -88,16 +88,6 @@ public class UsersController {
         return "user/list";
     }
 
-    // 詳細画面初期表示
-    @PostMapping("/user/detail")
-    public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        Users userInfo = usersMapper.findById(userId);
-        model.addAttribute("userInfo", userInfo);
-        model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
-        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
-        return "user/detail";
-    }
-
     // 登録画面初期表示
     @GetMapping("/user/create")
     public String create(@ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
@@ -203,5 +193,61 @@ public class UsersController {
             // エラーメッセージを設定する
         }
         return "redirect:/user/list";
+    }
+
+    // 詳細画面初期表示
+    @PostMapping("/user/detail")
+    public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        Users userInfo = usersMapper.findById(userId);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
+        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        return "user/detail";
+    }
+
+    // 編集画面初期表示
+    @PostMapping("/user/edit")
+    public String edit(int userId, @ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        Users userInfo = usersMapper.findById(userId);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
+
+        // Formクラスに設定
+        String[] userName = userInfo.getUserName().split(" ");
+        usersForm.setUserLastName(userName[0]);
+        usersForm.setUserFirstName(userName[1]);
+        String[] userNameKana = userInfo.getUserNameKana().split(" ");
+        usersForm.setUserLastKana(userNameKana[0]);
+        usersForm.setUserFirstKana(userNameKana[1]);
+        String[] hireDate = userInfo.getHireDate().toString().split("-");
+        usersForm.setHireYear(hireDate[0]);
+        usersForm.setHireMonth(hireDate[1]);
+        usersForm.setAffiliationId(String.valueOf(userInfo.getAffiliation().getAffiliationId()));
+        usersForm.setRoleClass(userInfo.getRoleClass());
+        usersForm.setSalesFlg(userInfo.getSalesFlg());
+        String[] birthDate = userInfo.getBirthDate().toString().split("-");
+        usersForm.setBirthYear(birthDate[0]);
+        usersForm.setBirthMonth(birthDate[1]);
+        usersForm.setBirthDay(birthDate[2]);
+        String[] postCode = userInfo.getPostCode().split("-");
+        usersForm.setPostCode1(postCode[0]);
+        usersForm.setPostCode2(postCode[1]);
+        usersForm.setAddress(userInfo.getAddress());
+        String[] phoneNumber = userInfo.getPhoneNumber().split("-");
+        usersForm.setPhoneNumber1(phoneNumber[0]);
+        usersForm.setPhoneNumber2(phoneNumber[1]);
+        usersForm.setPhoneNumber3(phoneNumber[2]);
+        usersForm.setEmailAddress(userInfo.getEmailAddress());
+
+        // 所属プルダウン
+        List<Affiliations> affiliationList = affiliationsMapper.findAll();
+        model.addAttribute("affiliationList", affiliationList);
+        model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
+
+        // 権限区分プルダウン
+        model.addAttribute("roleClassList", RoleClass.values());
+
+        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        return "user/create";
     }
 }

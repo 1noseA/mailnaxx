@@ -61,7 +61,7 @@
                             <select class="form-select w30" name="hireYear" id="hireYearList"></select>
                             <span class="p-2">年</span>
 
-                            <select class="form-select w20 monthList" name="hireMonth"></select>
+                            <select class="form-select w20 monthList" name="hireMonth" id="hireMonthList"></select>
                             <span class="p-2">月</span>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                                 <option th:each="affiliation : ${affiliationList}"
                                         th:value="${affiliation.affiliationId}"
                                         th:text="${affiliation.affiliationName}"
-                                        th:selected="${affiliation.affiliationId.equals('1')}">
+                                        th:selected="${affiliation.affiliationId.equals(usersForm.affiliationId)}">
                                 </option>
                             </select>
                             <span class="invalid-feedback" th:if="${#fields.hasErrors('affiliationId')}" th:errors="*{affiliationId}"></span>
@@ -94,7 +94,8 @@
                             <select class="form-select w60" th:errorclass="is-invalid" name="roleClass">
                                 <option th:each="roleClass : ${roleClassList}"
                                         th:value="${roleClass.code}"
-                                        th:text="${roleClass.viewName}">
+                                        th:text="${roleClass.viewName}"
+                                        th:selected="${roleClass.code.equals(usersForm.roleClass)}">
                                 </option>
                             </select>
                             <span class="invalid-feedback" th:if="${#fields.hasErrors('roleClass')}" th:errors="*{roleClass}"></span>
@@ -223,7 +224,7 @@
             </div>
             <div class="row mb-5">
                 <div class="col-auto">
-                    <button type="button" class="btn btnBack" onclick="location.href='/user/list'">戻る</button>
+                    <button type="button" class="btn btnBack" th:onclick="location.href='/user/list'">戻る</button>
                 </div>
             </div>
         </div>
