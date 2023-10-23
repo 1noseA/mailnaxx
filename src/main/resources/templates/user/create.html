@@ -11,10 +11,10 @@
 
     <div class="contents">
         <div class="container">
-            <div class="title text-center mt-5 p-3">社員登録</div>
+            <div class="title text-center mt-5 p-3" th:text="${userId == 0} ? '社員情報登録' : '社員情報編集'"></div>
             <div class="formArea mx-auto mb-5">
 
-                <form method="POST" th:action="@{/user/create}" th:object="${usersForm}">
+                <form method="POST" th:action="@{/user/create}" th:object="${usersForm}" id="form">
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="userName" class="col-form-label">氏名(漢字)
@@ -228,7 +228,7 @@
                     </div>
 
                     <div class="text-center m-5">
-                        <button type="submit" class="btn btnMain">登録</button>
+                        <button type="submit" class="btn btnMain" th:text="${userId == 0} ? '登録' : '更新'" th:value="${userId}"></button>
                     </div>
                 </form>
             </div>
