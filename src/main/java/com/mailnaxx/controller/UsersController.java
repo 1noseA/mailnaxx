@@ -1,6 +1,7 @@
 package com.mailnaxx.controller;
 
-import java.time.YearMonth;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mailnaxx.constants.CommonConstants;
+import com.mailnaxx.constants.UserConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.GroupOrder;
@@ -54,11 +57,11 @@ public class UsersController {
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
 
-        searchUsersForm.setSearchCondition("0");
+        searchUsersForm.setSearchCondition(CommonConstants.PREFIX_MATCH);
         model.addAttribute("searchUsersForm", searchUsersForm);
 
         boolean isAdmin = false;
-        if (loginUser.getLoginUser().getRole_class().equals("4")) {
+        if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
             isAdmin = true;
         }
         session.setAttribute("session_isAdmin", isAdmin);
@@ -75,8 +78,8 @@ public class UsersController {
      */
     @PostMapping("/user/search")
     public String search(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        List<Users> resultList = usersMapper.findBySearchForm(searchUsersForm);
-        model.addAttribute("userList", resultList);
+        List<Users> userList = usersMapper.findBySearchForm(searchUsersForm);
+        model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
 
         boolean isAdmin = (boolean) session.getAttribute("session_isAdmin");
@@ -85,40 +88,18 @@ public class UsersController {
         return "user/list";
     }
 
-    // 詳細画面初期表示
-    @PostMapping("/user/detail")
-    public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        Users userInfo = usersMapper.findById(userId);
-        model.addAttribute("userInfo", userInfo);
-        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
-        return "user/detail";
-    }
-
     // 登録画面初期表示
     @GetMapping("/user/create")
     public String create(@ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        // 入社年月プルダウン
-        int currentYear = YearMonth.now().getYear();
-        int currentMonth = YearMonth.now().getMonthValue();
-
-        model.addAttribute("currentYear", currentYear);
-        model.addAttribute("currentMonth", currentMonth);
 
         // 所属プルダウン
         List<Affiliations> affiliationList = affiliationsMapper.findAll();
         model.addAttribute("affiliationList", affiliationList);
+        model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
 
         // 権限区分プルダウン
         model.addAttribute("roleClassList", RoleClass.values());
 
-        // 生年月日プルダウン
-        int birthYearFrom = currentYear - 70;
-        int birthYearTo = currentYear - 20;
-        int birthYearDefault = currentYear - 30;
-
-        model.addAttribute("birthYearFrom", birthYearFrom);
-        model.addAttribute("birthYearTo", birthYearTo);
-        model.addAttribute("birthYearDefault", birthYearDefault);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/create";
     }
@@ -133,66 +114,72 @@ public class UsersController {
             return create(usersForm, model, loginUser);
         }
 
-        Users users = new Users();
+        Users user = new Users();
 
-        // ユーザID生成（これだとかぶることがある。ランダムじゃなくて連番にする？）
-        String hireYear = String.valueOf(usersForm.getHireYear());
-        String hireMonth = String.valueOf(usersForm.getHireMonth());
+        // 社員番号生成
+        String hireYear = usersForm.getHireYear();
+        String hireMonth = usersForm.getHireMonth();
         if (hireMonth.length() == 1) {
-            hireMonth = "0" + hireMonth;
+            hireMonth = CommonConstants.FILLED_ZERO + hireMonth;
         }
-        int random = (int)(Math.random()*100);
-        String num = random >= 10 ? Integer.toString(random) : "0" + Integer.toString(random);
-        users.setUser_number(hireYear + hireMonth + num);
+        LocalDate hireDate = LocalDate.parse(hireYear + hireMonth + CommonConstants.FIRST_DAY, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        List<Users> usersList =  usersMapper.findAll();
+        int max = (int) usersList.stream()
+                .filter(u -> u.getHireDate().isEqual(hireDate))
+                .count() + 1;
+        String num = max >= 10 ? String.valueOf(max) : CommonConstants.FILLED_ZERO + String.valueOf(max);
+        user.setUserNumber(hireYear + hireMonth + num);
 
         // 氏名
-        users.setUser_name(usersForm.getUserLastName() + " " + usersForm.getUserFirstName());
-        users.setUser_name_kana(usersForm.getUserLastKana() + " " + usersForm.getUserFirstKana());
+        user.setUserName(usersForm.getUserLastName() + CommonConstants.HALF_SPACE + usersForm.getUserFirstName());
+        user.setUserNameKana(usersForm.getUserLastKana() + CommonConstants.HALF_SPACE + usersForm.getUserFirstKana());
 
         // 入社年月
-        users.setHire_date(hireYear + hireMonth + "01");
+        user.setHireDate(hireDate);
 
         // 所属
-        users.setAffiliation_id(usersForm.getAffiliationId());
+        Affiliations affiliation = new Affiliations();
+        affiliation.setAffiliationId(Integer.parseInt(usersForm.getAffiliationId()));
+        user.setAffiliation(affiliation);
 
         // 権限区分
-        users.setRole_class(usersForm.getRoleClass());
+        user.setRoleClass(usersForm.getRoleClass());
 
         // 生年月日
-        String birthYear = String.valueOf(usersForm.getBirthYear());
-        String birthMonth = String.valueOf(usersForm.getBirthMonth());
-        String birthDay = String.valueOf(usersForm.getBirthDay());
+        String birthYear = usersForm.getBirthYear();
+        String birthMonth = usersForm.getBirthMonth();
+        String birthDay = usersForm.getBirthDay();
         if (birthMonth.length() == 1) {
-            birthMonth = "0" + birthMonth;
+            birthMonth = CommonConstants.FILLED_ZERO + birthMonth;
         }
         if (birthDay.length() == 1) {
-            birthDay = "0" + birthDay;
+            birthDay = CommonConstants.FILLED_ZERO + birthDay;
         }
-        users.setBirth_date(birthYear + birthMonth + birthDay);
+        user.setBirthDate(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         // 営業担当
-        users.setSales_flg(usersForm.getSalesFlg());
+        user.setSalesFlg(usersForm.getSalesFlg());
 
         // 郵便番号
-        users.setPost_code(usersForm.getPostCode1() + "-" +usersForm.getPostCode2());
+        user.setPostCode(usersForm.getPostCode1() + CommonConstants.HALF_HYPHEN +usersForm.getPostCode2());
 
         // 住所
-        users.setAddress(usersForm.getAddress());
+        user.setAddress(usersForm.getAddress());
 
         // 電話番号
-        users.setPhone_number(usersForm.getPhoneNumber1() + "-" + usersForm.getPhoneNumber2() + "-" + usersForm.getPhoneNumber3());
+        user.setPhoneNumber(usersForm.getPhoneNumber1() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber2() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber3());
 
         // メールアドレス
-        users.setEmail_address(usersForm.getEmailAddress());
+        user.setEmailAddress(usersForm.getEmailAddress());
 
         // パスワードはハッシュにする
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
+        user.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
         // 作成者はセッションのユーザID
-        users.setCreated_by(loginUser.getLoginUser().getPhone_number());
+        user.setCreatedBy("test");
 
-        usersMapper.insert(users);
+        usersMapper.insert(user);
         return "redirect:/user/list";
     }
 
@@ -200,11 +187,67 @@ public class UsersController {
     @RequestMapping("/user/delete")
     public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 削除権限チェック
-        if (loginUser.getLoginUser().getRole_class().equals("4")) {
+        if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
             usersMapper.delete(userId);
         } else {
             // エラーメッセージを設定する
         }
         return "redirect:/user/list";
+    }
+
+    // 詳細画面初期表示
+    @PostMapping("/user/detail")
+    public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        Users userInfo = usersMapper.findById(userId);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
+        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        return "user/detail";
+    }
+
+    // 編集画面初期表示
+    @PostMapping("/user/edit")
+    public String edit(int userId, @ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        Users userInfo = usersMapper.findById(userId);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
+
+        // Formクラスに設定
+        String[] userName = userInfo.getUserName().split(CommonConstants.HALF_SPACE);
+        usersForm.setUserLastName(userName[0]);
+        usersForm.setUserFirstName(userName[1]);
+        String[] userNameKana = userInfo.getUserNameKana().split(CommonConstants.HALF_SPACE);
+        usersForm.setUserLastKana(userNameKana[0]);
+        usersForm.setUserFirstKana(userNameKana[1]);
+        String[] hireDate = userInfo.getHireDate().toString().split(CommonConstants.HALF_HYPHEN);
+        usersForm.setHireYear(hireDate[0]);
+        usersForm.setHireMonth(hireDate[1].replaceFirst("^0+", ""));
+        usersForm.setAffiliationId(String.valueOf(userInfo.getAffiliation().getAffiliationId()));
+        usersForm.setRoleClass(userInfo.getRoleClass());
+        usersForm.setSalesFlg(userInfo.getSalesFlg());
+        String[] birthDate = userInfo.getBirthDate().toString().split(CommonConstants.HALF_HYPHEN);
+        usersForm.setBirthYear(birthDate[0]);
+        usersForm.setBirthMonth(birthDate[1].replaceFirst("^0+", ""));
+        usersForm.setBirthDay(birthDate[2].replaceFirst("^0+", ""));
+        String[] postCode = userInfo.getPostCode().split(CommonConstants.HALF_HYPHEN);
+        usersForm.setPostCode1(postCode[0]);
+        usersForm.setPostCode2(postCode[1]);
+        usersForm.setAddress(userInfo.getAddress());
+        String[] phoneNumber = userInfo.getPhoneNumber().split(CommonConstants.HALF_HYPHEN);
+        usersForm.setPhoneNumber1(phoneNumber[0]);
+        usersForm.setPhoneNumber2(phoneNumber[1]);
+        usersForm.setPhoneNumber3(phoneNumber[2]);
+        usersForm.setEmailAddress(userInfo.getEmailAddress());
+
+        // 所属プルダウン
+        List<Affiliations> affiliationList = affiliationsMapper.findAll();
+        model.addAttribute("affiliationList", affiliationList);
+        model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
+
+        // 権限区分プルダウン
+        model.addAttribute("roleClassList", RoleClass.values());
+
+        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        return "user/create";
     }
 }

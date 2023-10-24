@@ -30,13 +30,13 @@ public class LoginUserDetails implements UserDetails {
     // ログインで利用する社員番号を返す
     @Override
     public String getUsername() {
-        return users.getUser_number();
+        return users.getUserNumber();
     }
 
     // 権限のコレクションを返す
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_" + RoleClass.getByCode(users.getRole_class()));
+        return AuthorityUtils.createAuthorityList("ROLE_" + RoleClass.getValueByCode(users.getRoleClass()));
     }
 
     // ユーザーが期限切れでなければtrueを返す

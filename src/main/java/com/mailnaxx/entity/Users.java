@@ -1,5 +1,6 @@
 package com.mailnaxx.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -11,71 +12,71 @@ import lombok.Data;
 public class Users {
 
     // ユーザID
-    private int user_id;
+    private int userId;
 
     // 社員番号
-    private String user_number;
+    private String userNumber;
 
     // 氏名_漢字
-    private String user_name;
+    private String userName;
 
     // 氏名_カナ
-    private String user_name_kana;
+    private String userNameKana;
 
     // 入社年月
-    private String hire_date;
+    private LocalDate hireDate;
 
-    // 所属ID
-    private int affiliation_id;
+    // 所属
+    private Affiliations affiliation;
 
     // 権限区分
-    private String role_class;
+    private String roleClass;
 
     // 営業フラグ
-    private String sales_flg;
+    private String salesFlg;
 
     // 生年月日
-    private String birth_date;
+    private LocalDate birthDate;
 
     // 郵便番号
-    private String post_code;
+    private String postCode;
 
     // 住所
     private String address;
 
     // 電話番号
-    private String phone_number;
+    private String phoneNumber;
 
     // メールアドレス
-    private String email_address;
+    private String emailAddress;
 
     // パスワード
     private String password;
 
     // パスワード変更日時
-    private LocalDateTime pass_changed_date;
+    private LocalDateTime passChangedDate;
 
     // 前回パスワード
-    private String old_password;
+    private String oldPassword;
 
     // ログイン失敗回数
-    private int failure_count;
+    private int failureCount;
 
     // 最終ログイン日時
-    private LocalDateTime last_login_date;
+    private LocalDateTime lastLoginDate;
 
     // 削除フラグ
-    private String deleted_flg;
+    private String deletedFlg;
 
     // レコード登録者
-    private String created_by;
+    private String createdBy;
 
     // レコード登録日
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     // レコード更新者
-    private String updated_by;
+    private String updatedBy;
 
     // レコード更新日
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 }

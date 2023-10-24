@@ -2,35 +2,35 @@ package com.mailnaxx.entity;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * 所属
  */
-@Getter
+@Data
 public class Affiliations {
 
     // 所属ID
-    private int affiliation_id;
+    private int affiliationId;
 
     // 所属名
-    private String affiliation_name;
+    private String affiliationName;
 
     // 管理者
-    private int administrator_user_id;
+    private int administratorUserId;
 
     // 非表示フラグ
-    private String hidden_flg;
+    private String hiddenFlg;
 
     // レコード登録者
-    private String created_by;
+    private String createdBy;
 
     // レコード登録日
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     // レコード更新者
-    private String updated_by;
+    private String updatedBy;
 
     // レコード更新日
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 }

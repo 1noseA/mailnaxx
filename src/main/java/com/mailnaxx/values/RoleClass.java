@@ -3,38 +3,47 @@ package com.mailnaxx.values;
 // ユーザ.権限区分
 public enum RoleClass {
 
-    Member("1", "一般"),
-    LeaderOrChief("2", "リーダ・チーフ"),
-    Manager("3", "マネジャー"),
-    GeneralAffairs("4", "総務"),
-    President("5", "社長");
+    MEMBER("1", "一般"),
+    LEADER("2", "リーダ・チーフ"),
+    MANAGER("3", "マネジャー"),
+    AFFAIRS("4", "総務"),
+    PRESIDENT("5", "社長");
 
-    private final String value;
+    // コード値
+    private final String code;
+    // 表示名
     private final String viewName;
 
-    private RoleClass(String value, String viewName) {
-        this.value = value;
+    private RoleClass(String code, String viewName) {
+        this.code = code;
         this.viewName = viewName;
     }
 
-    public String getValue() {
-        return this.value;
+    public String getCode() {
+        return this.code;
     }
 
     public String getViewName() {
         return this.viewName;
     }
 
-    // コード値からの逆引き
-    public static RoleClass getByCode(String code) {
-        // 値からenum定数を特定して返す
+    // コード値からEnum定数を取得
+    public static RoleClass getValueByCode(String code) {
         for (RoleClass value : RoleClass.values()) {
-            if (value.getValue() == code) {
+            if (value.getCode().equals(code)) {
                 return value;
             }
         }
-        // 特定できない場合
         return null;
     }
 
+    // コード値から表示名を取得
+    public static String getViewNameByCode(String code) {
+        for (RoleClass value : RoleClass.values()) {
+            if (value.getCode().equals(code)) {
+                return value.getViewName();
+            }
+        }
+        return null;
+    }
 }

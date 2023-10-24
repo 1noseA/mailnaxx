@@ -4,16 +4,17 @@
 <link rel="stylesheet" th:href="@{/css/user/create.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/create.js}"></script>
 </head>
 <body>
     <div th:replace="common :: header"></div>
 
     <div class="contents">
         <div class="container">
-            <div class="title text-center mt-5 p-3">社員登録</div>
+            <div class="title text-center mt-5 p-3" th:text="${userId == 0} ? '社員情報登録' : '社員情報編集'"></div>
             <div class="formArea mx-auto mb-5">
 
-                <form method="POST" th:action="@{/user/create}" th:object="${usersForm}">
+                <form method="POST" th:action="@{/user/create}" th:object="${usersForm}" id="form">
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="userName" class="col-form-label">氏名(漢字)
@@ -57,21 +58,13 @@
                             </label>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-content-center">
-                            <select class="form-select w30" name="hireYear">
-                                <option th:each="hireYear : ${#numbers.sequence(currentYear, currentYear + 1)}"
-                                        th:value="${hireYear}"
-                                        th:text="${hireYear}"
-                                        th:selected="${hireYear == currentYear}">
-                                </option>
+                            <select class="form-select w30" name="hireYear" id="hireYearList">
+                                <option th:value="${usersForm.hireYear}">
                             </select>
                             <span class="p-2">年</span>
 
-                            <select class="form-select w20" name="hireMonth">
-                                <option th:each="hireMonth : ${#numbers.sequence(1, 12)}"
-                                        th:value="${hireMonth}"
-                                        th:text="${hireMonth}"
-                                        th:selected="${hireMonth == currentMonth}">
-                                </option>
+                            <select class="form-select w20 monthList" name="hireMonth" id="hireMonthList">
+                                <option th:value="${usersForm.hireMonth}">
                             </select>
                             <span class="p-2">月</span>
                         </div>
@@ -85,10 +78,10 @@
                         </div>
                         <div class="col-12 col-md-8">
                             <select class="form-select w60" th:errorclass="is-invalid" name="affiliationId">
-                                <option value="">選択してください</option>
                                 <option th:each="affiliation : ${affiliationList}"
-                                        th:value="${affiliation.affiliation_id}"
-                                        th:text="${affiliation.affiliation_name}">
+                                        th:value="${affiliation.affiliationId}"
+                                        th:text="${affiliation.affiliationName}"
+                                        th:selected="${(affiliation.affiliationId).toString().equals(usersForm.affiliationId)}">
                                 </option>
                             </select>
                             <span class="invalid-feedback" th:if="${#fields.hasErrors('affiliationId')}" th:errors="*{affiliationId}"></span>
@@ -104,8 +97,9 @@
                         <div class="col-12 col-md-8 d-flex align-items-center">
                             <select class="form-select w60" th:errorclass="is-invalid" name="roleClass">
                                 <option th:each="roleClass : ${roleClassList}"
-                                        th:value="${roleClass.value}"
-                                        th:text="${roleClass.viewName}">
+                                        th:value="${roleClass.code}"
+                                        th:text="${roleClass.viewName}"
+                                        th:selected="${roleClass.code.equals(usersForm.roleClass)}">
                                 </option>
                             </select>
                             <span class="invalid-feedback" th:if="${#fields.hasErrors('roleClass')}" th:errors="*{roleClass}"></span>
@@ -125,34 +119,22 @@
                         </div>
 
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <select class="form-select" th:errorclass="is-invalid" name="birthYear">
-                                <option th:each="birthYear : ${#numbers.sequence(birthYearFrom, birthYearTo)}"
-                                        th:value="${birthYear}"
-                                        th:text="${birthYear}"
-                                        th:selected="${birthYear == birthYearDefault}">
-                                </option>
+                            <select class="form-select" th:errorclass="is-invalid" name="birthYear" id="yearList">
+                                <option th:value="${usersForm.birthYear}">
                             </select>
                             <span class="p-2">年</span>
 
                             <div class="input-group has-validation">
-                                <select class="form-select w20" th:errorclass="is-invalid" name="birthMonth">
-                                    <option value="0"></option>
-                                    <option th:each="birthMonth : ${#numbers.sequence(1, 12)}"
-                                            th:value="${birthMonth}"
-                                            th:text="${birthMonth}">
-                                    </option>
+                                <select class="form-select w20 monthList" th:errorclass="is-invalid" name="birthMonth" id="monthList">
+                                    <option th:value="${usersForm.birthMonth}">
                                 </select>
                                 <span class="invalid-feedback" th:if="${#fields.hasErrors('birthMonth')}" th:errors="*{birthMonth}"></span>
                             </div>
                             <span class="p-2">月</span>
 
                             <div class="input-group has-validation">
-                                <select class="form-select w20" th:errorclass="is-invalid" name="birthDay">
-                                    <option value="0"></option>
-                                    <option th:each="birthDay : ${#numbers.sequence(1, 31)}"
-                                            th:value="${birthDay}"
-                                            th:text="${birthDay}">
-                                    </option>
+                                <select class="form-select w20" th:errorclass="is-invalid" name="birthDay" id="dayList">
+                                    <option th:value="${usersForm.birthDay}">
                                 </select>
                                 <span class="invalid-feedback" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></span>
                             </div>
@@ -246,13 +228,13 @@
                     </div>
 
                     <div class="text-center m-5">
-                        <button type="submit" class="btn btnMain">登録</button>
+                        <button type="submit" class="btn btnMain" th:text="${userId == 0} ? '登録' : '更新'" th:value="${userId}"></button>
                     </div>
                 </form>
             </div>
             <div class="row mb-5">
                 <div class="col-auto">
-                    <button type="button" class="btn btnBack" onclick="location.href='/user/list'">戻る</button>
+                    <button type="button" class="btn btnBack" th:onclick="location.href='/user/list'">戻る</button>
                 </div>
             </div>
         </div>
