@@ -51,6 +51,7 @@ public class UsersController {
         return new SearchUsersForm();
     }
 
+    // 一覧画面初期表示
     @RequestMapping("/user/list")
     public String index(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         List<Users> userList = usersMapper.findAll();
@@ -71,7 +72,7 @@ public class UsersController {
     }
 
     /**
-     * 検索処理を行う
+     * 検索処理
      * @param searchForm 検索用Formオブジェクト
      * @param model Modelオブジェクト
      * @return 一覧画面のパス
@@ -91,6 +92,7 @@ public class UsersController {
     // 登録画面初期表示
     @GetMapping("/user/create")
     public String create(@ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        model.addAttribute("userId", 0);
 
         // 所属プルダウン
         List<Affiliations> affiliationList = affiliationsMapper.findAll();
@@ -104,7 +106,7 @@ public class UsersController {
         return "user/create";
     }
 
-    // 登録画面登録処理
+    // 登録処理
     @PostMapping("/user/create")
     public String create(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力エラーチェック
@@ -176,8 +178,8 @@ public class UsersController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(usersForm.getPassword()));
 
-        // 作成者はセッションのユーザID
-        user.setCreatedBy("test");
+        // 作成者はセッションの社員番号
+        user.setCreatedBy(loginUser.getLoginUser().getUserNumber());
 
         usersMapper.insert(user);
         return "redirect:/user/list";
@@ -209,7 +211,7 @@ public class UsersController {
     @PostMapping("/user/edit")
     public String edit(int userId, @ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         Users userInfo = usersMapper.findById(userId);
-        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("userId", userId);
         model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
 
         // Formクラスに設定
@@ -249,5 +251,75 @@ public class UsersController {
 
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "user/create";
+    }
+
+    // 編集処理
+    @PostMapping("/user/update")
+    public String update(int userId, @ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 入力エラーチェック
+        if (result.hasErrors()) {
+            return edit(userId,usersForm, model, loginUser);
+        }
+
+        Users user = usersMapper.findById(userId);
+
+        // 氏名
+        user.setUserName(usersForm.getUserLastName() + CommonConstants.HALF_SPACE + usersForm.getUserFirstName());
+        user.setUserNameKana(usersForm.getUserLastKana() + CommonConstants.HALF_SPACE + usersForm.getUserFirstKana());
+
+        // ★入社年月
+        String hireYear = usersForm.getHireYear();
+        String hireMonth = usersForm.getHireMonth();
+        LocalDate hireDate = LocalDate.parse(hireYear + hireMonth + CommonConstants.FIRST_DAY, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        user.setHireDate(hireDate);
+
+        // 所属
+        Affiliations affiliation = new Affiliations();
+        affiliation.setAffiliationId(Integer.parseInt(usersForm.getAffiliationId()));
+        user.setAffiliation(affiliation);
+
+        // 権限区分
+        user.setRoleClass(usersForm.getRoleClass());
+
+        // 生年月日
+        String birthYear = usersForm.getBirthYear();
+        String birthMonth = usersForm.getBirthMonth();
+        String birthDay = usersForm.getBirthDay();
+        if (birthMonth.length() == 1) {
+            birthMonth = CommonConstants.FILLED_ZERO + birthMonth;
+        }
+        if (birthDay.length() == 1) {
+            birthDay = CommonConstants.FILLED_ZERO + birthDay;
+        }
+        user.setBirthDate(LocalDate.parse(birthYear + birthMonth + birthDay, DateTimeFormatter.ofPattern("yyyyMMdd")));
+
+        // 営業担当
+        user.setSalesFlg(usersForm.getSalesFlg());
+
+        // 郵便番号
+        user.setPostCode(usersForm.getPostCode1() + CommonConstants.HALF_HYPHEN +usersForm.getPostCode2());
+
+        // 住所
+        user.setAddress(usersForm.getAddress());
+
+        // 電話番号
+        user.setPhoneNumber(usersForm.getPhoneNumber1() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber2() + CommonConstants.HALF_HYPHEN + usersForm.getPhoneNumber3());
+
+        // メールアドレス
+        user.setEmailAddress(usersForm.getEmailAddress());
+
+        // ★パスワードは入力されていたら変更
+        if (usersForm.getPassword() != null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(usersForm.getPassword()));
+            // ★前回パスワード
+            user.setOldPassword(loginUser.getPassword());
+        }
+
+        // ★更新者はセッションの社員番号
+        user.setUpdatedBy(loginUser.getLoginUser().getUserNumber());
+
+        usersMapper.update(user);
+        return "redirect:/user/list";
     }
 }

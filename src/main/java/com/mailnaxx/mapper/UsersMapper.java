@@ -35,6 +35,9 @@ public interface UsersMapper {
     // 登録
     public void insert(Users users);
 
+    // 更新
+    public void update(Users users);
+
     // 削除
     public void delete(int userId);
 }

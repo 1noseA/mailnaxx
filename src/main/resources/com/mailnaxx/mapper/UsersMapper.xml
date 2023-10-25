@@ -172,6 +172,30 @@
         )
     </insert>
 
+    <update id="update">
+        UPDATE users SET
+            user_number = #{userNumber},
+            user_name = #{userName},
+            user_name_kana = #{userNameKana},
+            hire_date = #{hireDate},
+            affiliation_id = #{affiliation.affiliationId},
+            role_class = #{roleClass},
+            sales_flg = #{salesFlg},
+            birth_date = #{birthDate},
+            post_code = #{postCode},
+            address = #{address},
+            phone_number = #{phoneNumber},
+            email_address = #{emailAddress},
+            <if test="password != null">
+            password = #{password},
+            pass_changed_date = CURRENT_TIMESTAMP,
+            old_password = #{oldPassword},
+            </if>
+            updated_by = #{updatedBy},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = #{userId}
+    </update>
+
     <!-- 論理削除 -->
     <update id="delete">
         UPDATE users SET
