@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -107,6 +108,7 @@ public class UsersController {
     }
 
     // 登録処理
+    @Transactional
     @PostMapping("/user/create")
     public String create(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力エラーチェック
@@ -186,8 +188,11 @@ public class UsersController {
     }
 
     // 論理削除処理
+    @Transactional
     @RequestMapping("/user/delete")
     public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 排他ロック
+        usersMapper.findByIdForLock(userId);
         // 削除権限チェック
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
             usersMapper.delete(userId);
@@ -254,6 +259,7 @@ public class UsersController {
     }
 
     // 編集処理
+    @Transactional
     @PostMapping("/user/update")
     public String update(int userId, @ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力エラーチェック
@@ -261,7 +267,8 @@ public class UsersController {
             return edit(userId,usersForm, model, loginUser);
         }
 
-        Users user = usersMapper.findById(userId);
+        // 排他ロック
+        Users user = usersMapper.findByIdForLock(userId);
 
         // 氏名
         user.setUserName(usersForm.getUserLastName() + CommonConstants.HALF_SPACE + usersForm.getUserFirstName());
