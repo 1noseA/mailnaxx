@@ -211,10 +211,10 @@
             address = #{address},
             phone_number = #{phoneNumber},
             email_address = #{emailAddress},
-            <if test="password != null">
-            password = #{password},
-            pass_changed_date = CURRENT_TIMESTAMP,
-            old_password = #{oldPassword},
+            <if test="password != ''">
+                password = #{password},
+                pass_changed_date = #{passChangedDate},
+                old_password = #{oldPassword},
             </if>
             updated_by = #{updatedBy},
             updated_at = CURRENT_TIMESTAMP

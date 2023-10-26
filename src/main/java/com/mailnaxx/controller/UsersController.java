@@ -1,6 +1,7 @@
 package com.mailnaxx.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -263,7 +264,7 @@ public class UsersController {
     @PostMapping("/user/update")
     public String update(int userId, @ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力エラーチェック
-        if (result.hasErrors()) {
+        if (usersForm.getPassword() != "" && result.hasErrors()) {
             return edit(userId,usersForm, model, loginUser);
         }
 
@@ -316,11 +317,13 @@ public class UsersController {
         user.setEmailAddress(usersForm.getEmailAddress());
 
         // ★パスワードは入力されていたら変更
-        if (usersForm.getPassword() != null) {
+        if (usersForm.getPassword() != "") {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             user.setPassword(passwordEncoder.encode(usersForm.getPassword()));
+            // ★パスワード変更日時
+            user.setPassChangedDate(LocalDateTime.now());
             // ★前回パスワード
-            user.setOldPassword(loginUser.getPassword());
+            user.setOldPassword(user.getPassword());
         }
 
         // ★更新者はセッションの社員番号
