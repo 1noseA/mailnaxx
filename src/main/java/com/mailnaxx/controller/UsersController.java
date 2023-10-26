@@ -25,12 +25,12 @@ import com.mailnaxx.constants.CommonConstants;
 import com.mailnaxx.constants.UserConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
-import com.mailnaxx.form.GroupOrder;
 import com.mailnaxx.form.SearchUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.security.LoginUserDetails;
+import com.mailnaxx.validation.GroupOrder;
 import com.mailnaxx.values.RoleClass;
 
 @Controller

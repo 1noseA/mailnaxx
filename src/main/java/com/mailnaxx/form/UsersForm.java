@@ -5,6 +5,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.mailnaxx.validation.ValidGroup1;
+import com.mailnaxx.validation.ValidGroup2;
+import com.mailnaxx.validation.ValidGroup3;
+
 import lombok.Data;
 
 /**
