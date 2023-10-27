@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -264,8 +265,19 @@ public class UsersController {
     @PostMapping("/user/update")
     public String update(int userId, @ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力エラーチェック
-        if (usersForm.getPassword() != "" && result.hasErrors()) {
-            return edit(userId,usersForm, model, loginUser);
+        if (result.hasErrors()) {
+            // パスワード入力必須エラーはスルーする
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            boolean isChecked = false;
+            for (FieldError error : fieldErrors) {
+                if (error.getField().equals("password") && error.getCode().equals("NotBlank")) {
+                    isChecked = true;
+                }
+            }
+            if (!(fieldErrors.size() == 1 && isChecked)) {
+                model.addAttribute("isChecked", isChecked);
+                return edit(userId, usersForm, model, loginUser);
+            }
         }
 
         // 排他ロック
