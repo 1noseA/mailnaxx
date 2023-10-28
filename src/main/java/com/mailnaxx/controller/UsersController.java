@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,6 +30,7 @@ import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.security.LoginUserDetails;
+import com.mailnaxx.validation.All;
 import com.mailnaxx.validation.GroupOrder;
 import com.mailnaxx.values.RoleClass;
 
@@ -106,13 +106,14 @@ public class UsersController {
         model.addAttribute("roleClassList", RoleClass.values());
 
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        //model.addAttribute("usersForm", usersForm);
         return "user/create";
     }
 
     // 登録処理
     @Transactional
     @PostMapping("/user/create")
-    public String create(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public String create(@ModelAttribute @Validated(All.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力エラーチェック
         if (result.hasErrors()) {
             // リダイレクトだと入力エラーの値が引き継がれない
@@ -247,6 +248,7 @@ public class UsersController {
         usersForm.setPhoneNumber2(phoneNumber[1]);
         usersForm.setPhoneNumber3(phoneNumber[2]);
         usersForm.setEmailAddress(userInfo.getEmailAddress());
+        //usersForm.setPassword(userInfo.getPassword());
 
         // 所属プルダウン
         List<Affiliations> affiliationList = affiliationsMapper.findAll();
@@ -257,6 +259,7 @@ public class UsersController {
         model.addAttribute("roleClassList", RoleClass.values());
 
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        //model.addAttribute("usersForm", usersForm);
         return "user/create";
     }
 
@@ -267,17 +270,7 @@ public class UsersController {
         // 入力エラーチェック
         if (result.hasErrors()) {
             // パスワード入力必須エラーはスルーする
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            boolean isChecked = false;
-            for (FieldError error : fieldErrors) {
-                if (error.getField().equals("password") && error.getCode().equals("NotBlank")) {
-                    isChecked = true;
-                }
-            }
-            if (!(fieldErrors.size() == 1 && isChecked)) {
-                model.addAttribute("isChecked", isChecked);
-                return edit(userId, usersForm, model, loginUser);
-            }
+            return edit(userId, usersForm, model, loginUser);
         }
 
         // 排他ロック

@@ -21,7 +21,7 @@ import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
-import com.mailnaxx.validation.GroupOrder;
+import com.mailnaxx.validation.All;
 import com.mailnaxx.values.RoleClass;
 
 @Controller
@@ -52,7 +52,7 @@ public class TestController {
 
     // 登録画面登録処理
     @PostMapping("/test/create")
-    public String create(@ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model) {
+    public String create(@ModelAttribute @Validated(All.class) UsersForm usersForm, BindingResult result, Model model) {
         // 入力エラーチェック
         if (result.hasErrors()) {
             return create(usersForm, model);
