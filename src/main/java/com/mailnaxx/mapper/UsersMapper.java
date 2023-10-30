@@ -29,11 +29,17 @@ public interface UsersMapper {
     // 1件取得
     public Users findById(int userId);
 
+    // 更新時排他ロック
+    public Users findByIdForLock(int userId);
+
     // 営業担当取得
     public List<Users> findBySales();
 
     // 登録
     public void insert(Users users);
+
+    // 更新
+    public void update(Users users);
 
     // 削除
     public void delete(int userId);

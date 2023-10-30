@@ -5,10 +5,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.mailnaxx.validation.CreateUser;
+import com.mailnaxx.validation.ValidGroup1;
+import com.mailnaxx.validation.ValidGroup2;
+import com.mailnaxx.validation.ValidGroup3;
+
 import lombok.Data;
 
 /**
- * 社員登録
+ * 社員情報
  */
 @Data
 public class UsersForm {
@@ -105,8 +110,8 @@ public class UsersForm {
     private String emailAddress;
 
     // パスワード
-    @NotBlank(groups = ValidGroup1.class, message = "入力してください")
-    @Size(min=8, max=10, groups = ValidGroup2.class, message = "半角英数字8文字以上10文字以内で入力してください")
-    @Pattern(regexp="^[A-Za-z0-9]+$", groups = ValidGroup3.class, message = "半角英数字で入力してください")
+    @NotBlank(groups = CreateUser.class, message = "入力してください")
+    @Pattern(regexp="(^$|.{8,10})", groups = ValidGroup2.class, message = "半角英数字8文字以上10文字以内で入力してください")
+    @Pattern(regexp="(^$|^[A-Za-z0-9]+$)", groups = ValidGroup3.class, message = "半角英数字で入力してください")
     private String password;
 }

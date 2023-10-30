@@ -1,4 +1,4 @@
-package com.mailnaxx.form;
+package com.mailnaxx.validation;
 
 import javax.validation.GroupSequence;
 

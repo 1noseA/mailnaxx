@@ -96,6 +96,31 @@
             user_id = #{userId}
     </select>
 
+    <select id="findByIdForLock" resultMap="userMap">
+        SELECT
+            u.user_id,
+            u.user_number,
+            u.user_name,
+            u.user_name_kana,
+            u.hire_date,
+            a.affiliation_id,
+            a.affiliation_name,
+            u.role_class,
+            u.sales_flg,
+            u.birth_date,
+            u.post_code,
+            u.address,
+            u.phone_number,
+            u.email_address,
+            u.password
+        FROM users u
+        INNER JOIN affiliations a
+            ON u.affiliation_id = a.affiliation_id
+        WHERE
+            user_id = #{userId}
+        FOR UPDATE
+    </select>
+
     <resultMap id="userMap" type="com.mailnaxx.entity.Users">
         <result property="userId" column="user_id" />
         <result property="userNumber" column="user_number" />
@@ -171,6 +196,30 @@
             CURRENT_TIMESTAMP
         )
     </insert>
+
+    <update id="update">
+        UPDATE users SET
+            user_number = #{userNumber},
+            user_name = #{userName},
+            user_name_kana = #{userNameKana},
+            hire_date = #{hireDate},
+            affiliation_id = #{affiliation.affiliationId},
+            role_class = #{roleClass},
+            sales_flg = #{salesFlg},
+            birth_date = #{birthDate},
+            post_code = #{postCode},
+            address = #{address},
+            phone_number = #{phoneNumber},
+            email_address = #{emailAddress},
+            <if test="password != ''">
+                password = #{password},
+                pass_changed_date = #{passChangedDate},
+                old_password = #{oldPassword},
+            </if>
+            updated_by = #{updatedBy},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = #{userId}
+    </update>
 
     <!-- 論理削除 -->
     <update id="delete">

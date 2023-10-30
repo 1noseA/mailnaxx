@@ -1,4 +1,4 @@
-package com.mailnaxx.form;
+package com.mailnaxx.validation;
 
 public interface ValidGroup1 {
 

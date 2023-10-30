@@ -217,7 +217,9 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-3 text-md-end">
                             <label for="password" class="col-form-label">パスワード
-                                <span class="badge bg-secondary ms-1">必須</span>
+                                <th:block th:if="${userId == 0}">
+                                    <span class="badge bg-secondary ms-1">必須</span>
+                                </th:block>
                             </label>
                         </div>
                         <div class="col-12 col-md-8 passForm">
@@ -228,7 +230,12 @@
                     </div>
 
                     <div class="text-center m-5">
-                        <button type="submit" class="btn btnMain" th:text="${userId == 0} ? '登録' : '更新'" th:value="${userId}"></button>
+                        <th:block th:if="${userId == 0}">
+                            <button type="submit" class="btn btnMain">登録</button>
+                        </th:block>
+                        <th:block th:unless="${userId == 0}">
+                            <button type="submit" class="btn btnMain" th:formaction="@{/user/update}" th:value="${userId}" name="userId">更新</button>
+                        </th:block>
                     </div>
                 </form>
             </div>
