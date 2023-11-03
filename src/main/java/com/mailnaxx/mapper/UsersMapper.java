@@ -36,11 +36,11 @@ public interface UsersMapper {
     public List<Users> findBySales();
 
     // 登録
-    public void insert(Users users);
+    public void insert(Users user);
 
     // 更新
-    public void update(Users users);
+    public void update(Users user);
 
-    // 削除
-    public void delete(int userId);
+    // 論理削除
+    public void delete(Users user);
 }

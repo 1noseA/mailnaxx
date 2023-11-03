@@ -26,7 +26,7 @@ public class UsersService {
 
     // 登録処理
     @Transactional
-    public void insertUser(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public void insert(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力値をセットする
         user = setUserForm(user, usersForm);
 
@@ -43,7 +43,7 @@ public class UsersService {
 
     // 更新処理
     @Transactional
-    public void updateUser(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public void update(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 排他ロック
         user = usersMapper.findByIdForLock(user.getUserId());
 
@@ -131,5 +131,18 @@ public class UsersService {
             user.setUserNumber(hireYear + hireMonth + num);
         }
         return user;
+    }
+
+    // 論理削除処理
+    @Transactional
+    public void delete(Users user, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 排他ロック
+        usersMapper.findByIdForLock(user.getUserId());
+
+        // 更新者はセッションの社員番号
+        user.setUpdatedBy(loginUser.getLoginUser().getUserNumber());
+
+        // 論理削除
+        usersMapper.delete(user);
     }
 }

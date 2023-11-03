@@ -118,20 +118,20 @@ public class UsersController {
         Users user = new Users();
 
         // 登録サービス実行
-        usersService.insertUser(user, usersForm, loginUser);
+        usersService.insert(user, usersForm, loginUser);
 
         return "redirect:/user/list";
     }
 
     // 論理削除処理
-    @Transactional
     @RequestMapping("/user/delete")
     public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        // 排他ロック
-        usersMapper.findByIdForLock(userId);
+
         // 削除権限チェック
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
-            usersMapper.delete(userId);
+            Users user = new Users();
+            user.setUserId(userId);
+            usersService.delete(user, loginUser);
         } else {
             // エラーメッセージを設定する
         }
@@ -208,7 +208,7 @@ public class UsersController {
         user.setUserId(userId);
 
         // 更新サービス実行
-        usersService.updateUser(user, usersForm, loginUser);
+        usersService.update(user, usersForm, loginUser);
 
         return "redirect:/user/list";
     }
