@@ -125,17 +125,18 @@ public class UsersController {
 
     // 論理削除処理
     @RequestMapping("/user/delete")
-    public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
-
+    public String delete(int userId, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 削除権限チェック
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
             Users user = new Users();
             user.setUserId(userId);
             usersService.delete(user, loginUser);
+            return "redirect:/user/list";
         } else {
-            // エラーメッセージを設定する
+            // エラーメッセージを表示
+            model.addAttribute("message", "削除権限がありません。");
+            return index(searchUsersForm, model, loginUser);
         }
-        return "redirect:/user/list";
     }
 
     // 詳細画面初期表示
