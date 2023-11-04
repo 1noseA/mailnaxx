@@ -6,15 +6,16 @@
 
     <select id="findLoginUser" resultMap="userMap">
         SELECT
-           user_number,
-           user_name,
-           role_class,
-           password,
-           last_login_date
+            user_id,
+            user_number,
+            user_name,
+            role_class,
+            password,
+            last_login_date
         FROM
-           users
+            users
         WHERE
-           user_number = #{userNumber}
+            user_number = #{userNumber}
     </select>
 
     <update id="loginFailure">

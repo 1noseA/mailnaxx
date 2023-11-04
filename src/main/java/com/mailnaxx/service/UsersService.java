@@ -139,8 +139,8 @@ public class UsersService {
     @Transactional
     public void delete(SelectUsersForm selectUsersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
         List<Integer> idList = new ArrayList<>();
-        for (int i = 0; i < selectUsersForm.getUserId().size(); i++) {
-            idList.add(selectUsersForm.getUserId().get(i));
+        for (int i = 0; i < selectUsersForm.getSelectUser().size(); i++) {
+            idList.add(selectUsersForm.getSelectUser().get(i));
         }
         // 複数件排他ロック
         List<Users> userList = usersMapper.forLockByIdList(idList);

@@ -126,11 +126,21 @@ public class UsersController {
 
     // 論理削除処理
     @RequestMapping("/user/delete")
-    public String delete(@ModelAttribute @Validated(GroupOrder.class)SelectUsersForm selectUsersForm, BindingResult result, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        // 入力エラーチェック
-        if (result.hasErrors()) {
+    public String delete(@ModelAttribute SelectUsersForm selectUsersForm, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 入力チェック
+        if (selectUsersForm.getSelectUser() == null) {
+            // エラーメッセージを表示
+            model.addAttribute("message", "削除対象を選択してください。");
             return index(searchUsersForm, model, loginUser);
         }
+        for (int selectUser : selectUsersForm.getSelectUser()) {
+            if (selectUser == loginUser.getLoginUser().getUserId()) {
+                // エラーメッセージを表示
+                model.addAttribute("message", "自分自身は削除できません。");
+                return index(searchUsersForm, model, loginUser);
+            }
+        }
+
         // 削除権限チェック
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
             usersService.delete(selectUsersForm, loginUser);
