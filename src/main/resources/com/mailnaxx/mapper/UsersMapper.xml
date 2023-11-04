@@ -96,7 +96,7 @@
             user_id = #{userId}
     </select>
 
-    <select id="findByIdForLock" resultMap="userMap">
+    <select id="forLockById" resultMap="userMap">
         SELECT
             u.user_id,
             u.user_number,
@@ -118,6 +118,35 @@
             ON u.affiliation_id = a.affiliation_id
         WHERE
             user_id = #{userId}
+        FOR UPDATE
+    </select>
+
+    <select id="forLockByIdList" resultMap="userMap">
+        SELECT
+            u.user_id,
+            u.user_number,
+            u.user_name,
+            u.user_name_kana,
+            u.hire_date,
+            a.affiliation_id,
+            a.affiliation_name,
+            u.role_class,
+            u.sales_flg,
+            u.birth_date,
+            u.post_code,
+            u.address,
+            u.phone_number,
+            u.email_address,
+            u.password
+        FROM users u
+        INNER JOIN affiliations a
+            ON u.affiliation_id = a.affiliation_id
+        WHERE
+            u.user_id IN
+            <foreach item="item" index="index" collection="idList"
+                open="(" separator="," close=")">
+                #{item}
+            </foreach>
         FOR UPDATE
     </select>
 
@@ -223,10 +252,13 @@
 
     <!-- 論理削除 -->
     <update id="delete">
-        UPDATE users SET
-            deleted_flg = '1',
-            updated_by = #{updatedBy},
-            updated_at = CURRENT_TIMESTAMP
-        WHERE user_id = #{userId}
+        <foreach collection="userList" item="u" separator=";">
+            UPDATE users SET
+                deleted_flg = '1',
+                updated_by = #{u.updatedBy},
+                updated_at = CURRENT_TIMESTAMP
+            WHERE
+                user_id = #{u.userId}
+        </foreach>
     </update>
 </mapper>

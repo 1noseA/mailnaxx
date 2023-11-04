@@ -21,6 +21,7 @@ import com.mailnaxx.constants.UserConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.SearchUsersForm;
+import com.mailnaxx.form.SelectUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
@@ -125,12 +126,14 @@ public class UsersController {
 
     // 論理削除処理
     @RequestMapping("/user/delete")
-    public String delete(int userId, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public String delete(@ModelAttribute @Validated(GroupOrder.class)SelectUsersForm selectUsersForm, BindingResult result, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 入力エラーチェック
+        if (result.hasErrors()) {
+            return index(searchUsersForm, model, loginUser);
+        }
         // 削除権限チェック
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
-            Users user = new Users();
-            user.setUserId(userId);
-            usersService.delete(user, loginUser);
+            usersService.delete(selectUsersForm, loginUser);
             return "redirect:/user/list";
         } else {
             // エラーメッセージを表示

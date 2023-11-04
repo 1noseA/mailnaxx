@@ -30,7 +30,10 @@ public interface UsersMapper {
     public Users findById(int userId);
 
     // 更新時排他ロック
-    public Users findByIdForLock(int userId);
+    public Users forLockById(int userId);
+
+    // 複数件排他ロック
+    public List<Users> forLockByIdList(List<Integer> idList);
 
     // 営業担当取得
     public List<Users> findBySales();
@@ -42,5 +45,5 @@ public interface UsersMapper {
     public void update(Users user);
 
     // 論理削除
-    public void delete(Users user);
+    public void delete(List<Users> userList);
 }
