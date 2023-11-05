@@ -21,6 +21,7 @@ import com.mailnaxx.constants.UserConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.SearchUsersForm;
+import com.mailnaxx.form.SelectUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.mapper.UsersMapper;
@@ -118,24 +119,37 @@ public class UsersController {
         Users user = new Users();
 
         // 登録サービス実行
-        usersService.insertUser(user, usersForm, loginUser);
+        usersService.insert(user, usersForm, loginUser);
 
         return "redirect:/user/list";
     }
 
     // 論理削除処理
-    @Transactional
     @RequestMapping("/user/delete")
-    public String delete(int userId, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        // 排他ロック
-        usersMapper.findByIdForLock(userId);
+    public String delete(@ModelAttribute SelectUsersForm selectUsersForm, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 入力チェック
+        if (selectUsersForm.getSelectUser() == null) {
+            // エラーメッセージを表示
+            model.addAttribute("message", "削除対象を選択してください。");
+            return index(searchUsersForm, model, loginUser);
+        }
+        for (int selectUser : selectUsersForm.getSelectUser()) {
+            if (selectUser == loginUser.getLoginUser().getUserId()) {
+                // エラーメッセージを表示
+                model.addAttribute("message", "自分自身は削除できません。");
+                return index(searchUsersForm, model, loginUser);
+            }
+        }
+
         // 削除権限チェック
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
-            usersMapper.delete(userId);
+            usersService.delete(selectUsersForm, loginUser);
+            return "redirect:/user/list";
         } else {
-            // エラーメッセージを設定する
+            // エラーメッセージを表示
+            model.addAttribute("message", "削除権限がありません。");
+            return index(searchUsersForm, model, loginUser);
         }
-        return "redirect:/user/list";
     }
 
     // 詳細画面初期表示
@@ -208,7 +222,7 @@ public class UsersController {
         user.setUserId(userId);
 
         // 更新サービス実行
-        usersService.updateUser(user, usersForm, loginUser);
+        usersService.update(user, usersForm, loginUser);
 
         return "redirect:/user/list";
     }

@@ -3,6 +3,7 @@ package com.mailnaxx.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mailnaxx.constants.CommonConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
+import com.mailnaxx.form.SelectUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.security.LoginUserDetails;
@@ -26,7 +28,7 @@ public class UsersService {
 
     // 登録処理
     @Transactional
-    public void insertUser(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public void insert(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力値をセットする
         user = setUserForm(user, usersForm);
 
@@ -43,9 +45,9 @@ public class UsersService {
 
     // 更新処理
     @Transactional
-    public void updateUser(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public void update(Users user, UsersForm usersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 排他ロック
-        user = usersMapper.findByIdForLock(user.getUserId());
+        user = usersMapper.forLockById(user.getUserId());
 
         // 入力値をセットする
         user = setUserForm(user, usersForm);
@@ -131,5 +133,24 @@ public class UsersService {
             user.setUserNumber(hireYear + hireMonth + num);
         }
         return user;
+    }
+
+    // 論理削除処理
+    @Transactional
+    public void delete(SelectUsersForm selectUsersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        List<Integer> idList = new ArrayList<>();
+        for (int i = 0; i < selectUsersForm.getSelectUser().size(); i++) {
+            idList.add(selectUsersForm.getSelectUser().get(i));
+        }
+        // 複数件排他ロック
+        List<Users> userList = usersMapper.forLockByIdList(idList);
+
+        for (int i = 0; i < userList.size(); i++) {
+            // 更新者はセッションの社員番号
+            userList.get(i).setUpdatedBy(loginUser.getLoginUser().getUserNumber());
+        }
+
+        // 論理削除
+        usersMapper.delete(userList);
     }
 }

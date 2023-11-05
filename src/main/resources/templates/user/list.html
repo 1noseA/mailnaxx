@@ -12,6 +12,13 @@
             <div class="searchArea mx-auto my-5">
                 <form method="post" th:action="@{/user/search}" th:object="${searchUsersForm}">
                     <div class="row mb-3 align-items-center">
+                        <th:block th:if="${message != null}">
+                            <div class="col-md-12 ms-3">
+                                <p class="text-danger" th:text="${message}"></p>
+                            </div>
+                        </th:block>
+
+
                         <div class="col-md-2 text-md-end">
                             <label for="userName" class="col-form-label fw-bold">氏名</label>
                         </div>
@@ -56,7 +63,7 @@
             </div>
 
             <div class="listArea mx-auto">
-                <form method="post" th:action="@{/user/delete}">
+                <form method="post" th:action="@{/user/delete}" th:object="${selectUsersForm}">
                     <div class="btn-toolbar justify-content-between" role="toolbar">
                         <div class="mb-4">
                             <button type="button" class="btn btnLight" onclick="location.href='/user/create'">新規登録</button>
@@ -91,7 +98,7 @@
                                         <tr>
                                             <td>
                                                 <div class="form-check d-flex justify-content-center align-items-center">
-                                                    <input class="form-check-input" type="checkbox" name="userId"  th:value="${userList.userId}">
+                                                    <input class="form-check-input" type="checkbox" name="selectUser" th:value="${userList.userId}">
                                                 </div>
                                             </td>
                                             <td>
