@@ -214,8 +214,17 @@ public class UsersController {
     public String update(int userId, @ModelAttribute @Validated(GroupOrder.class) UsersForm usersForm, BindingResult result, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力エラーチェック
         if (result.hasErrors()) {
-            // パスワード入力必須エラーはスルーする
-            return edit(userId, usersForm, model, loginUser);
+            // 所属プルダウン
+            List<Affiliations> affiliationList = affiliationsMapper.findAll();
+            model.addAttribute("affiliationList", affiliationList);
+            model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
+
+            // 権限区分プルダウン
+            model.addAttribute("roleClassList", RoleClass.values());
+
+            model.addAttribute("userId", userId);
+            model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+            return "user/create";
         }
 
         Users user = new Users();
