@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mailnaxx.constants.CommonConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
+import com.mailnaxx.form.SearchUsersForm;
 import com.mailnaxx.form.SelectUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.UsersMapper;
@@ -25,6 +26,24 @@ public class UsersService {
 
     @Autowired
     UsersMapper usersMapper;
+
+    // 全件取得
+    public List<Users> findAll() {
+        List<Users> userList = usersMapper.findAll();
+        return userList;
+    }
+
+    // 検索結果取得
+    public List<Users> findBySearchForm(SearchUsersForm searchUsersForm) {
+        List<Users> userList = usersMapper.findBySearchForm(searchUsersForm);
+        return userList;
+    }
+
+    // 詳細情報取得
+    public Users findById(int userId) {
+        Users userInfo = usersMapper.findById(userId);
+        return userInfo;
+    }
 
     // 登録処理
     @Transactional

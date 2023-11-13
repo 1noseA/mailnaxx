@@ -24,7 +24,6 @@ import com.mailnaxx.form.SearchUsersForm;
 import com.mailnaxx.form.SelectUsersForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.AffiliationsMapper;
-import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.security.LoginUserDetails;
 import com.mailnaxx.service.UsersService;
 import com.mailnaxx.validation.All;
@@ -41,9 +40,6 @@ public class UsersController {
     AffiliationsMapper affiliationsMapper;
 
     @Autowired
-    UsersMapper usersMapper;
-
-    @Autowired
     UsersService usersService;
 
     @ModelAttribute("searchUsersForm")
@@ -54,7 +50,7 @@ public class UsersController {
     // 一覧画面初期表示
     @RequestMapping("/user/list")
     public String index(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        List<Users> userList = usersMapper.findAll();
+        List<Users> userList = usersService.findAll();
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
 
@@ -79,7 +75,7 @@ public class UsersController {
      */
     @PostMapping("/user/search")
     public String search(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        List<Users> userList = usersMapper.findBySearchForm(searchUsersForm);
+        List<Users> userList = usersService.findBySearchForm(searchUsersForm);
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
 
@@ -155,7 +151,7 @@ public class UsersController {
     // 詳細画面初期表示
     @PostMapping("/user/detail")
     public String detail(int userId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        Users userInfo = usersMapper.findById(userId);
+        Users userInfo = usersService.findById(userId);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
@@ -165,7 +161,7 @@ public class UsersController {
     // 編集画面初期表示
     @PostMapping("/user/edit")
     public String edit(int userId, @ModelAttribute UsersForm usersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
-        Users userInfo = usersMapper.findById(userId);
+        Users userInfo = usersService.findById(userId);
         model.addAttribute("userId", userId);
         model.addAttribute("roleClass", RoleClass.getViewNameByCode(userInfo.getRoleClass()));
 
