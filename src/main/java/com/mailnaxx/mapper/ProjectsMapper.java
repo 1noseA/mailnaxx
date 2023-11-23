@@ -9,6 +9,6 @@ import com.mailnaxx.entity.Projects;
 @Mapper
 public interface ProjectsMapper {
 
+    // 全件取得
     public List<Projects> findAll();
-
 }

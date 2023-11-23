@@ -8,11 +8,14 @@
         SELECT
             w.weekly_report_id,
             w.report_date,
+            u.user_id,
             u.user_number,
             u.user_name
         FROM weekly_reports w
         INNER JOIN users u
             ON w.user_id = u.user_id
+        INNER JOIN projects p
+            ON w.project_id = p.project_id
         WHERE
             w.confirmed_flg = '0'
         ORDER BY u.user_number, w.weekly_report_id
@@ -48,7 +51,7 @@
     <resultMap id="projectResult" type="com.mailnaxx.entity.Projects">
         <result property="projectId" column="project_id" />
         <result property="projectName" column="project_name" />
-        <result property="salesUserId" column="sales_user_id" />
+        <association property="user" resultMap="userResult"/>
     </resultMap>
 
     <resultMap id="userResult" type="com.mailnaxx.entity.Users">

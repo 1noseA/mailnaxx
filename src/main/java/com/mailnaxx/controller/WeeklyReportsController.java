@@ -3,6 +3,7 @@ package com.mailnaxx.controller;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +22,11 @@ import com.mailnaxx.entity.Users;
 import com.mailnaxx.entity.WeeklyReports;
 import com.mailnaxx.form.SearchWeeklyReportForm;
 import com.mailnaxx.form.WeeklyReportForm;
-import com.mailnaxx.mapper.ProjectsMapper;
 import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.mapper.WeeklyReportsMapper;
 import com.mailnaxx.security.LoginUserDetails;
 import com.mailnaxx.service.AffiliationsService;
+import com.mailnaxx.service.ProjectsService;
 
 @Controller
 public class WeeklyReportsController {
@@ -34,13 +35,13 @@ public class WeeklyReportsController {
     UsersMapper usersMapper;
 
     @Autowired
-    ProjectsMapper projectsMapper;
-
-    @Autowired
     WeeklyReportsMapper weeklyReportsMapper;
 
     @Autowired
     AffiliationsService affiliationsService;
+
+    @Autowired
+    ProjectsService projectsService;
 
     @ModelAttribute
     WeeklyReportForm setUpForm() {
@@ -50,12 +51,28 @@ public class WeeklyReportsController {
     // 一覧画面初期表示
     @RequestMapping("/weekly-report/list")
     public String index(SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 週報を全件取得
         List<WeeklyReports> weeklyReportList = weeklyReportsMapper.findAll();
         model.addAttribute("weeklyReportList", weeklyReportList);
 
         // 所属プルダウン
         List<Affiliations> affiliationList = affiliationsService.findAll();
         model.addAttribute("affiliationList", affiliationList);
+
+        // 担当営業プルダウン
+        List<Projects> projectList = projectsService.findAll();
+        List<Users> salesList = new ArrayList<>();
+        for (Projects p : projectList) {
+            salesList.add(p.getUser());
+        }
+        model.addAttribute("salesList", salesList);
+
+        // 報告対象週プルダウン
+        List<String> reportDateList = new ArrayList<>();
+        for (WeeklyReports w : weeklyReportList) {
+            reportDateList.add(w.getReportDate());
+        }
+        model.addAttribute("reportDateList", reportDateList);
 
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "weekly-report/list";
@@ -80,7 +97,7 @@ public class WeeklyReportsController {
         model.addAttribute("salesList", salesList);
 
         // 現場プルダウン
-        List<Projects> projectList = projectsMapper.findAll();
+        List<Projects> projectList = projectsService.findAll();
         model.addAttribute("projectList", projectList);
 
         // 報告対象週ラベル

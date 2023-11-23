@@ -11,29 +11,29 @@ import lombok.Getter;
 public class Projects {
 
     // 現場ID
-    private int project_id;
+    private int projectId;
 
     // 会社名
-    private String company_name;
+    private String companyName;
 
     // 案件名
-    private String project_name;
+    private String projectName;
 
     // 担当営業
-    private int sales_user_id;
+    private Users user;
 
     // 削除フラグ
-    private String deleted_flg;
+    private String deletedFlg;
 
     // レコード登録者
-    private String created_by;
+    private String createdBy;
 
     // レコード登録日
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     // レコード更新者
-    private String updated_by;
+    private String updatedBy;
 
     // レコード更新日
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 }

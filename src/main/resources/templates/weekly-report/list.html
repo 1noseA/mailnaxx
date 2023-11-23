@@ -39,7 +39,13 @@
                             <label for="salesUserId" class="col-form-label fw-bold">担当営業</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="" name="salesUserId" id="salesUserId" th:value="*{salesUserId}" th:field="*{salesUserId}" />
+                            <select class="form-select w60" th:errorclass="is-invalid" name="salesUserId">
+                                <option th:each="sales : ${salesList}"
+                                        th:value="${sales.userId}"
+                                        th:text="${sales.userName}"
+                                        th:selected="${(sales.userId).toString().equals(searchWeeklyReportForm.salesUserId)}">
+                                </option>
+                            </select>
                         </div>
                     </div>
 
@@ -57,7 +63,13 @@
                             <label for="reportDate" class="col-form-label fw-bold">報告対象週</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="" name="reportDate" id="reportDate" th:value="*{reportDate}" th:field="*{reportDate}" />
+                            <select class="form-select w60" th:errorclass="is-invalid" name="salesUserId">
+                                <option th:each="reportDate : ${reportDateList}"
+                                        th:value="${reportDate}"
+                                        th:text="${reportDate}"
+                                        th:selected="${reportDate.equals(searchWeeklyReportForm.reportDate)}">
+                                </option>
+                            </select>
                         </div>
                     </div>
 
