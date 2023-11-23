@@ -23,8 +23,8 @@ import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.SearchUsersForm;
 import com.mailnaxx.form.SelectUsersForm;
 import com.mailnaxx.form.UsersForm;
-import com.mailnaxx.mapper.AffiliationsMapper;
 import com.mailnaxx.security.LoginUserDetails;
+import com.mailnaxx.service.AffiliationsService;
 import com.mailnaxx.service.UsersService;
 import com.mailnaxx.validation.All;
 import com.mailnaxx.validation.GroupOrder;
@@ -37,10 +37,10 @@ public class UsersController {
     HttpSession session;
 
     @Autowired
-    AffiliationsMapper affiliationsMapper;
+    UsersService usersService;
 
     @Autowired
-    UsersService usersService;
+    AffiliationsService affiliationsService;
 
     @ModelAttribute("searchUsersForm")
     public SearchUsersForm createSearchForm(){
@@ -67,12 +67,7 @@ public class UsersController {
         return "user/list";
     }
 
-    /**
-     * 検索処理
-     * @param searchForm 検索用Formオブジェクト
-     * @param model Modelオブジェクト
-     * @return 一覧画面のパス
-     */
+    // 検索処理
     @PostMapping("/user/search")
     public String search(SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         List<Users> userList = usersService.findBySearchForm(searchUsersForm);
@@ -91,7 +86,7 @@ public class UsersController {
         model.addAttribute("userId", 0);
 
         // 所属プルダウン
-        List<Affiliations> affiliationList = affiliationsMapper.findAll();
+        List<Affiliations> affiliationList = affiliationsService.findAll();
         model.addAttribute("affiliationList", affiliationList);
         model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
 
@@ -193,7 +188,7 @@ public class UsersController {
         usersForm.setEmailAddress(userInfo.getEmailAddress());
 
         // 所属プルダウン
-        List<Affiliations> affiliationList = affiliationsMapper.findAll();
+        List<Affiliations> affiliationList = affiliationsService.findAll();
         model.addAttribute("affiliationList", affiliationList);
         model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
 
@@ -211,7 +206,7 @@ public class UsersController {
         // 入力エラーチェック
         if (result.hasErrors()) {
             // 所属プルダウン
-            List<Affiliations> affiliationList = affiliationsMapper.findAll();
+            List<Affiliations> affiliationList = affiliationsService.findAll();
             model.addAttribute("affiliationList", affiliationList);
             model.addAttribute("notAffiliation", UserConstants.NOT_AFFILIATION);
 

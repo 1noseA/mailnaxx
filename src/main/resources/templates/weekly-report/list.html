@@ -21,10 +21,16 @@
 
                     <div class="row mb-3">
                         <div class="col-md-3 text-md-end">
-                            <label for="affiliationId" class="col-form-label fw-bold">チーム</label>
+                            <label for="affiliationId" class="col-form-label fw-bold">所属</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="" name="affiliationId" id="affiliationId" th:value="*{affiliationId}" th:field="*{affiliationId}" />
+                            <select class="form-select w60" th:errorclass="is-invalid" name="affiliationId">
+                                <option th:each="affiliation : ${affiliationList}"
+                                        th:value="${affiliation.affiliationId}"
+                                        th:text="${affiliation.affiliationName}"
+                                        th:selected="${(affiliation.affiliationId).toString().equals(searchWeeklyReportForm.affiliationId)}">
+                                </option>
+                            </select>
                         </div>
                     </div>
 

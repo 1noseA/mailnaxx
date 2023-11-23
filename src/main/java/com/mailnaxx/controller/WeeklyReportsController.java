@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Projects;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.entity.WeeklyReports;
@@ -24,6 +25,7 @@ import com.mailnaxx.mapper.ProjectsMapper;
 import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.mapper.WeeklyReportsMapper;
 import com.mailnaxx.security.LoginUserDetails;
+import com.mailnaxx.service.AffiliationsService;
 
 @Controller
 public class WeeklyReportsController {
@@ -37,15 +39,24 @@ public class WeeklyReportsController {
     @Autowired
     WeeklyReportsMapper weeklyReportsMapper;
 
+    @Autowired
+    AffiliationsService affiliationsService;
+
     @ModelAttribute
     WeeklyReportForm setUpForm() {
         return new WeeklyReportForm();
     }
 
+    // 一覧画面初期表示
     @RequestMapping("/weekly-report/list")
     public String index(SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         List<WeeklyReports> weeklyReportList = weeklyReportsMapper.findAll();
         model.addAttribute("weeklyReportList", weeklyReportList);
+
+        // 所属プルダウン
+        List<Affiliations> affiliationList = affiliationsService.findAll();
+        model.addAttribute("affiliationList", affiliationList);
+
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "weekly-report/list";
     }
