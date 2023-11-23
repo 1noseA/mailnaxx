@@ -24,7 +24,7 @@
                             <label for="affiliationId" class="col-form-label fw-bold">所属</label>
                         </div>
                         <div class="col-md-8">
-                            <select class="form-select w60" th:errorclass="is-invalid" name="affiliationId">
+                            <select class="form-select w80" th:errorclass="is-invalid" name="affiliationId">
                                 <option th:each="affiliation : ${affiliationList}"
                                         th:value="${affiliation.affiliationId}"
                                         th:text="${affiliation.affiliationName}"
@@ -39,7 +39,7 @@
                             <label for="salesUserId" class="col-form-label fw-bold">担当営業</label>
                         </div>
                         <div class="col-md-8">
-                            <select class="form-select w60" th:errorclass="is-invalid" name="salesUserId">
+                            <select class="form-select w80" th:errorclass="is-invalid" name="salesUserId">
                                 <option th:each="sales : ${salesList}"
                                         th:value="${sales.userId}"
                                         th:text="${sales.userName}"
@@ -54,7 +54,7 @@
                             <label for="userName" class="col-form-label fw-bold">氏名</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="" name="userName" id="userName" th:value="*{userName}" th:field="*{userName}" />
+                            <input type="text" class="form-control w80" placeholder="" name="userName" id="userName" th:value="*{userName}" th:field="*{userName}" />
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                             <label for="reportDate" class="col-form-label fw-bold">報告対象週</label>
                         </div>
                         <div class="col-md-8">
-                            <select class="form-select w60" th:errorclass="is-invalid" name="salesUserId">
+                            <select class="form-select w80" th:errorclass="is-invalid" name="salesUserId">
                                 <option th:each="reportDate : ${reportDateList}"
                                         th:value="${reportDate}"
                                         th:text="${reportDate}"
@@ -73,13 +73,13 @@
                         </div>
                     </div>
 
-                    <!-- チェックボックス -->
-                    <div class="row mb-3">
+                    <div class="row my-4">
                         <div class="col-md-3 text-md-end">
-                            <label for="confirmedFlg" class="col-form-label fw-bold">確認済みを表示</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="" name="confirmedFlg" id="confirmedFlg" th:value="*{confirmedFlg}" th:field="*{confirmedFlg}" />
+                            <input type="checkbox" class="form-check-input" th:field="*{confirmedFlg}" id="confirmedFlg" th:value="1" />
+                            <input type="hidden" name="!confirmedFlg" value="0" />
+                            <label for="confirmedFlg" class="form-check-label">確認済みを表示</label>
                         </div>
                     </div>
 
