@@ -13,12 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mailnaxx.entity.Projects;
 import com.mailnaxx.entity.Users;
+import com.mailnaxx.entity.WeeklyReports;
+import com.mailnaxx.form.SearchWeeklyReportForm;
 import com.mailnaxx.form.WeeklyReportForm;
 import com.mailnaxx.mapper.ProjectsMapper;
 import com.mailnaxx.mapper.UsersMapper;
+import com.mailnaxx.mapper.WeeklyReportsMapper;
 import com.mailnaxx.security.LoginUserDetails;
 
 @Controller
@@ -30,20 +34,21 @@ public class WeeklyReportsController {
     @Autowired
     ProjectsMapper projectsMapper;
 
+    @Autowired
+    WeeklyReportsMapper weeklyReportsMapper;
+
     @ModelAttribute
     WeeklyReportForm setUpForm() {
         return new WeeklyReportForm();
     }
 
-//    @RequestMapping("/weekly-report/list")
-//    public String index(Model model) {
-//
-//        List<Users> userList = usersMapper.findAll();
-//        model.addAttribute("userList", userList);
-//        model.addAttribute("roleClassList", RoleClass.values());
-//        return "user/list";
-//
-//    }
+    @RequestMapping("/weekly-report/list")
+    public String index(SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        List<WeeklyReports> weeklyReportList = weeklyReportsMapper.findAll();
+        model.addAttribute("weeklyReportList", weeklyReportList);
+        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        return "weekly-report/list";
+    }
 
     // 詳細画面初期表示（仮）
 //    @RequestMapping("/weekly-report/detail/{user_id:.+}")

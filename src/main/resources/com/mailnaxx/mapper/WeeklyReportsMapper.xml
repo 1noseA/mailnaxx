@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mailnaxx.mapper.WeeklyReportsMapper">
+
+    <select id="findAll" resultMap="weeklyReportMap">
+        SELECT
+            w.weekly_report_id,
+            w.report_date,
+            u.user_number,
+            u.user_name
+        FROM weekly_reports w
+        INNER JOIN users u
+            ON w.user_id = u.user_id
+        WHERE
+            w.confirmed_flg = '0'
+        ORDER BY u.user_number, w.weekly_report_id
+    </select>
+
+    <resultMap id="weeklyReportMap" type="com.mailnaxx.entity.WeeklyReports">
+        <result property="weeklyReportId" column="weekly_report_id" />
+        <result property="reportDate" column="report_date" />
+        <result property="aveOvertimeHours" column="ave_overtime_hours" />
+        <result property="progress" column="progress" />
+        <result property="condition" column="condition" />
+        <result property="relationship" column="relationship" />
+        <result property="plan" column="plan" />
+        <result property="workContent" column="work_content" />
+        <result property="difficulty" column="difficulty" />
+        <result property="schedule" column="schedule" />
+        <result property="result" column="result" />
+        <result property="impression" column="impression" />
+        <result property="improvements" column="improvements" />
+        <result property="nextPlan" column="next_plan" />
+        <result property="remarks" column="remarks" />
+        <result property="confirmedFlg" column="confirmed_flg" />
+        <result property="comment" column="comment" />
+        <result property="sharedFlg" column="shared_flg" />
+        <result property="createdBy" column="created_by" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedBy" column="updated_by" />
+        <result property="updatedAt" column="updated_at" />
+        <association property="project" resultMap="projectResult"/>
+        <association property="user" resultMap="userResult"/>
+    </resultMap>
+
+    <resultMap id="projectResult" type="com.mailnaxx.entity.Projects">
+        <result property="projectId" column="project_id" />
+        <result property="projectName" column="project_name" />
+        <result property="salesUserId" column="sales_user_id" />
+    </resultMap>
+
+    <resultMap id="userResult" type="com.mailnaxx.entity.Users">
+        <result property="userId" column="user_id" />
+        <result property="userNumber" column="user_number" />
+        <result property="userName" column="user_name" />
+    </resultMap>
+</mapper>

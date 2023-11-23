@@ -11,22 +11,19 @@ import lombok.Data;
 public class WeeklyReports {
 
     // 週報ID
-    private int weekly_report_id;
+    private int weeklyReportId;
 
     // ユーザID
-    private int user_id;
-
-    // 担当営業
-    private int sales_user_id;
+    private Users user;
 
     // 現場ID
-    private int project_id;
+    private Projects project;
 
     // 報告対象週
-    private String report_date;
+    private String reportDate;
 
     // 平均残業時間
-    private int ave_overtime_hours;
+    private int aveOvertimeHours;
 
     // 進捗状況
     private String progress;
@@ -41,7 +38,7 @@ public class WeeklyReports {
     private String plan;
 
     // 作業内容
-    private String work_content;
+    private String workContent;
 
     // 難易度
     private int difficulty;
@@ -59,29 +56,29 @@ public class WeeklyReports {
     private String improvements;
 
     // 次週の計画
-    private String next_plan;
+    private String nextPlan;
 
     // 特記事項
     private String remarks;
 
     // 確認済フラグ
-    private String confirmed_flg;
+    private String confirmedFlg;
 
     // コメント
     private String comment;
 
     // 共有フラグ
-    private String shared_flg;
+    private String sharedFlg;
 
     // レコード登録者
-    private String created_by;
+    private String createdBy;
 
     // レコード登録日
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     // レコード更新者
-    private String updated_by;
+    private String updatedBy;
 
     // レコード更新日
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 }
