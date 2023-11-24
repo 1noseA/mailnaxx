@@ -3,10 +3,12 @@ package com.mailnaxx.controller;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -61,14 +63,14 @@ public class WeeklyReportsController {
 
         // 担当営業プルダウン
         List<Projects> projectList = projectsService.findAll();
-        List<Users> salesList = new ArrayList<>();
+        Set<Users> salesList = new HashSet<>();
         for (Projects p : projectList) {
             salesList.add(p.getUser());
         }
         model.addAttribute("salesList", salesList);
 
         // 報告対象週プルダウン
-        List<String> reportDateList = new ArrayList<>();
+        Set<String> reportDateList = new LinkedHashSet<>();
         for (WeeklyReports w : weeklyReportList) {
             reportDateList.add(w.getReportDate());
         }
