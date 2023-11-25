@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('週報一覧',~{::link},~{::script})">
 <link rel="stylesheet" th:href="@{/css/user/list.css}" />
-<script th:src="@{/js/user.js}"></script>
+<script th:src="@{/js/weekly-report.js}"></script>
 </head>
 <body>
     <div th:replace="common :: header"></div>
@@ -93,7 +93,7 @@
                 <!-- <form method="post" th:action="@{/weekly-report/delete}" th:object="${selectUsersForm}"> -->
                     <div class="btn-toolbar justify-content-between" role="toolbar">
                         <div class="mb-4">
-                            <button type="button" class="btn btnLight" onclick="location.href='/user/create'">週報作成</button>
+                            <button type="button" class="btn btnLight" onclick="location.href='/weekly-report/create'">週報作成</button>
                         </div>
                         <!-- <div class="mb-4" role="group">
                             <th:block th:if="${isAdmin}">
@@ -121,21 +121,21 @@
                                         <tr>
                                             <td>
                                                 <div class="form-check d-flex justify-content-center align-items-center">
-                                                    <input class="form-check-input" type="checkbox" name="selectUser" th:value="${weeklyReportList.user.userId}">
+                                                    <input class="form-check-input" type="checkbox" name="selectUser" th:value="${weeklyReportList.weeklyReportId}">
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="|showDetail('${weeklyReportList.user.userId}')|">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${weeklyReportList.weeklyReportId}')|">
                                                     <span th:text="${#strings.replace(weeklyReportList.reportDate, '-', '/')}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="|showDetail('${weeklyReportList.user.userId}')|">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${weeklyReportList.weeklyReportId}')|">
                                                     <span th:text="${weeklyReportList.user.userNumber}"></span>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" th:onclick="|showDetail('${weeklyReportList.user.userId}')|">
+                                                <a href="javascript:void(0);" th:onclick="|showDetail('${weeklyReportList.weeklyReportId}')|">
                                                     <span th:text="${weeklyReportList.user.userName}"></span>
                                                 </a>
                                             </td>

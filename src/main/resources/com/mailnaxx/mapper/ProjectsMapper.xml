@@ -25,10 +25,10 @@
         <result property="createdAt" column="created_at" />
         <result property="updatedBy" column="updated_by" />
         <result property="updatedAt" column="updated_at" />
-        <association property="user" resultMap="userResult"/>
+        <association property="salesUser" resultMap="salesUserResult"/>
     </resultMap>
 
-    <resultMap id="userResult" type="com.mailnaxx.entity.Users">
+    <resultMap id="salesUserResult" type="com.mailnaxx.entity.Users">
         <result property="userId" column="user_id" />
         <result property="userNumber" column="user_number" />
         <result property="userName" column="user_name" />

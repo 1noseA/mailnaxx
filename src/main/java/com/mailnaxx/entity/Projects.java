@@ -20,7 +20,7 @@ public class Projects {
     private String projectName;
 
     // 担当営業
-    private Users user;
+    private Users salesUser;
 
     // 削除フラグ
     private String deletedFlg;

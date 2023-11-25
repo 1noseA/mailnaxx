@@ -9,12 +9,15 @@ import com.mailnaxx.entity.WeeklyReports;
 @Mapper
 public interface WeeklyReportsMapper {
 
+    // 全件取得
     public List<WeeklyReports> findAll();
 
-    public WeeklyReports findOne(int weekly_report_id);
+    // 1件取得
+    public WeeklyReports findById(int weeklyReportId);
 
+    // 登録
     public void insert(WeeklyReports weeklyReports);
 
+    // 削除
     public void delete(WeeklyReports weeklyReports);
-
 }

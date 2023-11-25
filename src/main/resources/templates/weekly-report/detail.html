@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: meta_header('週報詳細',~{::link},~{::script})">
+<link rel="stylesheet" th:href="@{/css/user/detail.css}" />
+<script th:src="@{/js/weekly-report.js}"></script>
+</head>
+<body>
+    <div th:replace="common :: header"></div>
+
+    <div class="contents">
+        <div class="container">
+            <div class="userInfoArea mt-5">
+                <div th:object="${weeklyReportInfo}">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>社員番号</th>
+                            <td th:text="*{user.userNumber}"></td>
+                        </tr>
+                        <tr>
+                            <th>氏名</th>
+                            <td th:text="*{user.userName}"></td>
+                        </tr>
+                        <tr>
+                            <th>現場名</th>
+                            <td th:text="*{project.projectName}"></td>
+                        </tr>
+                        <tr>
+                            <th>担当営業</th>
+                            <td th:text="*{project.salesUser.userName}"></td>
+                        </tr>
+                        <tr>
+                            <th>報告対象週</th>
+                            <td th:text="*{#strings.replace(reportDate, '-', '/')}"></td>
+                        </tr>
+                        <tr>
+                            <th>平均残業時間</th>
+                            <td th:text="*{aveOvertimeHours}"></td>
+                        </tr>
+                        <tr>
+                            <th>進捗状況</th>
+                            <td th:text="*{progress}"></td>
+                        </tr>
+                        <tr>
+                            <th>体調</th>
+                            <td th:text="*{condition}"></td>
+                        </tr>
+                        <tr>
+                            <th>人間関係</th>
+                            <td th:text="*{relationship}"></td>
+                        </tr>
+                        <tr>
+                            <th>今週の計画</th>
+                            <td th:text="*{plan}"></td>
+                        </tr>
+                        <tr>
+                            <th>作業内容</th>
+                            <td th:text="*{workContent}"></td>
+                        </tr>
+                        <tr>
+                            <th>難易度</th>
+                            <td th:text="*{difficulty}"></td>
+                        </tr>
+                        <tr>
+                            <th>スケジュール感</th>
+                            <td th:text="*{schedule}"></td>
+                        </tr>
+                        <tr>
+                            <th>成果</th>
+                            <td th:text="*{result}"></td>
+                        </tr>
+                        <tr>
+                            <th>所感</th>
+                            <td th:text="*{impression}"></td>
+                        </tr>
+                        <tr>
+                            <th>改善点</th>
+                            <td th:text="*{improvements}"></td>
+                        </tr>
+                        <tr>
+                            <th>次週の計画</th>
+                            <td th:text="*{nextPlan}"></td>
+                        </tr>
+                        <tr>
+                            <th>特記事項</th>
+                            <td th:text="*{remarks}"></td>
+                        </tr>
+                        <tr>
+                            <th>確認</th>
+                            <td th:text="*{confirmedFlg}"></td>
+                        </tr>
+                        <tr>
+                            <th>コメント</th>
+                            <td th:text="*{comment}"></td>
+                        </tr>
+                        <tr>
+                            <th>共有</th>
+                            <td th:text="*{sharedFlg}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="btn-toolbar justify-content-between mt-4 mb-5" role="toolbar">
+                <div>
+                    <button type="button" class="btn btnMain m-1" th:onclick="|edit('${weeklyReportInfo.weeklyReportId}')|">編集する</button>
+                    <button type="button" class="btn btnAccent m-1">報告を見る</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btnBack m-1" th:onclick="location.href='/weekly-report/list'">戻る</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <form method="post" th:action="@{/user/edit}" id="editForm">
+    </form> -->
+
+    <div th:replace="common :: footer"></div>
+</body>
+</html>

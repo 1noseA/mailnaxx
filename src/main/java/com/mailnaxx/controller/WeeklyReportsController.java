@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mailnaxx.entity.Affiliations;
@@ -25,10 +26,10 @@ import com.mailnaxx.entity.WeeklyReports;
 import com.mailnaxx.form.SearchWeeklyReportForm;
 import com.mailnaxx.form.WeeklyReportForm;
 import com.mailnaxx.mapper.UsersMapper;
-import com.mailnaxx.mapper.WeeklyReportsMapper;
 import com.mailnaxx.security.LoginUserDetails;
 import com.mailnaxx.service.AffiliationsService;
 import com.mailnaxx.service.ProjectsService;
+import com.mailnaxx.service.WeeklyReportsService;
 
 @Controller
 public class WeeklyReportsController {
@@ -37,7 +38,7 @@ public class WeeklyReportsController {
     UsersMapper usersMapper;
 
     @Autowired
-    WeeklyReportsMapper weeklyReportsMapper;
+    WeeklyReportsService weeklyReportsService;
 
     @Autowired
     AffiliationsService affiliationsService;
@@ -54,7 +55,7 @@ public class WeeklyReportsController {
     @RequestMapping("/weekly-report/list")
     public String index(SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 週報を全件取得
-        List<WeeklyReports> weeklyReportList = weeklyReportsMapper.findAll();
+        List<WeeklyReports> weeklyReportList = weeklyReportsService.findAll();
         model.addAttribute("weeklyReportList", weeklyReportList);
 
         // 所属プルダウン
@@ -65,7 +66,7 @@ public class WeeklyReportsController {
         List<Projects> projectList = projectsService.findAll();
         Set<Users> salesList = new HashSet<>();
         for (Projects p : projectList) {
-            salesList.add(p.getUser());
+            salesList.add(p.getSalesUser());
         }
         model.addAttribute("salesList", salesList);
 
@@ -80,15 +81,14 @@ public class WeeklyReportsController {
         return "weekly-report/list";
     }
 
-    // 詳細画面初期表示（仮）
-//    @RequestMapping("/weekly-report/detail/{user_id:.+}")
-//    public String detail(@PathVariable("user_id") int user_id, Model model) {
-//
-//        Users userInfo = usersMapper.findOne(user_id);
-//        model.addAttribute("userInfo", userInfo);
-//        return "user/detail";
-//
-//    }
+    // 詳細画面初期表示
+    @PostMapping("/weekly-report/detail")
+    public String detail(int weeklyReportId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        WeeklyReports weeklyReportInfo = weeklyReportsService.findById(weeklyReportId);
+        model.addAttribute("weeklyReportInfo", weeklyReportInfo);
+        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        return "weekly-report/detail";
+    }
 
     // 登録画面初期表示
     @GetMapping("/weekly-report/create")
