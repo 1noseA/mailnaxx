@@ -25,17 +25,17 @@ import com.mailnaxx.entity.Users;
 import com.mailnaxx.entity.WeeklyReports;
 import com.mailnaxx.form.SearchWeeklyReportForm;
 import com.mailnaxx.form.WeeklyReportForm;
-import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.security.LoginUserDetails;
 import com.mailnaxx.service.AffiliationsService;
 import com.mailnaxx.service.ProjectsService;
+import com.mailnaxx.service.UsersService;
 import com.mailnaxx.service.WeeklyReportsService;
 
 @Controller
 public class WeeklyReportsController {
 
     @Autowired
-    UsersMapper usersMapper;
+    UsersService usersService;
 
     @Autowired
     WeeklyReportsService weeklyReportsService;
@@ -64,15 +64,45 @@ public class WeeklyReportsController {
 
         // 担当営業プルダウン
         List<Projects> projectList = projectsService.findAll();
-        Set<Users> salesList = new HashSet<>();
+        Set<Users> salesList = new LinkedHashSet<>();
         for (Projects p : projectList) {
             salesList.add(p.getSalesUser());
         }
         model.addAttribute("salesList", salesList);
 
         // 報告対象週プルダウン
-        Set<String> reportDateList = new LinkedHashSet<>();
+        Set<LocalDate> reportDateList = new LinkedHashSet<>();
         for (WeeklyReports w : weeklyReportList) {
+            reportDateList.add(w.getReportDate());
+        }
+        model.addAttribute("reportDateList", reportDateList);
+
+        model.addAttribute("loginUserInfo", loginUser.getLoginUser());
+        return "weekly-report/list";
+    }
+
+    // 検索処理
+    @PostMapping("/weekly-report/search")
+    public String search(SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        List<WeeklyReports> weeklyReportList = weeklyReportsService.findBySearchForm(searchWeeklyReportForm);
+        model.addAttribute("weeklyReportList", weeklyReportList);
+
+        // 所属プルダウン
+        List<Affiliations> affiliationList = affiliationsService.findAll();
+        model.addAttribute("affiliationList", affiliationList);
+
+        // 担当営業プルダウン
+        List<Projects> projectList = projectsService.findAll();
+        Set<Users> salesList = new LinkedHashSet<>();
+        for (Projects p : projectList) {
+            salesList.add(p.getSalesUser());
+        }
+        model.addAttribute("salesList", salesList);
+
+        // 報告対象週プルダウン
+        List<WeeklyReports> list = weeklyReportsService.findAll();
+        Set<LocalDate> reportDateList = new LinkedHashSet<>();
+        for (WeeklyReports w : list) {
             reportDateList.add(w.getReportDate());
         }
         model.addAttribute("reportDateList", reportDateList);
@@ -94,12 +124,15 @@ public class WeeklyReportsController {
     @GetMapping("/weekly-report/create")
     public String create(Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
 
-        // 担当営業
-        List<Users> salesList = usersMapper.findBySales();
+        // 担当営業プルダウン
+        List<Projects> projectList = projectsService.findAll();
+        Set<Users> salesList = new HashSet<>();
+        for (Projects p : projectList) {
+            salesList.add(p.getSalesUser());
+        }
         model.addAttribute("salesList", salesList);
 
         // 現場プルダウン
-        List<Projects> projectList = projectsService.findAll();
         model.addAttribute("projectList", projectList);
 
         // 報告対象週ラベル
@@ -125,7 +158,7 @@ public class WeeklyReportsController {
         model.addAttribute("radioRelationship", radioThree);
 
         // 現場社員プルダウン
-        List<Users> userList = usersMapper.findAll();
+        List<Users> userList = usersService.findAll();
         model.addAttribute("userList", userList);
 
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());

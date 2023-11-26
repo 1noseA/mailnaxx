@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mailnaxx.entity.WeeklyReports;
+import com.mailnaxx.form.SearchWeeklyReportForm;
 import com.mailnaxx.mapper.WeeklyReportsMapper;
 
 @Service
@@ -17,6 +18,12 @@ public class WeeklyReportsService {
     // 全件取得
     public List<WeeklyReports> findAll() {
         List<WeeklyReports> weeklyReportList = weeklyReportsMapper.findAll();
+        return weeklyReportList;
+    }
+
+    // 検索結果取得
+    public List<WeeklyReports> findBySearchForm(SearchWeeklyReportForm searchWeeklyReportForm) {
+        List<WeeklyReports> weeklyReportList = weeklyReportsMapper.findBySearchForm(searchWeeklyReportForm);
         return weeklyReportList;
     }
 

@@ -9,10 +9,10 @@ import lombok.Data;
 public class SearchWeeklyReportForm {
 
     // チーム
-    private String affiliationId;
+    private int affiliationId;
 
     // 担当営業
-    private String salesUserId;
+    private int salesUserId;
 
     // 氏名
     private String userName;

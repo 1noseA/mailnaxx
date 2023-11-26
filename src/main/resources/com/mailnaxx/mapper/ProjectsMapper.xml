@@ -8,12 +8,14 @@
             p.project_id,
             p.company_name,
             p.project_name,
+            u.user_id,
             u.user_name
         FROM projects p
         INNER JOIN users u
             ON p.sales_user_id = u.user_id
         WHERE
             p.deleted_flg = '0'
+        ORDER BY p.project_id
     </select>
 
     <resultMap id="projectMap" type="com.mailnaxx.entity.Projects">

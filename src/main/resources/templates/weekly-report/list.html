@@ -25,6 +25,7 @@
                         </div>
                         <div class="col-md-8">
                             <select class="form-select w80" th:errorclass="is-invalid" name="affiliationId">
+                                <option value=0>全て</option>
                                 <option th:each="affiliation : ${affiliationList}"
                                         th:value="${affiliation.affiliationId}"
                                         th:text="${affiliation.affiliationName}"
@@ -40,6 +41,7 @@
                         </div>
                         <div class="col-md-8">
                             <select class="form-select w80" th:errorclass="is-invalid" name="salesUserId">
+                                <option value=0>全て</option>
                                 <option th:each="sales : ${salesList}"
                                         th:value="${sales.userId}"
                                         th:text="${sales.userName}"
@@ -63,10 +65,11 @@
                             <label for="reportDate" class="col-form-label fw-bold">報告対象週</label>
                         </div>
                         <div class="col-md-8">
-                            <select class="form-select w80" th:errorclass="is-invalid" name="salesUserId">
+                            <select class="form-select w80" th:errorclass="is-invalid" name="reportDate">
+                                <option value="">全て</option>
                                 <option th:each="reportDate : ${reportDateList}"
                                         th:value="${reportDate}"
-                                        th:text="${reportDate}"
+                                        th:text="${#temporals.format(reportDate, 'yyyy/MM/dd')}"
                                         th:selected="${reportDate.equals(searchWeeklyReportForm.reportDate)}">
                                 </option>
                             </select>

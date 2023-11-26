@@ -1,5 +1,6 @@
 package com.mailnaxx.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -20,7 +21,7 @@ public class WeeklyReports {
     private Projects project;
 
     // 報告対象週
-    private String reportDate;
+    private LocalDate reportDate;
 
     // 平均残業時間
     private int aveOvertimeHours;
