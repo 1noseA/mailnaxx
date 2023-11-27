@@ -29,7 +29,7 @@
                                 <option th:each="affiliation : ${affiliationList}"
                                         th:value="${affiliation.affiliationId}"
                                         th:text="${affiliation.affiliationName}"
-                                        th:selected="${(affiliation.affiliationId).toString().equals(searchWeeklyReportForm.affiliationId)}">
+                                        th:selected="${affiliation.affiliationId == searchWeeklyReportForm.affiliationId}">
                                 </option>
                             </select>
                         </div>
@@ -45,7 +45,7 @@
                                 <option th:each="sales : ${salesList}"
                                         th:value="${sales.userId}"
                                         th:text="${sales.userName}"
-                                        th:selected="${(sales.userId).toString().equals(searchWeeklyReportForm.salesUserId)}">
+                                        th:selected="${sales.userId == searchWeeklyReportForm.salesUserId}">
                                 </option>
                             </select>
                         </div>
@@ -70,7 +70,7 @@
                                 <option th:each="reportDate : ${reportDateList}"
                                         th:value="${reportDate}"
                                         th:text="${#temporals.format(reportDate, 'yyyy/MM/dd')}"
-                                        th:selected="${reportDate.equals(searchWeeklyReportForm.reportDate)}">
+                                        th:selected="${(reportDate.toString()).equals(searchWeeklyReportForm.reportDate)}">
                                 </option>
                             </select>
                         </div>

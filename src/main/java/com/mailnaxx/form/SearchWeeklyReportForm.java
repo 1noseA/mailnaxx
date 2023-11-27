@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class SearchWeeklyReportForm {
 
-    // チーム
+    // 所属
     private int affiliationId;
 
     // 担当営業
