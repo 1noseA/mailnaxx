@@ -10,6 +10,7 @@
             user_number,
             user_name,
             role_class,
+            sales_flg,
             password,
             last_login_date
         FROM

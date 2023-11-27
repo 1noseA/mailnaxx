@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,15 +26,20 @@ import com.mailnaxx.entity.Projects;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.entity.WeeklyReports;
 import com.mailnaxx.form.SearchWeeklyReportForm;
+import com.mailnaxx.form.SelectForm;
 import com.mailnaxx.form.WeeklyReportForm;
 import com.mailnaxx.security.LoginUserDetails;
 import com.mailnaxx.service.AffiliationsService;
 import com.mailnaxx.service.ProjectsService;
 import com.mailnaxx.service.UsersService;
 import com.mailnaxx.service.WeeklyReportsService;
+import com.mailnaxx.values.RoleClass;
 
 @Controller
 public class WeeklyReportsController {
+
+    @Autowired
+    HttpSession session;
 
     @Autowired
     UsersService usersService;
@@ -77,6 +84,14 @@ public class WeeklyReportsController {
         }
         model.addAttribute("reportDateList", reportDateList);
 
+        // 権限（リーダーか営業のみ）
+        boolean isConfirmer = false;
+        if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.LEADER.getCode()) ||
+            loginUser.getLoginUser().getSalesFlg().equals("1")) {
+            isConfirmer = true;
+        }
+        session.setAttribute("session_isConfirmer", isConfirmer);
+        model.addAttribute("isConfirmer", isConfirmer);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "weekly-report/list";
     }
@@ -107,8 +122,32 @@ public class WeeklyReportsController {
         }
         model.addAttribute("reportDateList", reportDateList);
 
+        // 権限
+        boolean isConfirmer = (boolean) session.getAttribute("session_isConfirmer");
+        model.addAttribute("isConfirmer", isConfirmer);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "weekly-report/list";
+    }
+
+    // 一括確認処理
+    @RequestMapping("/weekly-report/confirm")
+    public String confirm(@ModelAttribute SelectForm selectForm, SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 入力チェック
+        if (selectForm.getSelectTarget() == null) {
+            // エラーメッセージを表示
+            model.addAttribute("message", "対象を選択してください。");
+            return index(searchWeeklyReportForm, model, loginUser);
+        }
+
+        // 権限チェック
+        if (loginUser.getLoginUser().getSalesFlg().equals("1")) {
+            weeklyReportsService.confirm(selectForm, loginUser);
+            return "redirect:/weekly-report/list";
+        } else {
+            // エラーメッセージを表示
+            model.addAttribute("message", "権限がありません。");
+            return index(searchWeeklyReportForm, model, loginUser);
+        }
     }
 
     // 詳細画面初期表示
