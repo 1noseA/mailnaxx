@@ -49,8 +49,11 @@
         <if test='userName != ""'>
             AND u1.user_name LIKE '%' || #{userName} || '%'
         </if>
-        <if test='reportDate != ""'>
-            AND w.report_date = CAST(#{reportDate} AS DATE)
+        <if test='fromReportDate != ""'>
+            AND w.report_date &gt;= CAST(#{fromReportDate} AS DATE)
+        </if>
+        <if test='toReportDate != ""'>
+            AND w.report_date &lt;= CAST(#{toReportDate} AS DATE)
         </if>
         <if test='confirmedFlg == "0"'>
             AND w.confirmed_flg = '0'
