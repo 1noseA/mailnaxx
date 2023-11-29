@@ -104,7 +104,7 @@
             user_id = #{userId}
     </select>
 
-    <!-- 更新時排他ロック -->
+    <!-- 1件排他ロック -->
     <select id="forLockById" resultMap="userMap">
         SELECT
             u.user_id,

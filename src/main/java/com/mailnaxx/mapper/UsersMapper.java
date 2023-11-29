@@ -29,7 +29,7 @@ public interface UsersMapper {
     // 1件取得
     public Users findById(int userId);
 
-    // 更新時排他ロック
+    // 1件排他ロック
     public Users forLockById(int userId);
 
     // 複数件排他ロック

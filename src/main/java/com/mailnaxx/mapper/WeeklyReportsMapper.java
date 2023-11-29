@@ -17,10 +17,16 @@ public interface WeeklyReportsMapper {
     public List<WeeklyReports> findBySearchForm(SearchWeeklyReportForm searchWeeklyReportForm);
 
     // 一括確認
-    public void confirm(List<WeeklyReports> weeklyReportList);
+    public void bulkConfirm(List<WeeklyReports> weeklyReportList);
 
     // 1件取得
     public WeeklyReports findById(int weeklyReportId);
+
+    // 確認
+    public void confirm(WeeklyReports weeklyReports);
+
+    // 1件排他ロック
+    public WeeklyReports forLockById(int weeklyReportId);
 
     // 複数件排他ロック
     public List<WeeklyReports> forLockByIdList(List<Integer> idList);

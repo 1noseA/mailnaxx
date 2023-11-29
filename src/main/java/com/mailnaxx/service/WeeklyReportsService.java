@@ -34,7 +34,7 @@ public class WeeklyReportsService {
 
     // 一括確認処理
     @Transactional
-    public void confirm(SelectForm selectForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public void bulkConfirm(SelectForm selectForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
         List<Integer> idList = new ArrayList<>();
         for (int i = 0; i < selectForm.getSelectTarget().size(); i++) {
             idList.add(selectForm.getSelectTarget().get(i));
@@ -47,13 +47,26 @@ public class WeeklyReportsService {
             weeklyReportList.get(i).setUpdatedBy(loginUser.getLoginUser().getUserNumber());
         }
 
-        // 論理削除
-        weeklyReportsMapper.confirm(weeklyReportList);
+        // 一括確認
+        weeklyReportsMapper.bulkConfirm(weeklyReportList);
     }
 
     // 詳細情報取得
     public WeeklyReports findById(int weeklyReportId) {
         WeeklyReports weeklyReportInfo = weeklyReportsMapper.findById(weeklyReportId);
         return weeklyReportInfo;
+    }
+
+    // 確認処理
+    @Transactional
+    public void confirm(int weeklyReportId, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 排他ロック
+        WeeklyReports weeklyReport = weeklyReportsMapper.forLockById(weeklyReportId);
+
+        // 更新者はセッションの社員番号
+        weeklyReport.setUpdatedBy(loginUser.getLoginUser().getUserNumber());
+
+        // 確認
+        weeklyReportsMapper.confirm(weeklyReport);
     }
 }

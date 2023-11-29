@@ -130,8 +130,8 @@ public class WeeklyReportsController {
     }
 
     // 一括確認処理
-    @RequestMapping("/weekly-report/confirm")
-    public String confirm(@ModelAttribute SelectForm selectForm, SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    @PostMapping("/weekly-report/confirm")
+    public String bulkConfirm(@ModelAttribute SelectForm selectForm, SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力チェック
         if (selectForm.getSelectTarget() == null) {
             // エラーメッセージを表示
@@ -141,7 +141,7 @@ public class WeeklyReportsController {
 
         // 権限チェック
         if (loginUser.getLoginUser().getSalesFlg().equals("1")) {
-            weeklyReportsService.confirm(selectForm, loginUser);
+            weeklyReportsService.bulkConfirm(selectForm, loginUser);
             return "redirect:/weekly-report/list";
         } else {
             // エラーメッセージを表示
@@ -157,6 +157,20 @@ public class WeeklyReportsController {
         model.addAttribute("weeklyReportInfo", weeklyReportInfo);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
         return "weekly-report/detail";
+    }
+
+    // 確認処理
+    @PostMapping("/weekly-report/confirm")
+    public String confirm(int weeklyReportId, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+        // 権限チェック
+        if (loginUser.getLoginUser().getSalesFlg().equals("1")) {
+            weeklyReportsService.confirm(weeklyReportId, loginUser);
+            return "redirect:/weekly-report/detail";
+        } else {
+            // エラーメッセージを表示
+            model.addAttribute("message", "権限がありません。");
+            return detail(weeklyReportId, model, loginUser);
+        }
     }
 
     // 登録画面初期表示
