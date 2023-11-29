@@ -21,7 +21,7 @@ import com.mailnaxx.constants.UserConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.SearchUsersForm;
-import com.mailnaxx.form.SelectUsersForm;
+import com.mailnaxx.form.SelectForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.security.LoginUserDetails;
 import com.mailnaxx.service.AffiliationsService;
@@ -57,6 +57,7 @@ public class UsersController {
         searchUsersForm.setSearchCondition(CommonConstants.PREFIX_MATCH);
         model.addAttribute("searchUsersForm", searchUsersForm);
 
+        // 権限（総務のみ）
         boolean isAdmin = false;
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
             isAdmin = true;
@@ -74,6 +75,7 @@ public class UsersController {
         model.addAttribute("userList", userList);
         model.addAttribute("roleClassList", RoleClass.values());
 
+        // 権限
         boolean isAdmin = (boolean) session.getAttribute("session_isAdmin");
         model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("loginUserInfo", loginUser.getLoginUser());
@@ -117,14 +119,14 @@ public class UsersController {
 
     // 論理削除処理
     @RequestMapping("/user/delete")
-    public String delete(@ModelAttribute SelectUsersForm selectUsersForm, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public String delete(@ModelAttribute SelectForm selectForm, SearchUsersForm searchUsersForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力チェック
-        if (selectUsersForm.getSelectUser() == null) {
+        if (selectForm.getSelectTarget() == null) {
             // エラーメッセージを表示
-            model.addAttribute("message", "削除対象を選択してください。");
+            model.addAttribute("message", "対象を選択してください。");
             return index(searchUsersForm, model, loginUser);
         }
-        for (int selectUser : selectUsersForm.getSelectUser()) {
+        for (int selectUser : selectForm.getSelectTarget()) {
             if (selectUser == loginUser.getLoginUser().getUserId()) {
                 // エラーメッセージを表示
                 model.addAttribute("message", "自分自身は削除できません。");
@@ -132,13 +134,13 @@ public class UsersController {
             }
         }
 
-        // 削除権限チェック
+        // 権限チェック
         if (loginUser.getLoginUser().getRoleClass().equals(RoleClass.AFFAIRS.getCode())) {
-            usersService.delete(selectUsersForm, loginUser);
+            usersService.delete(selectForm, loginUser);
             return "redirect:/user/list";
         } else {
             // エラーメッセージを表示
-            model.addAttribute("message", "削除権限がありません。");
+            model.addAttribute("message", "権限がありません。");
             return index(searchUsersForm, model, loginUser);
         }
     }

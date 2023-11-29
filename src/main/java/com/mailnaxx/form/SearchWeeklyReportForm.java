@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class SearchWeeklyReportForm {
 
-    // チーム
+    // 所属
     private int affiliationId;
 
     // 担当営業
@@ -17,8 +17,11 @@ public class SearchWeeklyReportForm {
     // 氏名
     private String userName;
 
-    // 報告対象週
-    private String reportDate;
+    // 報告対象週（From）
+    private String fromReportDate;
+
+    // 報告対象週（To）
+    private String toReportDate;
 
     // 確認済みフラグ
     private String confirmedFlg;

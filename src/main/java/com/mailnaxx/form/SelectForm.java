@@ -5,11 +5,11 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * 社員選択
+ * 選択対象
  */
 @Data
-public class SelectUsersForm {
+public class SelectForm {
 
     // 選択チェックボックス
-    private List<Integer> selectUser;
+    private List<Integer> selectTarget;
 }

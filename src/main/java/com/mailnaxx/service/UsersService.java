@@ -16,7 +16,7 @@ import com.mailnaxx.constants.CommonConstants;
 import com.mailnaxx.entity.Affiliations;
 import com.mailnaxx.entity.Users;
 import com.mailnaxx.form.SearchUsersForm;
-import com.mailnaxx.form.SelectUsersForm;
+import com.mailnaxx.form.SelectForm;
 import com.mailnaxx.form.UsersForm;
 import com.mailnaxx.mapper.UsersMapper;
 import com.mailnaxx.security.LoginUserDetails;
@@ -156,10 +156,10 @@ public class UsersService {
 
     // 論理削除処理
     @Transactional
-    public void delete(SelectUsersForm selectUsersForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
+    public void delete(SelectForm selectForm, @AuthenticationPrincipal LoginUserDetails loginUser) {
         List<Integer> idList = new ArrayList<>();
-        for (int i = 0; i < selectUsersForm.getSelectUser().size(); i++) {
-            idList.add(selectUsersForm.getSelectUser().get(i));
+        for (int i = 0; i < selectForm.getSelectTarget().size(); i++) {
+            idList.add(selectForm.getSelectTarget().get(i));
         }
         // 複数件排他ロック
         List<Users> userList = usersMapper.forLockByIdList(idList);
