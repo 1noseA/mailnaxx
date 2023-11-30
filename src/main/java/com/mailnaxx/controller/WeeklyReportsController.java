@@ -130,7 +130,7 @@ public class WeeklyReportsController {
     }
 
     // 一括確認処理
-    @PostMapping("/weekly-report/confirm")
+    @PostMapping("/weekly-report/bulkConfirm")
     public String bulkConfirm(@ModelAttribute SelectForm selectForm, SearchWeeklyReportForm searchWeeklyReportForm, Model model, @AuthenticationPrincipal LoginUserDetails loginUser) {
         // 入力チェック
         if (selectForm.getSelectTarget() == null) {
